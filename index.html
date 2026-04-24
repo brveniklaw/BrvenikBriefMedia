@@ -1,249 +1,1402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Brvenik Brief</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Brvenik Brief — Editorial Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Archivo:wght@300;400;500;600;700;900&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#0f0e0c; --paper:#faf8f4; --cream:#f5f1e8; --warm:#ede8dc;
+  --rule:#d4cfc4; --muted:#8a8278; --mid:#5c574f;
+  --accent:#c41e3a; --accent-pale:rgba(196,30,58,0.08);
+  --gold:#b8952a; --gold-pale:rgba(184,149,42,0.12);
+  --navy:#1a2744; --teal:#0e7490; --green:#166534;
+  --bg:#0f0e0c; --panel:#1a1916; --panel2:#242220;
+  --border-dark:#2e2c28; --border2:#3a3830;
+  --dim:#6b6560; --tmid:#9b9590; --bright:#e8e4dc;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--warm);}::-webkit-scrollbar-thumb{background:var(--accent);}
+
+/* ========= MASTHEAD ========= */
+.masthead{background:var(--paper);border-bottom:3px double var(--ink);position:sticky;top:0;z-index:200;}
+.mh-top{display:flex;align-items:center;justify-content:space-between;padding:7px 48px;border-bottom:1px solid var(--rule);background:var(--ink);}
+.mh-top-date{font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--rule);}
+.mh-top-tag{font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--muted);font-style:italic;}
+.mh-top-actions{display:flex;gap:10px;align-items:center;}
+.btn-tiny{font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-tiny.out{background:transparent;color:var(--rule);border:1px solid rgba(255,255,255,0.2);}
+.btn-tiny.out:hover{border-color:var(--accent);color:var(--accent);}
+.btn-tiny.fill{background:var(--accent);color:white;}
+.btn-tiny.fill:hover{background:#a01830;}
+.mh-center{text-align:center;padding:16px 48px 12px;}
+.mh-rule{width:100%;height:1px;background:var(--rule);margin-bottom:10px;}
+.mh-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,6vw,78px);font-weight:900;letter-spacing:-0.01em;color:var(--ink);line-height:0.95;margin-bottom:5px;}
+.mh-title span{color:var(--accent);}
+.mh-subtitle{font-family:'Archivo Narrow',sans-serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--mid);}
+.mh-nav{display:flex;justify-content:center;gap:0;border-top:1px solid var(--rule);margin-top:10px;overflow-x:auto;}
+.nav-it{font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:9px 18px;cursor:pointer;color:var(--mid);border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s;}
+.nav-it:hover{color:var(--ink);}
+.nav-it.on{color:var(--accent);border-bottom-color:var(--accent);}
+.nav-sep{width:1px;background:var(--rule);margin:7px 0;}
+
+/* VIEWS */
+.view{display:none;}
+.view.on{display:block;}
+
+/* ========= TICKER ========= */
+.ticker{background:var(--accent);display:flex;align-items:center;overflow:hidden;height:30px;}
+.ticker-lbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:white;padding:0 14px;background:var(--ink);height:100%;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
+.ticker-txt{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:white;white-space:nowrap;animation:tick 32s linear infinite;padding-left:36px;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ========= LAYOUT BAR ========= */
+.lay-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 48px;border-bottom:1px solid var(--rule);background:var(--cream);}
+.lay-label{font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+.lay-btns{display:flex;gap:4px;}
+.lay-btn{padding:5px 14px;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:1px solid var(--rule);background:transparent;color:var(--muted);transition:all 0.15s;}
+.lay-btn:hover{border-color:var(--ink);color:var(--ink);}
+.lay-btn.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.iss-sel{font-family:'Archivo Narrow',sans-serif;font-size:11px;background:transparent;border:1px solid var(--rule);padding:5px 12px;color:var(--mid);cursor:pointer;outline:none;}
+
+/* ========= MAGAZINE LAYOUT ========= */
+#lay-mag{max-width:1280px;margin:0 auto;padding:36px 48px;}
+.mag-hero{display:grid;grid-template-columns:1fr 360px;gap:36px;margin-bottom:36px;padding-bottom:36px;border-bottom:3px double var(--rule);}
+.mag-kicker{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:9px;}
+.mag-kicker::after{content:'';flex:0 0 28px;height:1px;background:var(--accent);}
+.mag-hed{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,52px);font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:14px;}
+.mag-hed em{font-style:italic;color:var(--accent);}
+.mag-dek{font-size:16px;font-weight:300;color:var(--mid);line-height:1.7;margin-bottom:18px;max-width:560px;}
+.mag-by{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--muted);display:flex;gap:18px;align-items:center;margin-bottom:22px;}
+.mag-img{background:var(--warm);border:1px solid var(--rule);height:320px;display:flex;align-items:center;justify-content:center;font-size:76px;position:relative;overflow:hidden;}
+.img-cap{position:absolute;bottom:0;left:0;right:0;background:rgba(15,14,12,0.72);padding:7px 12px;font-family:'Archivo Narrow',sans-serif;font-size:10px;color:rgba(255,255,255,0.7);font-style:italic;}
+.mag-aside{border-left:1px solid var(--rule);padding-left:36px;}
+.aside-ttl{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);padding-bottom:9px;border-bottom:2px solid var(--accent);margin-bottom:14px;}
+.aside-story{padding:12px 0;border-bottom:1px solid var(--rule);cursor:pointer;transition:all 0.15s;}
+.aside-story:last-child{border:none;}
+.aside-story:hover .as-hed{color:var(--accent);}
+.as-kick{font-family:'Archivo Narrow',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.as-hed{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:4px;transition:color 0.15s;}
+.as-meta{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--muted);}
+.ad-unit{background:var(--warm);border:1px solid var(--rule);padding:20px;text-align:center;margin-top:20px;position:relative;}
+.au-badge{position:absolute;top:7px;right:9px;font-family:'Archivo Narrow',sans-serif;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:2px 5px;}
+.au-name{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;margin-bottom:5px;}
+.au-copy{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--mid);margin-bottom:12px;}
+
+/* SECTION DIVIDER */
+.sec-div{display:flex;align-items:center;gap:14px;margin:32px 0 24px;}
+.sec-lbl{font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink);white-space:nowrap;background:var(--paper);padding:0 14px;}
+.sec-line{flex:1;height:1px;background:var(--rule);}
+.sec-line.dbl{height:3px;border-bottom:1px solid var(--rule);}
+
+/* STORY GRID */
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:36px;}
+.story-grid.wide{grid-template-columns:2fr 1fr;}
+.art-card{cursor:pointer;}
+.art-card:hover .art-hed{color:var(--accent);}
+.art-img{width:100%;height:190px;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:12px;border:1px solid var(--rule);position:relative;overflow:hidden;}
+.art-img.tall{height:300px;}
+.fmt-badge{position:absolute;top:9px;right:9px;font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:3px 8px;}
+.fb-pod{background:var(--teal);color:white;}
+.fb-vid{background:var(--accent);color:white;}
+.fb-feat{background:var(--gold);color:white;}
+.fb-brief{background:var(--navy);color:white;}
+.fb-spon{background:var(--ink);color:var(--paper);}
+.art-kick{font-family:'Archivo Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;}
+.art-hed{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;line-height:1.25;color:var(--ink);margin-bottom:7px;transition:color 0.15s;}
+.art-hed.lg{font-size:25px;}
+.art-dek{font-size:13px;font-weight:300;color:var(--mid);line-height:1.65;margin-bottom:8px;}
+.art-by{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--muted);display:flex;gap:14px;}
+.col-rule{border-left:1px solid var(--rule);padding-left:28px;}
+
+/* ========= NEWSPAPER LAYOUT ========= */
+#lay-paper{max-width:1280px;margin:0 auto;padding:28px 48px;display:none;}
+.np-cols{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr 1px 1fr;gap:0 20px;}
+.np-sep{background:var(--rule);}
+.np-col{padding:0 6px;}
+.np-hed{font-family:'Playfair Display',serif;font-size:21px;font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:7px;border-top:2px solid var(--ink);padding-top:9px;}
+.np-by{font-family:'Archivo Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.np-body{font-size:13px;line-height:1.75;color:var(--ink);text-align:justify;hyphens:auto;}
+.np-body::first-letter{font-family:'Playfair Display',serif;font-size:50px;font-weight:900;float:left;line-height:0.82;margin:5px 5px 0 0;color:var(--accent);}
+.np-subhed{font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin:12px 0 5px;}
+.np-quote{border-left:3px solid var(--accent);padding:7px 0 7px 12px;margin:14px 0;font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--ink);line-height:1.4;}
+.np-ad{background:var(--warm);border:1px solid var(--rule);padding:12px;text-align:center;margin-top:14px;}
+
+/* ========= MEDIA VIEW ========= */
+.media-wrap{max-width:1280px;margin:0 auto;padding:36px 48px;}
+.media-tabs{display:flex;gap:0;border-bottom:2px solid var(--rule);margin-bottom:28px;}
+.mt-item{font-family:'Archivo Narrow',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:11px 26px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;}
+.mt-item:hover{color:var(--ink);}
+.mt-item.on{color:var(--accent);border-bottom-color:var(--accent);}
+.media-panel{display:none;}
+.media-panel.on{display:block;}
+.pod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
+.ep-card{display:flex;gap:14px;align-items:flex-start;background:var(--cream);border:1px solid var(--rule);padding:18px;cursor:pointer;transition:all 0.2s;}
+.ep-card:hover{border-color:var(--teal);}
+.ep-art{width:68px;height:68px;flex-shrink:0;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:26px;}
+.ep-num{font-family:'Archivo Narrow',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:3px;}
+.ep-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:4px;}
+.ep-meta{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--muted);}
+.ep-play{width:30px;height:30px;background:var(--teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;margin-top:auto;flex-shrink:0;transition:all 0.15s;}
+.ep-play:hover{background:var(--navy);transform:scale(1.08);}
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.vid-card{cursor:pointer;}
+.vid-card:hover .vid-ov{opacity:1;}
+.vid-card:hover{transform:translateY(-2px);}
+.vid-card{transition:transform 0.2s;}
+.vid-thumb{height:158px;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:42px;position:relative;overflow:hidden;border:1px solid var(--rule);}
+.vid-ov{position:absolute;inset:0;background:rgba(196,30,58,0.84);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;font-size:28px;color:white;}
+.vid-dur{position:absolute;bottom:7px;right:7px;background:rgba(0,0,0,0.75);color:white;font-size:9px;font-weight:700;padding:2px 5px;}
+.vid-body{padding:10px;background:var(--cream);border:1px solid var(--rule);border-top:none;}
+.vid-kick{font-family:'Archivo Narrow',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
+.vid-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3;}
+
+/* ========= SUBSCRIBE BAND (FREE) ========= */
+.sub-band{background:var(--ink);border-top:3px double var(--rule);padding:52px 48px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.sb-title{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--bright);line-height:1.1;margin-bottom:10px;}
+.sb-title em{font-style:italic;color:var(--gold);}
+.sb-copy{font-size:14px;font-weight:300;color:var(--tmid);line-height:1.7;margin-bottom:16px;}
+.sb-proof{display:flex;gap:28px;}
+.sb-proof-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--bright);}
+.sb-proof-lbl{font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-top:2px;}
+.sub-form-wrap{}
+.sub-free-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(184,149,42,0.15);border:1px solid rgba(184,149,42,0.3);padding:5px 14px;margin-bottom:16px;}
+.sfb-text{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
+.ss-inp{width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border2);color:var(--bright);padding:12px 14px;font-family:'Source Serif 4',serif;font-size:13px;outline:none;margin-bottom:10px;transition:border-color 0.15s;}
+.ss-inp:focus{border-color:var(--gold);}
+.ss-inp::placeholder{color:var(--dim);}
+.ss-btn{width:100%;padding:14px;background:var(--accent);color:white;border:none;font-family:'Archivo',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.ss-btn:hover{background:#a01830;}
+.ss-fine{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--dim);text-align:center;margin-top:8px;}
+
+/* ========= ADD-ONS PREVIEW ========= */
+.addons-section{background:var(--panel);border-top:1px solid var(--border-dark);padding:56px 48px;}
+.ao-header{text-align:center;margin-bottom:40px;}
+.ao-eyebrow{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.ao-eyebrow::before,.ao-eyebrow::after{content:'';width:32px;height:1px;background:var(--gold);}
+.ao-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--bright);margin-bottom:8px;}
+.ao-copy{font-size:14px;color:var(--tmid);max-width:560px;margin:0 auto;line-height:1.7;}
+.ao-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto;}
+.ao-card{background:var(--panel2);border:1px solid var(--border-dark);padding:28px 24px;position:relative;overflow:hidden;transition:all 0.25s;cursor:pointer;}
+.ao-card:hover{border-color:rgba(184,149,42,0.4);transform:translateY(-3px);}
+.ao-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));}
+.ao-card-status{display:inline-flex;align-items:center;gap:5px;background:rgba(22,101,52,0.15);border:1px solid rgba(22,101,52,0.3);padding:3px 10px;margin-bottom:16px;}
+.ao-status-dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse-dot 2s infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
+.ao-status-txt{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#22c55e;}
+.ao-icon{font-size:32px;margin-bottom:12px;}
+.ao-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--bright);margin-bottom:6px;}
+.ao-desc{font-size:13px;color:var(--tmid);line-height:1.6;margin-bottom:18px;}
+.ao-features{list-style:none;margin-bottom:20px;}
+.ao-features li{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);padding:5px 0;border-bottom:1px solid var(--border-dark);display:flex;gap:7px;align-items:center;}
+.ao-features li:last-child{border:none;}
+.ao-features li::before{content:'→';color:var(--gold);font-size:10px;}
+.ao-waitlist-btn{width:100%;padding:11px;background:transparent;border:1px solid rgba(184,149,42,0.4);color:var(--gold);font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.ao-waitlist-btn:hover{background:rgba(184,149,42,0.1);border-color:var(--gold);}
+.ao-waitlist-count{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--dim);text-align:center;margin-top:8px;}
+
+/* ========= PUBLISHER DASHBOARD ========= */
+#view-publish{background:var(--bg);min-height:100vh;}
+.pub-layout{display:grid;grid-template-columns:240px 1fr 268px;min-height:calc(100vh - 130px);}
+.pub-sidebar{background:var(--panel);border-right:1px solid var(--border-dark);padding:24px 16px;}
+.pub-slbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.pub-item{display:flex;align-items:center;gap:9px;padding:9px 10px;cursor:pointer;font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--dim);transition:all 0.15s;margin-bottom:1px;border-radius:4px;}
+.pub-item:hover,.pub-item.on{background:rgba(255,255,255,0.05);color:var(--bright);}
+.pub-item.on{color:var(--accent);}
+.pub-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+.pub-sep{height:1px;background:var(--border-dark);margin:12px 0;}
+.pub-main{padding:32px 36px;background:#161412;}
+.pub-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.pub-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--bright);}
+.pub-acts{display:flex;gap:8px;}
+.btn-pub{font-family:'Archivo Narrow',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:9px 20px;cursor:pointer;border:none;transition:all 0.2s;}
+.btn-pub.ghost{background:transparent;color:var(--dim);border:1px solid var(--border-dark);}
+.btn-pub.ghost:hover{color:var(--bright);border-color:var(--dim);}
+.btn-pub.red{background:var(--accent);color:white;}
+.btn-pub.red:hover{background:#a01830;}
+.btn-pub.gold{background:var(--gold);color:var(--ink);}
+
+/* EDITOR */
+.fmt-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+.fmt-pill{padding:5px 14px;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:1px solid var(--border-dark);background:transparent;color:var(--dim);transition:all 0.15s;}
+.fmt-pill:hover{color:var(--bright);border-color:var(--dim);}
+.fmt-pill.on{background:var(--accent);border-color:var(--accent);color:white;}
+.toolbar{display:flex;align-items:center;gap:2px;padding:7px 10px;background:var(--panel);border:1px solid var(--border-dark);border-bottom:none;flex-wrap:wrap;}
+.tbb{width:28px;height:27px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--dim);cursor:pointer;font-size:13px;font-weight:700;transition:all 0.12s;font-family:'Archivo',sans-serif;}
+.tbb:hover{color:var(--bright);background:rgba(255,255,255,0.06);}
+.tb-sep{width:1px;height:16px;background:var(--border-dark);margin:0 3px;}
+.tb-ins{display:flex;align-items:center;gap:3px;padding:4px 9px;border:1px solid var(--border-dark);background:transparent;color:var(--dim);cursor:pointer;font-size:10px;font-weight:600;transition:all 0.12s;font-family:'Archivo Narrow',sans-serif;}
+.tb-ins:hover{color:var(--bright);border-color:var(--dim);}
+.f-kicker{width:100%;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);background:var(--panel);border:1px solid var(--border-dark);border-bottom:none;padding:11px 16px;outline:none;transition:border-color 0.15s;}
+.f-kicker::placeholder{color:var(--border2);}
+.f-hed{width:100%;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;color:var(--bright);background:var(--panel);border:1px solid var(--border-dark);border-bottom:none;padding:13px 16px;outline:none;resize:none;overflow:hidden;min-height:58px;}
+.f-hed::placeholder{color:var(--border2);}
+.f-dek{width:100%;font-family:'Source Serif 4',serif;font-size:15px;font-style:italic;color:#9ca3af;background:var(--panel);border:1px solid var(--border-dark);border-bottom:none;padding:11px 16px;outline:none;resize:none;min-height:40px;}
+.f-dek::placeholder{color:var(--border2);}
+.f-body{width:100%;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.85;color:#c8c4bc;background:var(--panel);border:1px solid var(--border-dark);padding:18px 16px;outline:none;resize:vertical;min-height:300px;}
+.f-body::placeholder{color:var(--border2);}
+.content-blk{border:1px dashed var(--border-dark);padding:13px;margin:12px 0;background:var(--panel2);position:relative;}
+.blk-lbl{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+.blk-rm{position:absolute;top:8px;right:8px;width:17px;height:17px;background:var(--accent);color:white;border:none;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.ad-blk{border:1px solid rgba(184,149,42,0.3);padding:13px;margin:12px 0;background:var(--gold-pale);}
+.ad-blk-lbl{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+.ad-inp{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(184,149,42,0.3);color:var(--bright);font-family:'Archivo Narrow',sans-serif;font-size:12px;padding:5px 0;outline:none;margin-bottom:6px;}
+.ad-inp::placeholder{color:rgba(184,149,42,0.4);}
+
+/* DISTRIBUTION PANEL */
+.dist-panel{background:var(--panel);border-left:1px solid var(--border-dark);padding:24px 18px;overflow-y:auto;}
+.dist-sec{margin-bottom:22px;}
+.dist-lbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border-dark);}
+.dist-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-dark);}
+.dist-row:last-child{border:none;}
+.dist-lw{display:flex;align-items:center;gap:9px;}
+.dist-ico{font-size:15px;}
+.dist-nm{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:#9ca3af;}
+.dist-ct{font-size:10px;color:var(--dim);}
+.tog{width:34px;height:19px;position:relative;cursor:pointer;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;}
+.tog-track{position:absolute;inset:0;background:var(--border-dark);border-radius:10px;transition:0.2s;}
+.tog-thumb{position:absolute;width:13px;height:13px;background:var(--muted);border-radius:50%;top:3px;left:3px;transition:0.2s;}
+.tog input:checked~.tog-track{background:var(--accent);}
+.tog input:checked~.tog-thumb{transform:translateX(15px);background:white;}
+.sched-box{background:var(--panel2);border:1px solid var(--border-dark);padding:10px;margin-top:6px;}
+.sched-opts{display:flex;gap:5px;margin-bottom:8px;}
+.sched-opt{flex:1;padding:6px 3px;text-align:center;cursor:pointer;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;color:var(--dim);border:1px solid var(--border-dark);transition:all 0.15s;}
+.sched-opt:hover,.sched-opt.on{border-color:var(--accent);color:var(--accent);background:var(--accent-pale);}
+.sched-dt{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border-dark);color:var(--bright);padding:7px 9px;font-family:'Archivo Narrow',sans-serif;font-size:11px;outline:none;}
+.sched-dt:focus{border-color:var(--accent);}
+.sub-kpi{display:flex;gap:16px;margin-bottom:14px;}
+.sub-kpi-item .sub-kpi-n{font-family:'Archivo',sans-serif;font-size:24px;font-weight:700;color:var(--bright);}
+.sub-kpi-item .sub-kpi-l{font-size:10px;color:var(--dim);}
+.pub-wrap{padding:14px 0;}
+.pub-big-btn{width:100%;padding:11px;background:var(--accent);color:white;border:none;font-family:'Archivo',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.pub-big-btn:hover{background:#a01830;}
+
+/* DASHBOARD METRICS */
+.dash-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border-dark);margin-bottom:22px;}
+.dkpi{background:var(--panel2);padding:20px 18px;}
+.dkpi-lbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;}
+.dkpi-n{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--bright);line-height:1;margin-bottom:4px;}
+.dkpi-sub{font-family:'Archivo Narrow',sans-serif;font-size:11px;}
+.up{color:#22c55e;} .dn{color:var(--accent);}
+.dash-grid{display:grid;grid-template-columns:1fr 280px;gap:16px;}
+.d-card{background:var(--panel2);border:1px solid var(--border-dark);margin-bottom:14px;}
+.d-card-hd{padding:13px 17px;border-bottom:1px solid var(--border-dark);display:flex;align-items:center;justify-content:space-between;}
+.d-card-title{font-family:'Archivo',sans-serif;font-size:12px;font-weight:700;color:var(--bright);}
+.draft-row{display:flex;align-items:center;gap:11px;padding:11px 17px;border-bottom:1px solid var(--border-dark);cursor:pointer;transition:background 0.15s;}
+.draft-row:last-child{border:none;}
+.draft-row:hover{background:rgba(255,255,255,0.02);}
+.draft-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.draft-info{flex:1;min-width:0;}
+.draft-ttl{font-family:'Archivo Narrow',sans-serif;font-size:13px;font-weight:600;color:var(--bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px;}
+.draft-m{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--dim);}
+.ds{font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;flex-shrink:0;}
+.ds-draft{background:var(--border-dark);color:var(--dim);}
+.ds-sched{background:rgba(14,116,144,0.18);color:var(--teal);}
+.ds-live{background:rgba(22,101,52,0.18);color:#22c55e;}
+.qs-row{display:flex;align-items:center;justify-content:space-between;padding:10px 17px;border-bottom:1px solid var(--border-dark);}
+.qs-row:last-child{border:none;}
+.qs-l{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);}
+.qs-v{font-family:'Archivo Narrow',sans-serif;font-size:13px;font-weight:700;color:var(--bright);}
+.act-row{display:flex;gap:10px;padding:10px 17px;border-bottom:1px solid var(--border-dark);}
+.act-row:last-child{border:none;}
+.act-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:4px;}
+.act-txt{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);line-height:1.5;}
+.act-time{font-size:10px;color:var(--border2);margin-top:1px;}
+
+/* ========= SUBSCRIBERS VIEW ========= */
+#view-sub{background:var(--bg);min-height:100vh;}
+.pg-wrap{max-width:1000px;margin:0 auto;padding:36px 36px;}
+.pg-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--bright);margin-bottom:3px;}
+.pg-sub{font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--dim);margin-bottom:24px;}
+.pg-topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;}
+.kpi-dark{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:24px;}
+.kd{background:var(--panel2);border:1px solid var(--border-dark);padding:17px 15px;}
+.kd-lbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.kd-n{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--bright);line-height:1;margin-bottom:3px;}
+.kd-tr{font-family:'Archivo Narrow',sans-serif;font-size:11px;}
+.tbl-wrap{background:var(--panel2);border:1px solid var(--border-dark);overflow:hidden;}
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);padding:10px 14px;text-align:left;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border-dark);}
+.tbl td{font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--tmid);padding:11px 14px;border-bottom:1px solid var(--border-dark);}
+.tbl tr:last-child td{border:none;}
+.tbl tr:hover td{background:rgba(255,255,255,0.02);}
+.tier{display:inline-block;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;}
+.tier-free{background:rgba(255,255,255,0.07);color:var(--dim);}
+.tier-sub{background:rgba(184,149,42,0.18);color:var(--gold);}
+
+/* ========= SPONSORSHIPS VIEW ========= */
+#view-sp{background:var(--bg);min-height:100vh;}
+.sp-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border-dark);margin-bottom:32px;}
+.sp-card{background:var(--panel2);padding:28px 24px;position:relative;}
+.sp-card.feat{background:var(--navy);}
+.sp-tier{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.sp-price{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--bright);line-height:1;margin-bottom:2px;}
+.sp-per{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);margin-bottom:20px;}
+.sp-feats{list-style:none;margin-bottom:22px;}
+.sp-feats li{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--tmid);padding:7px 0;border-bottom:1px solid var(--border-dark);display:flex;gap:7px;}
+.sp-feats li:last-child{border:none;}
+.sp-feats li::before{content:'✓';color:var(--gold);font-weight:700;}
+.sp-btn{width:100%;padding:11px;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--bright);transition:all 0.2s;}
+.sp-btn:hover{background:var(--accent);border-color:var(--accent);}
+.sp-card.feat .sp-btn{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+.sp-form{background:var(--panel2);border:1px solid var(--border-dark);padding:28px;}
+.sf-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--bright);margin-bottom:5px;}
+.sf-sub{font-size:13px;color:var(--dim);margin-bottom:22px;}
+.sf-row{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px;}
+.sf-g{margin-bottom:13px;}
+.sf-lbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:6px;}
+.sf-inp,.sf-sel,.sf-ta{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border2);color:var(--bright);padding:9px 11px;font-family:'Archivo Narrow',sans-serif;font-size:13px;outline:none;transition:border-color 0.15s;}
+.sf-inp:focus,.sf-sel:focus,.sf-ta:focus{border-color:var(--accent);}
+.sf-inp::placeholder,.sf-ta::placeholder{color:var(--border2);}
+.sf-sel option{background:var(--panel);}
+.sf-ta{resize:vertical;min-height:80px;}
+
+/* ========= AI PANEL ========= */
+.ai-panel{position:fixed;right:0;top:0;bottom:0;width:340px;background:var(--bg);border-left:1px solid var(--border-dark);z-index:600;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.34,1.1,0.64,1);box-shadow:-8px 0 28px rgba(0,0,0,0.4);}
+.ai-panel.open{transform:translateX(0);}
+.ai-ph{padding:15px 16px;border-bottom:1px solid var(--border-dark);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.ai-ph-title{display:flex;align-items:center;gap:9px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:700;color:var(--bright);}
+.ai-gem{width:26px;height:26px;background:linear-gradient(135deg,var(--accent),var(--gold));display:flex;align-items:center;justify-content:center;font-size:13px;}
+.ai-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:18px;line-height:1;}
+.ai-close:hover{color:var(--bright);}
+.ai-tabs{display:flex;border-bottom:1px solid var(--border-dark);flex-shrink:0;}
+.ai-tab{flex:1;padding:9px 7px;text-align:center;cursor:pointer;font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--dim);border-bottom:2px solid transparent;transition:all 0.15s;}
+.ai-tab:hover{color:var(--bright);}
+.ai-tab.on{color:var(--accent);border-bottom-color:var(--accent);}
+.ai-body{flex:1;overflow-y:auto;padding:16px;}
+.ai-sec{margin-bottom:18px;}
+.ai-sec-lbl{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;}
+.ai-ctx{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border2);color:var(--bright);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;resize:none;min-height:64px;margin-bottom:9px;transition:border-color 0.15s;}
+.ai-ctx:focus{border-color:var(--accent);}
+.ai-ctx::placeholder{color:var(--border2);}
+.ai-gen-btn{width:100%;padding:9px;background:linear-gradient(135deg,rgba(196,30,58,0.14),rgba(184,149,42,0.09));border:1px solid rgba(196,30,58,0.28);color:var(--bright);font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:10px;}
+.ai-gen-btn:hover{background:linear-gradient(135deg,rgba(196,30,58,0.22),rgba(184,149,42,0.14));border-color:var(--accent);}
+.ai-gen-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.ai-res-card{background:var(--panel2);border:1px solid var(--border-dark);padding:11px 13px;margin-bottom:7px;cursor:pointer;transition:all 0.18s;position:relative;}
+.ai-res-card:hover{border-color:var(--accent);background:rgba(196,30,58,0.05);}
+.ai-res-text{font-size:13px;color:var(--bright);line-height:1.5;margin-bottom:7px;padding-right:26px;}
+.ai-res-meta{font-size:10px;color:var(--dim);display:flex;gap:9px;align-items:center;}
+.ai-tag{font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:2px 6px;}
+.tag-b{background:rgba(196,30,58,0.2);color:#f87171;}
+.tag-q{background:rgba(14,116,144,0.2);color:#67e8f9;}
+.tag-d{background:rgba(184,149,42,0.2);color:var(--gold);}
+.tag-e{background:rgba(124,58,237,0.2);color:#c4b5fd;}
+.tag-l{background:rgba(22,101,52,0.2);color:#86efac;}
+.ai-use{position:absolute;top:9px;right:9px;width:20px;height:20px;background:var(--accent);color:white;border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.15s;}
+.ai-res-card:hover .ai-use{opacity:1;}
+.ai-load{display:flex;align-items:center;gap:9px;padding:14px;color:var(--dim);font-size:13px;}
+.ai-spin{width:14px;height:14px;border:2px solid rgba(196,30,58,0.3);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cap-card{background:var(--panel2);border:1px solid var(--border-dark);margin-bottom:9px;overflow:hidden;}
+.cap-hd{display:flex;align-items:center;gap:9px;padding:9px 13px;border-bottom:1px solid var(--border-dark);}
+.cap-pico{font-size:15px;}
+.cap-pname{font-family:'Archivo',sans-serif;font-size:11px;font-weight:700;color:var(--bright);}
+.cap-chars{margin-left:auto;font-size:10px;color:var(--dim);}
+.cap-body{padding:11px 13px;}
+.cap-txt{font-size:12px;color:var(--tmid);line-height:1.6;white-space:pre-wrap;margin-bottom:9px;}
+.cap-acts{display:flex;gap:6px;}
+.cap-btn{padding:4px 11px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;font-family:'Archivo',sans-serif;border:none;transition:all 0.15s;}
+.cap-copy{background:rgba(255,255,255,0.08);color:var(--tmid);}
+.cap-copy:hover{background:rgba(255,255,255,0.14);color:var(--bright);}
+.cap-post{background:var(--accent);color:white;}
+.cap-post:hover{background:#a01830;}
+.pol-out{background:var(--panel2);border:1px solid var(--border-dark);padding:13px;margin-bottom:9px;}
+.pol-tag{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;background:rgba(184,149,42,0.15);color:var(--gold);margin-bottom:8px;display:inline-block;}
+.pol-txt{font-size:13px;color:var(--bright);line-height:1.7;white-space:pre-wrap;margin-bottom:9px;}
+.pol-acts{display:flex;gap:6px;}
+
+/* AI TRIGGER BUTTON */
+.ai-trig{position:fixed;bottom:26px;right:26px;z-index:500;width:50px;height:50px;background:linear-gradient(135deg,var(--accent),var(--gold));border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(196,30,58,0.4);transition:all 0.2s;display:none;}
+.ai-trig:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(196,30,58,0.5);}
+.ai-trig.show{display:flex;}
+
+/* AI HEADLINE STRIP */
+.hed-strip{background:linear-gradient(135deg,rgba(196,30,58,0.06),rgba(184,149,42,0.04));border:1px solid rgba(196,30,58,0.2);padding:11px 13px;margin-bottom:12px;display:none;}
+.hed-strip.show{display:block;}
+.hs-lbl{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:7px;}
+.hs-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.hs-chip{padding:4px 11px;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:600;background:rgba(255,255,255,0.05);border:1px solid var(--border2);color:var(--tmid);cursor:pointer;transition:all 0.15s;}
+.hs-chip:hover{background:rgba(196,30,58,0.1);border-color:var(--accent);color:var(--bright);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--ink);color:var(--bright);border-left:3px solid var(--gold);padding:12px 20px;font-family:'Archivo Narrow',sans-serif;font-size:13px;font-weight:600;transform:translateY(60px);opacity:0;transition:all 0.3s;max-width:320px;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* FOOTER */
+footer{background:var(--ink);border-top:3px double var(--rule);padding:36px 48px 20px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:28px;}
+.footer-brand{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--bright);margin-bottom:10px;}
+.footer-brand span{color:var(--accent);}
+.footer-tag{font-size:13px;font-style:italic;color:var(--dim);line-height:1.7;margin-bottom:12px;}
+.footer-col-title{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border-dark);}
+.footer-link{display:block;font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--dim);margin-bottom:7px;cursor:pointer;transition:color 0.15s;}
+.footer-link:hover{color:var(--bright);}
+.footer-bottom{border-top:1px solid var(--border-dark);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--dim);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .mh-top,.mh-center,.lay-bar{padding:8px 20px;}
+  #lay-mag,#lay-paper,.media-wrap,footer,.sub-band,.addons-section,.pg-wrap{padding:24px 20px;}
+  .mag-hero{grid-template-columns:1fr;}
+  .mag-aside{border-left:none;border-top:1px solid var(--rule);padding:22px 0 0;}
+  .story-grid{grid-template-columns:1fr;}
+  .story-grid.wide{grid-template-columns:1fr;}
+  .pub-layout{grid-template-columns:1fr;}
+  .dist-panel{display:none;}
+  .dash-kpi,.kpi-dark{grid-template-columns:1fr 1fr;}
+  .dash-grid{grid-template-columns:1fr;}
+  .sp-tiers{grid-template-columns:1fr;}
+  .sf-row{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .np-cols{grid-template-columns:1fr;}
+  .np-sep{display:none;}
+  .sub-band{grid-template-columns:1fr;gap:32px;}
+  .ao-grid{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
 
-  <!-- ═══════════════ NAVIGATION ═══════════════ -->
-  <nav class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo">
-        <span class="nav__logo-mark">BB</span>
-        <span class="nav__logo-text">The Brvenik Brief</span>
-      </a>
-      <div class="nav__links" id="navLinks">
-        <a href="#featured">Featured</a>
-        <a href="#pillars">Pillars</a>
-        <a href="#archive">Archive</a>
-        <a href="#about">About</a>
-        <a href="#subscribe" class="nav__cta">Subscribe</a>
-      </div>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+<!-- ===== MASTHEAD ===== -->
+<header class="masthead">
+  <div class="mh-top">
+    <div class="mh-top-date" id="mh-date"></div>
+    <div class="mh-top-tag">Intelligence for the Economic Author</div>
+    <div class="mh-top-actions">
+      <button class="btn-tiny out" onclick="showView('sub')">My Account</button>
+      <button class="btn-tiny fill" onclick="showView('publish')">Publish ↗</button>
     </div>
-  </nav>
+  </div>
+  <div class="mh-center">
+    <div class="mh-rule"></div>
+    <div class="mh-title">The Brvenik <span>Brief</span></div>
+    <div class="mh-subtitle">Business · Innovation · Economic Authorship · Leadership</div>
+    <nav class="mh-nav">
+      <div class="nav-it on" onclick="showNav(this,'editorial')">Editorial</div>
+      <div class="nav-sep"></div>
+      <div class="nav-it" onclick="showNav(this,'media')">Podcast</div>
+      <div class="nav-sep"></div>
+      <div class="nav-it" onclick="showNav(this,'media');openMedia('video')">Video</div>
+      <div class="nav-sep"></div>
+      <div class="nav-it" onclick="showNav(this,'sub')">Subscribe</div>
+      <div class="nav-sep"></div>
+      <div class="nav-it" onclick="showNav(this,'sp')">Advertise</div>
+      <div class="nav-sep"></div>
+      <div class="nav-it" onclick="showNav(this,'publish')">Publish ↗</div>
+    </nav>
+  </div>
+</header>
 
-  <!-- ═══════════════ HERO ═══════════════ -->
-  <header class="hero" id="hero">
-    <div class="hero__bg-grid"></div>
-    <div class="hero__content">
-      <p class="hero__edition reveal">Issue No. 47 &mdash; April 2026</p>
-      <h1 class="hero__title reveal">
-        <span class="hero__title-line">The Brvenik</span>
-        <span class="hero__title-line hero__title-line--accent">Brief</span>
-      </h1>
-      <p class="hero__tagline reveal">
-        Where <em>Economic Authorship</em> meets the future of education, workforce intelligence, and entrepreneurial sovereignty.
-      </p>
-      <div class="hero__actions reveal">
-        <a href="#subscribe" class="btn btn--primary">Subscribe Free</a>
-        <a href="#featured" class="btn btn--outline">Read Latest</a>
-      </div>
-      <div class="hero__stats reveal">
-        <div class="hero__stat">
-          <span class="hero__stat-number" data-count="12000">0</span>
-          <span class="hero__stat-label">Subscribers</span>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-lbl">Latest</div>
+  <div class="ticker-txt">Economic Authorship Framework gains national recognition · IntexiaU Corp expands to 12 new markets · AI reshapes workforce credentialing: what employers need to know · The Brvenik Brief crosses 15,000 subscribers · New episode: "Building Your Economic Future" now live · Sponsored: Workforce development grants available in Florida &nbsp;&nbsp;&nbsp;&nbsp; Economic Authorship Framework gains national recognition · IntexiaU Corp expands to 12 new markets · AI reshapes workforce credentialing: what employers need to know · The Brvenik Brief crosses 15,000 subscribers</div>
+</div>
+
+<!-- ===== EDITORIAL VIEW ===== -->
+<div class="view on" id="view-editorial">
+  <div class="lay-bar">
+    <div class="lay-label">Layout Style</div>
+    <div class="lay-btns">
+      <button class="lay-btn on" onclick="swLay(this,'mag')">Magazine</button>
+      <button class="lay-btn" onclick="swLay(this,'paper')">Newspaper</button>
+    </div>
+    <select class="iss-sel">
+      <option>April 2026 — Issue 42</option>
+      <option>March 2026 — Issue 41</option>
+      <option>February 2026 — Issue 40</option>
+      <option>January 2026 — Issue 39</option>
+    </select>
+  </div>
+
+  <!-- MAGAZINE LAYOUT -->
+  <div id="lay-mag">
+    <div class="mag-hero">
+      <div>
+        <div class="mag-kicker">Cover Story · Economic Authorship</div>
+        <h1 class="mag-hed">Who Owns Your<br>Economic <em>Future?</em></h1>
+        <p class="mag-dek">The rise of the Economic Authorship movement is redefining how Americans think about work, wealth, and identity — and Andrea Brvenik is leading the charge.</p>
+        <div class="mag-by">
+          <span>By <strong>Andrea Brvenik</strong></span>
+          <span>·</span><span>April 15, 2026</span>
+          <span>·</span><span>12 min read</span>
         </div>
-        <div class="hero__stat-divider"></div>
-        <div class="hero__stat">
-          <span class="hero__stat-number" data-count="47">0</span>
-          <span class="hero__stat-label">Issues Published</span>
+        <div class="mag-img">📰<span class="fmt-badge fb-feat">Feature</span><div class="img-cap">IntexiaU Corp's inaugural EAI campus workshop — "Launch Your Business in 4 Hours"</div></div>
+      </div>
+      <aside class="mag-aside">
+        <div class="aside-ttl">Also in This Issue</div>
+        <div class="aside-story"><div class="as-kick">AI & Workforce</div><div class="as-hed">The Credential Crisis: Why Degrees Alone No Longer Open Doors</div><div class="as-meta">8 min read · Analysis</div></div>
+        <div class="aside-story"><div class="as-kick">Leadership</div><div class="as-hed">Declining the CEO Chair: What That Decision Taught Me About Authorship</div><div class="as-meta">6 min read · Essay</div></div>
+        <div class="aside-story"><div class="as-kick">Policy Watch</div><div class="as-hed">Florida's Workforce Landscape: Opportunities Being Left on the Table</div><div class="as-meta">5 min read · Brief</div></div>
+        <div class="aside-story"><div class="as-kick">Sponsored</div><div class="as-hed">How AI-Native Platforms Are Closing the Skills Gap in Real Time</div><div class="as-meta">Presented by IntexiaU Corp</div></div>
+        <div class="ad-unit">
+          <div class="au-badge">Advertisement</div>
+          <div class="au-name">IntexiaU Corp</div>
+          <div class="au-copy">AI-native education & workforce platform. Building economic authors one cohort at a time.</div>
+          <button class="btn-tiny fill" onclick="toast('Opening IntexiaU.com...')">Learn More</button>
         </div>
-        <div class="hero__stat-divider"></div>
-        <div class="hero__stat">
-          <span class="hero__stat-number" data-count="5">0</span>
-          <span class="hero__stat-label">Core Pillars</span>
-        </div>
+      </aside>
+    </div>
+
+    <div class="sec-div"><div class="sec-line dbl"></div><div class="sec-lbl">Features</div><div class="sec-line dbl"></div></div>
+    <div class="story-grid" style="max-width:1280px;margin:0 auto 0;padding:0 48px 36px;">
+      <div class="art-card">
+        <div class="art-img">🤖<span class="fmt-badge fb-feat">Feature</span></div>
+        <div class="art-kick">Technology</div>
+        <div class="art-hed">The AI Workforce Revolution Won't Wait for Policy to Catch Up</div>
+        <div class="art-dek">With automation eliminating 85 million jobs by 2025, those who understand Economic Authorship will be the ones who thrive.</div>
+        <div class="art-by"><span>Andrea Brvenik</span><span>·</span><span>Apr 12</span><span>·</span><span>9 min</span></div>
+      </div>
+      <div class="art-card">
+        <div class="art-img">⚖️<span class="fmt-badge fb-brief">Brief</span></div>
+        <div class="art-kick">Law & Business</div>
+        <div class="art-hed">Legal Frameworks Every Entrepreneur Must Know Before Raising Capital</div>
+        <div class="art-dek">From entity structures to Series A mechanics — the legal foundations your business coach won't tell you about.</div>
+        <div class="art-by"><span>Staff Writer</span><span>·</span><span>Apr 10</span><span>·</span><span>6 min</span></div>
+      </div>
+      <div class="art-card">
+        <div class="art-img">🎙️<span class="fmt-badge fb-pod">Podcast</span></div>
+        <div class="art-kick">Podcast · Ep. 42</div>
+        <div class="art-hed">Rick Inatome on Building Empires, Failing Forward, and the Future of Work</div>
+        <div class="art-dek">A rare conversation with the investor and tech pioneer on what it means to truly author your economic future.</div>
+        <div class="art-by"><span>The Brvenik Brief Podcast</span><span>·</span><span>48 min</span></div>
       </div>
     </div>
-    <div class="hero__scroll-cue">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
-  </header>
 
-  <!-- ═══════════════ FEATURED ═══════════════ -->
-  <section class="featured" id="featured">
-    <div class="container">
-      <div class="section-label reveal">Featured Story</div>
-
-      <article class="featured__card reveal">
-        <div class="featured__meta">
-          <span class="featured__tag">Economic Authorship</span>
-          <time>April 18, 2026</time>
+    <div class="sec-div" style="max-width:1280px;margin:0 auto;padding:0 48px;"><div class="sec-line"></div><div class="sec-lbl">Analysis</div><div class="sec-line"></div></div>
+    <div class="story-grid wide" style="max-width:1280px;margin:0 auto;padding:0 48px 36px;">
+      <div class="art-card">
+        <div class="art-img tall">📊<span class="fmt-badge fb-feat">Deep Dive</span></div>
+        <div class="art-kick">Economic Policy</div>
+        <div class="art-hed lg">Two-Entity Corporate Structures: The Architecture of Scalable Ventures</div>
+        <div class="art-dek">Inside the structural logic that sophisticated founders use to protect assets, attract investment, and build lasting enterprises. A framework built for the modern economic author.</div>
+        <div class="art-by"><span>Andrea Brvenik</span><span>·</span><span>Apr 8</span><span>·</span><span>14 min read</span></div>
+      </div>
+      <div class="col-rule">
+        <div class="art-card" style="margin-bottom:24px;">
+          <div class="art-img">🎬<span class="fmt-badge fb-vid">Video</span></div>
+          <div class="art-kick">Workshop Recap</div>
+          <div class="art-hed">Launch Your Own Business in 4 Hours — Full Session Recording</div>
+          <div class="art-by"><span>IntexiaU EAI Campus</span><span>·</span><span>Apr 5</span></div>
         </div>
-        <h2 class="featured__title">
-          Why the Next Economy Won't Be Built by Employees&mdash;It'll Be Built by Authors
-        </h2>
-        <p class="featured__excerpt">
-          The traditional employment model is fracturing. In its place, a new paradigm is emerging&mdash;one where individuals don't just participate in the economy, they <em>write</em> it. This issue explores the shift from economic participation to Economic Authorship, and why institutions must evolve or become irrelevant.
-        </p>
-        <a href="#" class="featured__read-more">
-          Read Full Brief
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </article>
-    </div>
-  </section>
-
-  <!-- ═══════════════ PILLARS ═══════════════ -->
-  <section class="pillars" id="pillars">
-    <div class="container">
-      <div class="section-label reveal">Core Pillars</div>
-      <h2 class="section-heading reveal">Five lenses. One framework.</h2>
-      <p class="section-subheading reveal">Each issue of The Brvenik Brief examines the world through the Economic Authorship framework across five interconnected domains.</p>
-
-      <div class="pillars__grid">
-        <article class="pillar-card reveal" data-pillar="1">
-          <div class="pillar-card__number">01</div>
-          <h3 class="pillar-card__title">Education Reimagined</h3>
-          <p class="pillar-card__desc">Breaking the degree-or-debt binary. Building pathways that create authors, not just graduates.</p>
-          <div class="pillar-card__line"></div>
-        </article>
-
-        <article class="pillar-card reveal" data-pillar="2">
-          <div class="pillar-card__number">02</div>
-          <h3 class="pillar-card__title">Workforce Intelligence</h3>
-          <p class="pillar-card__desc">AI-native hiring, agentic talent search, and the death of the résumé as we know it.</p>
-          <div class="pillar-card__line"></div>
-        </article>
-
-        <article class="pillar-card reveal" data-pillar="3">
-          <div class="pillar-card__number">03</div>
-          <h3 class="pillar-card__title">Entrepreneurial Sovereignty</h3>
-          <p class="pillar-card__desc">From side hustle to sovereign business. Building enterprises that you own, not rent.</p>
-          <div class="pillar-card__line"></div>
-        </article>
-
-        <article class="pillar-card reveal" data-pillar="4">
-          <div class="pillar-card__number">04</div>
-          <h3 class="pillar-card__title">Policy & Systems</h3>
-          <p class="pillar-card__desc">The regulatory, institutional, and structural forces shaping who gets to author their economy.</p>
-          <div class="pillar-card__line"></div>
-        </article>
-
-        <article class="pillar-card reveal" data-pillar="5">
-          <div class="pillar-card__number">05</div>
-          <h3 class="pillar-card__title">AI &amp; Human Capital</h3>
-          <p class="pillar-card__desc">Where artificial intelligence amplifies human potential&mdash;and where it threatens to replace it.</p>
-          <div class="pillar-card__line"></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ ARCHIVE ═══════════════ -->
-  <section class="archive" id="archive">
-    <div class="container">
-      <div class="section-label reveal">Recent Issues</div>
-      <h2 class="section-heading reveal">From the Archive</h2>
-
-      <div class="archive__list">
-        <a href="#" class="archive__item reveal">
-          <span class="archive__issue">No. 46</span>
-          <span class="archive__item-title">The Agent Economy: When AI Applies for Your Job</span>
-          <span class="archive__date">Apr 4, 2026</span>
-          <span class="archive__arrow">&rarr;</span>
-        </a>
-        <a href="#" class="archive__item reveal">
-          <span class="archive__issue">No. 45</span>
-          <span class="archive__item-title">Accreditation Is Broken. Here's What Replaces It.</span>
-          <span class="archive__date">Mar 21, 2026</span>
-          <span class="archive__arrow">&rarr;</span>
-        </a>
-        <a href="#" class="archive__item reveal">
-          <span class="archive__issue">No. 44</span>
-          <span class="archive__item-title">Launch Your Business in 4 Hours: The EAI Workshop Model</span>
-          <span class="archive__date">Mar 7, 2026</span>
-          <span class="archive__arrow">&rarr;</span>
-        </a>
-        <a href="#" class="archive__item reveal">
-          <span class="archive__issue">No. 43</span>
-          <span class="archive__item-title">From OPM to OPE: The Online Program Evolution</span>
-          <span class="archive__date">Feb 21, 2026</span>
-          <span class="archive__arrow">&rarr;</span>
-        </a>
-        <a href="#" class="archive__item reveal">
-          <span class="archive__issue">No. 42</span>
-          <span class="archive__item-title">The Platform of Everything: Architecture for the Next University</span>
-          <span class="archive__date">Feb 7, 2026</span>
-          <span class="archive__arrow">&rarr;</span>
-        </a>
-      </div>
-
-      <div class="archive__more reveal">
-        <a href="#" class="btn btn--outline">View Full Archive</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ ABOUT ═══════════════ -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about__grid">
-        <div class="about__text reveal">
-          <div class="section-label">About the Author</div>
-          <h2 class="section-heading">Andrea Brvenik</h2>
-          <p>Lawyer. Founder. Economic Author.</p>
-          <p>
-            Andrea is the Founder &amp; CEO of IntexiaU Corp, building an AI-native education and workforce platform from the ground up. The Brvenik Brief is her public-facing exploration of <em>Economic Authorship</em>&mdash;the framework that underpins everything from IntexiaU's platform architecture to a new vision for how people create, own, and scale economic value.
-          </p>
-          <div class="about__links">
-            <a href="https://intexiau.com" target="_blank" class="btn btn--small">IntexiaU</a>
-            <a href="#" class="btn btn--small btn--outline">LinkedIn</a>
-          </div>
+        <div class="ad-unit">
+          <div class="au-badge">Sponsored</div>
+          <div class="au-name">Bisk Education</div>
+          <div class="au-copy">Powering online program management for the nation's leading universities. Partner with us.</div>
+          <button class="btn-tiny fill" onclick="toast('Opening Bisk Education inquiry...')">Partner Inquiry</button>
         </div>
-        <div class="about__visual reveal">
-          <div class="about__monogram">AB</div>
+        <div class="art-card" style="margin-top:24px;">
+          <div class="art-img">🌐<span class="fmt-badge fb-brief">Brief</span></div>
+          <div class="art-kick">IntexiaU Update</div>
+          <div class="art-hed">Platform of Everything: Inside the 10-Module Architecture</div>
+          <div class="art-by"><span>Staff</span><span>·</span><span>Apr 3</span><span>·</span><span>4 min</span></div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ═══════════════ SUBSCRIBE ═══════════════ -->
-  <section class="subscribe" id="subscribe">
-    <div class="container">
-      <div class="subscribe__inner reveal">
-        <h2 class="subscribe__title">Don't miss the next issue.</h2>
-        <p class="subscribe__desc">Join thousands of founders, educators, and forward-thinkers who read The Brvenik Brief.</p>
-        <div class="subscribe__form" id="subscribeForm">
-          <input type="email" id="emailInput" class="subscribe__input" placeholder="your@email.com" required />
-          <button type="button" class="btn btn--primary subscribe__btn" id="subscribeBtn">Subscribe</button>
-        </div>
-        <p class="subscribe__note">Free. Biweekly. No spam. Unsubscribe anytime.</p>
-        <div class="subscribe__success" id="subscribeSuccess">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><path d="M9 14l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>You're in. Watch your inbox.</span>
-        </div>
+    <div class="sec-div" style="max-width:1280px;margin:0 auto;padding:0 48px;"><div class="sec-line"></div><div class="sec-lbl">Multimedia</div><div class="sec-line"></div></div>
+    <div class="story-grid" style="max-width:1280px;margin:0 auto;padding:0 48px 48px;">
+      <div class="art-card" onclick="showNav(null,'media')">
+        <div class="art-img" style="background:#0e2040;">🎙️<span class="fmt-badge fb-pod">New Episode</span></div>
+        <div class="art-kick">Podcast · Series 4</div>
+        <div class="art-hed">The Sovereign Investor: How Rick Inatome Thinks About Capital Allocation</div>
+        <div class="art-by"><span>48 min</span><span>·</span><span>Available everywhere</span></div>
+      </div>
+      <div class="art-card" onclick="showNav(null,'media');openMedia('video')">
+        <div class="art-img" style="background:#1a0a10;">📹<span class="fmt-badge fb-vid">Video Essay</span></div>
+        <div class="art-kick">Video · 18 min</div>
+        <div class="art-hed">What No One Tells You About Being a Female Founder in the AI Era</div>
+        <div class="art-by"><span>Andrea Brvenik</span><span>·</span><span>Apr 9</span></div>
+      </div>
+      <div class="art-card">
+        <div class="art-img" style="background:#0a1a10;">📈<span class="fmt-badge fb-spon">Sponsored</span></div>
+        <div class="art-kick">Sponsored Content</div>
+        <div class="art-hed">Workforce Development Grants Available in Florida: A Complete Guide</div>
+        <div class="art-by"><span>Presented by Florida DEO</span><span>·</span><span>Apr 7</span></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ═══════════════ FOOTER ═══════════════ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__brand">
-          <span class="nav__logo-mark">BB</span>
-          <span>&copy; 2026 The Brvenik Brief</span>
-        </div>
-        <div class="footer__links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="https://intexiau.com" target="_blank">IntexiaU</a>
-        </div>
+  <!-- NEWSPAPER LAYOUT -->
+  <div id="lay-paper" style="display:none;">
+    <div style="text-align:center;border-bottom:3px double var(--rule);margin-bottom:22px;padding:16px 48px 14px;">
+      <div style="font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Vol. 4, Issue 42 · April 15, 2026 · Florida Edition</div>
+    </div>
+    <div class="np-cols" style="max-width:1280px;margin:0 auto;padding:0 48px 48px;">
+      <div class="np-col">
+        <div class="np-hed">Economic Authorship Framework Gains National Attention</div>
+        <div class="np-by">By Andrea Brvenik, Founder</div>
+        <p class="np-body">The movement began with a simple premise: that every person has the right and the capacity to design their own economic future. What started as a framework inside IntexiaU Corp has grown into a national conversation about workforce identity and self-determination.</p>
+        <div class="np-subhed">A New Vocabulary for Work</div>
+        <p class="np-body">Economic Authorship offers a new language for an old problem — how do individuals navigate a labor market that was never designed with them in mind? The framework's four pillars — Clarity, Strategy, Authorship, and Momentum — give practitioners a repeatable path.</p>
+        <div class="np-quote">"You cannot author a life you haven't first imagined in full."</div>
+        <p class="np-body">Brvenik, who recently declined a CEO offer to stay focused on IntexiaU, says the decision was itself an act of Economic Authorship. "I had to practice what I preach," she notes.</p>
+      </div>
+      <div class="np-sep"></div>
+      <div class="np-col">
+        <div class="np-hed">AI Reshapes Credentialing as Employers Shift Focus</div>
+        <div class="np-by">Staff Report</div>
+        <p class="np-body">Employers across sectors are quietly abandoning degree requirements in favor of demonstrated competency — a shift that AI-native platforms like IntexiaU are uniquely positioned to serve.</p>
+        <p class="np-body">The trend, accelerating since 2023, has significant implications for traditional universities, online program managers, and the millions of Americans who hold credentials that no longer open the doors they once did.</p>
+        <div class="np-subhed">What It Means for Workforce</div>
+        <p class="np-body">IntexiaU's Platform of Everything — a ten-module hub connecting education, credentialing, and employment — is designed specifically for this inflection point.</p>
+        <div class="np-ad"><div style="font-family:'Archivo Narrow',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Advertisement</div><div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);">IntexiaU Corp</div><div style="font-size:11px;color:var(--mid);">AI-native workforce platform. Enroll today.</div></div>
+      </div>
+      <div class="np-sep"></div>
+      <div class="np-col">
+        <div class="np-hed">Podcast Ep. 42: Rick Inatome on Capital and Legacy</div>
+        <div class="np-by">Podcast Transcript Excerpt</div>
+        <p class="np-body">In this week's episode, investor and tech pioneer Rick Inatome sits down with Andrea Brvenik to discuss how he thinks about capital allocation, the Series A process, and why legacy matters more than liquidity events.</p>
+        <div class="np-quote">"The smartest founders I've backed were the ones who knew their 'why' before they knew their 'how.'"</div>
+        <p class="np-body">The conversation covers investor narrative, corporate structure strategy, and what Inatome looks for in a founding team beyond the pitch deck.</p>
+        <div class="np-subhed">Listen Now</div>
+        <p class="np-body">Available on Spotify, Apple Podcasts, and TheBrvenikBrief.com/podcast. Episode 42 runs 48 minutes.</p>
+      </div>
+      <div class="np-sep"></div>
+      <div class="np-col">
+        <div class="np-hed">This Week in Brief</div>
+        <div class="np-by">Editorial Desk</div>
+        <div class="np-subhed">Workforce Policy</div>
+        <p class="np-body">Florida's DEO announced $40M in workforce development grants. IntexiaU is positioned as a preferred delivery partner in three counties.</p>
+        <div class="np-subhed">Platform Update</div>
+        <p class="np-body">app.intexiau.com deployment via Netlify is live. The Platform of Everything now hosts its first four active modules with six more in development.</p>
+        <div class="np-subhed">Partnership Watch</div>
+        <p class="np-body">Discussions with Bisk Education continue. The potential partnership would expand IntexiaU's OPM reach to over 40 university clients.</p>
+        <div class="np-subhed">Subscriber Milestone</div>
+        <p class="np-body">The Brvenik Brief crossed 15,000 active subscribers this week — above the newsletter industry average conversion rate.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBSCRIBE BAND (FREE) -->
+  <div class="sub-band">
+    <div>
+      <div class="sb-title">Join the <em>Brief.</em><br>Free. Always.</div>
+      <p class="sb-copy">15,000+ economic authors, founders, and professionals receive The Brvenik Brief every week. Get the intelligence you need to design the life you want — at no cost, ever.</p>
+      <div class="sb-proof">
+        <div class="sb-proof-item"><div class="sb-proof-num">15K+</div><div class="sb-proof-lbl">Subscribers</div></div>
+        <div class="sb-proof-item"><div class="sb-proof-num">44%</div><div class="sb-proof-lbl">Open Rate</div></div>
+        <div class="sb-proof-item"><div class="sb-proof-num">42</div><div class="sb-proof-lbl">Issues Published</div></div>
+      </div>
+    </div>
+    <div class="sub-form-wrap">
+      <div class="sub-free-badge"><span class="sfb-text">✦ Always Free — No Credit Card</span></div>
+      <input class="ss-inp" placeholder="First name">
+      <input class="ss-inp" type="email" placeholder="Your email address">
+      <button class="ss-btn" onclick="toast('✓ Welcome to The Brvenik Brief! Check your inbox.')">Subscribe Free →</button>
+      <div class="ss-fine">Weekly. No spam. Unsubscribe anytime. Powered by IntexiaU Corp.</div>
+    </div>
+  </div>
+
+  <!-- ADD-ONS PREVIEW -->
+  <div class="addons-section">
+    <div class="ao-header">
+      <div class="ao-eyebrow">Coming Soon</div>
+      <div class="ao-title">Brvenik Brief Premium Add-Ons</div>
+      <p class="ao-copy">The Brief is always free. These specialized intelligence tools are being developed for readers who want to go deeper — join the interest list to be first in line.</p>
+    </div>
+    <div class="ao-grid">
+      <div class="ao-card">
+        <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
+        <div class="ao-icon">🏛️</div>
+        <div class="ao-name">Legislative Intelligence App</div>
+        <div class="ao-desc">Real-time bill tracking, AI policy analysis, and weekly legislative briefings tailored to workforce, education, and economic development.</div>
+        <ul class="ao-features">
+          <li>Real-time federal & state bill tracking</li>
+          <li>AI analysis of policy impact on your sector</li>
+          <li>Weekly Legislative Brief digest</li>
+          <li>Keyword alerts & custom watchlists</li>
+        </ul>
+        <button class="ao-waitlist-btn" onclick="joinWaitlist('Legislative Intelligence App')">Join the Interest List →</button>
+        <div class="ao-waitlist-count" id="wl-count-0">247 readers interested</div>
+      </div>
+      <div class="ao-card">
+        <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
+        <div class="ao-icon">💡</div>
+        <div class="ao-name">Economic Authorship Toolkit</div>
+        <div class="ao-desc">Personalized AI coaching tools built on Andrea Brvenik's Economic Authorship framework — clarity exercises, strategy mapping, and momentum tracking.</div>
+        <ul class="ao-features">
+          <li>EA Framework self-assessment</li>
+          <li>Personalized coaching sessions</li>
+          <li>Business idea validation tools</li>
+          <li>Career transition roadmaps</li>
+        </ul>
+        <button class="ao-waitlist-btn" onclick="joinWaitlist('Economic Authorship Toolkit')">Join the Interest List →</button>
+        <div class="ao-waitlist-count" id="wl-count-1">389 readers interested</div>
+      </div>
+      <div class="ao-card">
+        <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
+        <div class="ao-icon">📊</div>
+        <div class="ao-name">Workforce Data Dashboard</div>
+        <div class="ao-desc">Live labor market intelligence — job postings by sector, skills-gap analysis, salary benchmarks, and AI-powered workforce trend reports.</div>
+        <ul class="ao-features">
+          <li>Live national job market data</li>
+          <li>Skills demand tracking by industry</li>
+          <li>Salary benchmark reports</li>
+          <li>Monthly Workforce Intelligence Brief</li>
+        </ul>
+        <button class="ao-waitlist-btn" onclick="joinWaitlist('Workforce Data Dashboard')">Join the Interest List →</button>
+        <div class="ao-waitlist-count" id="wl-count-2">312 readers interested</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">The Brvenik <span>Brief</span></div>
+        <div class="footer-tag">Intelligence for the economic author. Published weekly by Andrea Brvenik, Founder & CEO of IntexiaU Corp.</div>
+        <div style="font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--dim);">© 2026 The Brvenik Brief · IntexiaU Corp · All rights reserved.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Sections</div>
+        <div class="footer-link" onclick="showView('editorial')">Editorial</div>
+        <div class="footer-link" onclick="showView('media')">Podcast</div>
+        <div class="footer-link" onclick="showView('media');openMedia('video')">Video</div>
+        <div class="footer-link">Archive</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-link" onclick="showView('publish')">Publisher Tools</div>
+        <div class="footer-link" onclick="showView('sub')">Subscribers</div>
+        <div class="footer-link" onclick="showView('sp')">Advertise</div>
+        <div class="footer-link">Media Kit</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-link">Instagram</div>
+        <div class="footer-link">LinkedIn</div>
+        <div class="footer-link">X / Twitter</div>
+        <div class="footer-link">Spotify Podcast</div>
       </div>
     </div>
   </footer>
+</div>
 
-  <script src="script.js"></script>
+<!-- ===== MEDIA VIEW ===== -->
+<div class="view" id="view-media">
+  <div class="media-wrap">
+    <div class="media-tabs">
+      <div class="mt-item on" onclick="swMediaTab(this,'podcasts')">🎙️ Podcast</div>
+      <div class="mt-item" onclick="swMediaTab(this,'videos')">🎬 Video</div>
+    </div>
+    <div class="media-panel on" id="mp-podcasts">
+      <div class="sec-div" style="margin-top:0;"><div class="sec-line"></div><div class="sec-lbl">The Brvenik Brief Podcast</div><div class="sec-line"></div></div>
+      <div class="pod-grid">
+        <div class="ep-card"><div class="ep-art">🎙️</div><div style="flex:1"><div class="ep-num">Episode 42 · Apr 15, 2026</div><div class="ep-title">Rick Inatome on Capital, Legacy & the Series A Mindset</div><div class="ep-meta">48 min · Investor Series</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 42')">▶</button></div>
+        <div class="ep-card"><div class="ep-art">🤝</div><div style="flex:1"><div class="ep-num">Episode 41 · Apr 8, 2026</div><div class="ep-title">Partnerships, OPM Strategy & Why I Said No to the CEO Chair</div><div class="ep-meta">36 min · Leadership</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 41')">▶</button></div>
+        <div class="ep-card"><div class="ep-art">⚡</div><div style="flex:1"><div class="ep-num">Episode 40 · Apr 1, 2026</div><div class="ep-title">AI-Native Education: Building the Platform of Everything</div><div class="ep-meta">42 min · Platform Deep Dive</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 40')">▶</button></div>
+        <div class="ep-card"><div class="ep-art">📖</div><div style="flex:1"><div class="ep-num">Episode 39 · Mar 25, 2026</div><div class="ep-title">Economic Authorship Explained: The Framework That Started Everything</div><div class="ep-meta">29 min · Foundation Series</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 39')">▶</button></div>
+        <div class="ep-card"><div class="ep-art">💼</div><div style="flex:1"><div class="ep-num">Episode 38 · Mar 18, 2026</div><div class="ep-title">Two-Entity Corporate Structures: What Founders Get Wrong</div><div class="ep-meta">31 min · Business Architecture</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 38')">▶</button></div>
+        <div class="ep-card"><div class="ep-art">🎓</div><div style="flex:1"><div class="ep-num">Episode 37 · Mar 11, 2026</div><div class="ep-title">Workshop Debrief: Launch Your Business in 4 Hours — What We Learned</div><div class="ep-meta">22 min · EAI Campus Series</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 37')">▶</button></div>
+      </div>
+    </div>
+    <div class="media-panel" id="mp-videos">
+      <div class="sec-div" style="margin-top:0;"><div class="sec-line"></div><div class="sec-lbl">Video Library</div><div class="sec-line"></div></div>
+      <div class="vid-grid">
+        <div class="vid-card"><div class="vid-thumb">🎬<div class="vid-ov">▶</div><div class="vid-dur">18:42</div></div><div class="vid-body"><div class="vid-kick">Video Essay</div><div class="vid-title">What No One Tells You About Being a Female Founder in the AI Era</div></div></div>
+        <div class="vid-card"><div class="vid-thumb">📹<div class="vid-ov">▶</div><div class="vid-dur">54:18</div></div><div class="vid-body"><div class="vid-kick">Workshop Recording</div><div class="vid-title">Launch Your Own Business in 4 Hours — Full EAI Campus Session</div></div></div>
+        <div class="vid-card"><div class="vid-thumb">💡<div class="vid-ov">▶</div><div class="vid-dur">28:55</div></div><div class="vid-body"><div class="vid-kick">Keynote</div><div class="vid-title">Economic Authorship and the Future of Work in Florida</div></div></div>
+        <div class="vid-card"><div class="vid-thumb">🤖<div class="vid-ov">▶</div><div class="vid-dur">12:07</div></div><div class="vid-body"><div class="vid-kick">Explainer</div><div class="vid-title">The Platform of Everything: A Visual Walkthrough</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PUBLISHER DASHBOARD ===== -->
+<div class="view" id="view-publish">
+  <div class="pub-layout">
+    <!-- Sidebar -->
+    <div class="pub-sidebar">
+      <div class="pub-slbl">Publish</div>
+      <div class="pub-item on" onclick="showPub('dashboard',this)"><span class="pub-icon">⊞</span> Dashboard</div>
+      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">✏️</span> New Issue</div>
+      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">📋</span> Drafts <span style="margin-left:auto;background:var(--accent);color:white;font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;">3</span></div>
+      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">📅</span> Scheduled <span style="margin-left:auto;background:rgba(14,116,144,0.4);color:var(--teal);font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;">2</span></div>
+      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">📨</span> Sent Issues</div>
+      <div class="pub-sep"></div>
+      <div class="pub-slbl">Audience</div>
+      <div class="pub-item" onclick="showView('sub')"><span class="pub-icon">👥</span> Subscribers</div>
+      <div class="pub-item" onclick="showView('sp')"><span class="pub-icon">💰</span> Sponsorships <span style="margin-left:auto;background:rgba(184,149,42,0.3);color:var(--gold);font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;">2</span></div>
+      <div class="pub-item" onclick="showPub('dashboard',this)"><span class="pub-icon">📊</span> Analytics</div>
+      <div class="pub-sep"></div>
+      <div class="pub-slbl">Preview</div>
+      <div class="pub-item" onclick="showView('editorial')"><span class="pub-icon">📰</span> Reader View</div>
+      <div class="pub-item" onclick="showView('media')"><span class="pub-icon">🎙️</span> Podcast</div>
+    </div>
+
+    <!-- Main content area -->
+    <div class="pub-main" id="pub-main">
+      <!-- DASHBOARD PANEL -->
+      <div id="pub-dashboard">
+        <div class="pub-topbar">
+          <div class="pub-title">Dashboard</div>
+          <div class="pub-acts">
+            <button class="btn-pub ghost" onclick="showView('editorial')">👁 Preview Issue</button>
+            <button class="btn-pub red" onclick="showPub('editor',null)">✏️ Write New Issue</button>
+          </div>
+        </div>
+        <div style="margin-bottom:22px;">
+          <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--bright);margin-bottom:3px;">Good morning, <span style="color:var(--accent);font-style:italic;">Andrea.</span></div>
+          <div style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);" id="dash-date"></div>
+        </div>
+        <div class="dash-kpi">
+          <div class="dkpi"><div class="dkpi-lbl">Subscribers 👥</div><div class="dkpi-n">15,241</div><div class="dkpi-sub up">↑ +847 this month</div></div>
+          <div class="dkpi"><div class="dkpi-lbl">Open Rate 📬</div><div class="dkpi-n">44%</div><div class="dkpi-sub up">↑ 2× industry avg</div></div>
+          <div class="dkpi"><div class="dkpi-lbl">Monthly Revenue 💵</div><div class="dkpi-n">$8.2K</div><div class="dkpi-sub up">↑ +$620 vs last mo.</div></div>
+          <div class="dkpi"><div class="dkpi-lbl">Add-On Interest ⭐</div><div class="dkpi-n">948</div><div class="dkpi-sub up">↑ across 3 products</div></div>
+        </div>
+        <div class="dash-grid">
+          <div>
+            <div class="d-card">
+              <div class="d-card-hd"><div class="d-card-title">📋 Recent Drafts</div><button class="btn-pub ghost" style="padding:5px 12px;font-size:10px;" onclick="showPub('editor',null)">+ New</button></div>
+              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--accent)"></div><div class="draft-info"><div class="draft-ttl">Who Owns Your Economic Future?</div><div class="draft-m">Article · Edited 2 hrs ago</div></div><span class="ds ds-draft">Draft</span></div>
+              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--teal)"></div><div class="draft-info"><div class="draft-ttl">Ep. 42 — Rick Inatome on Capital & Legacy</div><div class="draft-m">Podcast · Scheduled Apr 18</div></div><span class="ds ds-sched">Scheduled</span></div>
+              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--navy)"></div><div class="draft-info"><div class="draft-ttl">Florida Workforce Grants: Complete Guide</div><div class="draft-m">Sponsored · Live since Apr 12</div></div><span class="ds ds-live">Live</span></div>
+              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--gold)"></div><div class="draft-info"><div class="draft-ttl">Two-Entity Corporate Structures Explained</div><div class="draft-m">Article · Started yesterday</div></div><span class="ds ds-draft">Draft</span></div>
+              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--accent)"></div><div class="draft-info"><div class="draft-ttl">What No One Tells You About Female Founders in AI</div><div class="draft-m">Video Essay · Ready to publish</div></div><span class="ds ds-draft">Draft</span></div>
+            </div>
+            <div class="d-card">
+              <div class="d-card-hd"><div class="d-card-title">⚡ Activity</div></div>
+              <div class="act-row"><div class="act-dot"></div><div><div class="act-txt">Issue #42 sent to 15,241 subscribers</div><div class="act-time">2 hours ago</div></div></div>
+              <div class="act-row"><div class="act-dot" style="background:var(--gold)"></div><div><div class="act-txt">New sponsorship inquiry from Bisk Education — $2,999/mo</div><div class="act-time">Yesterday</div></div></div>
+              <div class="act-row"><div class="act-dot" style="background:#22c55e"></div><div><div class="act-txt">389 readers joined the EA Toolkit interest list</div><div class="act-time">3 days ago</div></div></div>
+              <div class="act-row"><div class="act-dot" style="background:var(--teal)"></div><div><div class="act-txt">Podcast Ep. 41 reached 2,100 plays</div><div class="act-time">4 days ago</div></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="d-card" style="margin-bottom:14px;">
+              <div class="d-card-hd"><div class="d-card-title">📊 Issue #42 Stats</div></div>
+              <div class="qs-row"><div class="qs-l">📬 Opens</div><div class="qs-v">6,706 (44%)</div></div>
+              <div class="qs-row"><div class="qs-l">🔗 Click Rate</div><div class="qs-v">12.3%</div></div>
+              <div class="qs-row"><div class="qs-l">👋 Unsubs</div><div class="qs-v" style="color:var(--accent)">14</div></div>
+              <div class="qs-row"><div class="qs-l">🎙️ Podcast plays</div><div class="qs-v">1,840</div></div>
+              <div class="qs-row"><div class="qs-l">🎬 Video views</div><div class="qs-v">924</div></div>
+              <div class="qs-row"><div class="qs-l">💰 Ad Revenue (Apr)</div><div class="qs-v" style="color:#22c55e">$3,299</div></div>
+            </div>
+            <div class="d-card">
+              <div class="d-card-hd"><div class="d-card-title">💰 Sponsorships</div><button class="btn-pub ghost" style="padding:5px 12px;font-size:10px;" onclick="showView('sp')">Manage</button></div>
+              <div class="qs-row"><div class="qs-l">🏢 IntexiaU Corp</div><div class="qs-v" style="color:#22c55e">Active</div></div>
+              <div class="qs-row"><div class="qs-l">🎓 Bisk Education</div><div class="qs-v" style="color:var(--gold)">Inquiry</div></div>
+              <div class="qs-row"><div class="qs-l">🏛️ Florida DEO</div><div class="qs-v" style="color:#22c55e">Active</div></div>
+              <div class="qs-row"><div class="qs-l">💵 Total/mo</div><div class="qs-v">$4,998</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDITOR PANEL -->
+      <div id="pub-editor" style="display:none;">
+        <div class="pub-topbar">
+          <div class="pub-title">Create New Issue</div>
+          <div class="pub-acts">
+            <button class="btn-pub ghost" onclick="toast('Draft saved ✓')">Save Draft</button>
+            <button class="btn-pub ghost" onclick="showView('editorial')">👁 Preview</button>
+            <button class="btn-pub red" onclick="doPublish()">🚀 Publish & Send →</button>
+          </div>
+        </div>
+        <div style="margin-bottom:18px;">
+          <div style="font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;">Content Type</div>
+          <div class="fmt-row">
+            <button class="fmt-pill on" onclick="selFmt(this)">📰 Article</button>
+            <button class="fmt-pill" onclick="selFmt(this)">🎙️ Podcast</button>
+            <button class="fmt-pill" onclick="selFmt(this)">🎬 Video</button>
+            <button class="fmt-pill" onclick="selFmt(this)">📷 Photo Essay</button>
+            <button class="fmt-pill" onclick="selFmt(this)">📊 Data Brief</button>
+            <button class="fmt-pill" onclick="selFmt(this)">💬 Interview</button>
+          </div>
+        </div>
+        <!-- Inline headline suggestion strip -->
+        <div class="hed-strip" id="hed-strip">
+          <div class="hs-lbl">✦ AI Headline Suggestions</div>
+          <div class="hs-chips" id="hed-chips"></div>
+        </div>
+        <div class="toolbar">
+          <button class="tbb" title="Bold"><b>B</b></button>
+          <button class="tbb" title="Italic"><i>I</i></button>
+          <button class="tbb" title="Underline"><u>U</u></button>
+          <div class="tb-sep"></div>
+          <button class="tbb" style="font-size:11px" title="H1">H1</button>
+          <button class="tbb" style="font-size:11px" title="H2">H2</button>
+          <button class="tbb" title="Pull Quote">❝</button>
+          <button class="tbb" title="Bullet">•</button>
+          <div class="tb-sep"></div>
+          <button class="tb-ins" onclick="insBlk('image')">🖼 Image</button>
+          <button class="tb-ins" onclick="insBlk('video')">▶ Video</button>
+          <button class="tb-ins" onclick="insBlk('audio')">🎵 Audio</button>
+          <button class="tb-ins" onclick="insBlk('ad')">💰 Ad</button>
+          <button class="tb-ins" onclick="insBlk('cta')">📧 Subscribe CTA</button>
+          <button class="tb-ins" onclick="insBlk('quote')">❝ Pull Quote</button>
+          <div class="tb-sep"></div>
+          <button class="tb-ins" onclick="toggleAI()" style="border-color:rgba(196,30,58,0.4);color:var(--accent);">✦ AI Assist</button>
+        </div>
+        <input class="f-kicker" id="f-kicker" placeholder="SECTION · CATEGORY">
+        <textarea class="f-hed" id="f-hed" placeholder="Your headline goes here..." rows="2" oninput="ar(this);updateWC();onHedChange()"></textarea>
+        <textarea class="f-dek" id="f-dek" placeholder="Subheadline or deck (optional)..." rows="2" oninput="ar(this)"></textarea>
+        <textarea class="f-body" id="f-body" placeholder="Start writing your story here...&#10;&#10;Use the Insert buttons above to add images, videos, audio embeds, ad placements, and subscribe CTAs.&#10;&#10;Hit ✦ AI Assist for headline suggestions, social captions, and text polish." oninput="ar(this);updateWC()"></textarea>
+        <div id="blks"></div>
+      </div>
+    </div>
+
+    <!-- Distribution Panel -->
+    <div class="dist-panel">
+      <div class="dist-sec">
+        <div class="sub-kpi">
+          <div class="sub-kpi-item"><div class="sub-kpi-n">15,241</div><div class="sub-kpi-l">Subscribers</div></div>
+          <div class="sub-kpi-item"><div class="sub-kpi-n">44%</div><div class="sub-kpi-l">Avg Open</div></div>
+        </div>
+      </div>
+      <div class="dist-sec">
+        <div class="dist-lbl">Email Distribution</div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">📧</span><div><div class="dist-nm">All Subscribers</div><div class="dist-ct">15,241 readers</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🎯</span><div><div class="dist-nm">Segment by Interest</div><div class="dist-ct">Filter by topic</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+      </div>
+      <div class="dist-sec">
+        <div class="dist-lbl">Social Media</div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">💼</span><div><div class="dist-nm">LinkedIn</div><div class="dist-ct">Auto-post</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">𝕏</span><div><div class="dist-nm">X / Twitter</div><div class="dist-ct">Auto-thread</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">📷</span><div><div class="dist-nm">Instagram</div><div class="dist-ct">Story card</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🎵</span><div><div class="dist-nm">TikTok</div><div class="dist-ct">Clip</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🌐</span><div><div class="dist-nm">Website</div><div class="dist-ct">brvenikbrief.com</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+      </div>
+      <div class="dist-sec">
+        <div class="dist-lbl">Schedule</div>
+        <div class="sched-box">
+          <div class="sched-opts">
+            <div class="sched-opt on" onclick="pickSched(this,'now')">Now</div>
+            <div class="sched-opt" onclick="pickSched(this,'later')">Later</div>
+            <div class="sched-opt" onclick="pickSched(this,'draft')">Draft</div>
+          </div>
+          <input type="datetime-local" class="sched-dt" id="sdt" style="display:none">
+        </div>
+      </div>
+      <div class="dist-sec">
+        <div class="dist-lbl">Monetization</div>
+        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🏷️</span><div><div class="dist-nm">Sponsored Content</div><div class="dist-ct">Discloses to readers</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+      </div>
+      <div class="pub-wrap">
+        <button class="pub-big-btn" onclick="doPublish()">🚀 Publish & Send</button>
+        <div style="display:flex;gap:7px;margin-top:7px;">
+          <button class="btn-pub ghost" style="flex:1;justify-content:center;" onclick="toast('Draft saved ✓')">Save Draft</button>
+          <button class="btn-pub ghost" style="flex:1;justify-content:center;" onclick="showView('editorial')">Preview</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUBSCRIBERS VIEW ===== -->
+<div class="view" id="view-sub">
+  <div class="pg-wrap">
+    <div class="pg-topbar">
+      <div><div class="pg-title">Subscriber Dashboard</div><div class="pg-sub">The Brvenik Brief · April 2026</div></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-pub ghost" onclick="toast('Exporting subscriber list...')">Export CSV</button>
+        <button class="btn-pub red" onclick="toast('Email composer opening...')">📧 Send Email</button>
+      </div>
+    </div>
+    <div class="kpi-dark">
+      <div class="kd"><div class="kd-lbl">Total Subscribers</div><div class="kd-n">15,241</div><div class="kd-tr up">↑ +847 this month</div></div>
+      <div class="kd"><div class="kd-lbl">Avg Open Rate</div><div class="kd-n">44%</div><div class="kd-tr up">↑ 2× industry avg</div></div>
+      <div class="kd"><div class="kd-lbl">Add-On Interest</div><div class="kd-n">948</div><div class="kd-tr up">↑ across 3 products</div></div>
+      <div class="kd"><div class="kd-lbl">Monthly Ad Revenue</div><div class="kd-n">$8.2K</div><div class="kd-tr up">↑ Sponsors + Ads</div></div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>Subscriber</th><th>Email</th><th>Tier</th><th>Joined</th><th>Open Rate</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>Andrea Brvenik</td><td>andrea@intexiau.com</td><td><span class="tier tier-sub">Subscriber</span></td><td>Jan 2023</td><td>100%</td><td>Florida</td></tr>
+          <tr><td>Chris Bibbo</td><td>chris@intexiau.com</td><td><span class="tier tier-sub">Subscriber</span></td><td>Mar 2023</td><td>98%</td><td>Florida</td></tr>
+          <tr><td>Rick Inatome</td><td>rick@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Jun 2024</td><td>72%</td><td>Michigan</td></tr>
+          <tr><td>Sarah K.</td><td>sarah.k@email.com</td><td><span class="tier tier-free">Free</span></td><td>Feb 2025</td><td>38%</td><td>New York</td></tr>
+          <tr><td>Marcus T.</td><td>marcus@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Sep 2024</td><td>61%</td><td>Georgia</td></tr>
+          <tr><td>Priya M.</td><td>priya.m@—</td><td><span class="tier tier-free">Free</span></td><td>Jan 2026</td><td>44%</td><td>California</td></tr>
+          <tr><td>James O.</td><td>j.owen@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Apr 2025</td><td>55%</td><td>Texas</td></tr>
+          <tr><td>Denise W.</td><td>d.white@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Oct 2023</td><td>89%</td><td>Florida</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SPONSORSHIPS VIEW ===== -->
+<div class="view" id="view-sp">
+  <div class="pg-wrap">
+    <div class="pg-topbar">
+      <div><div class="pg-title">Advertise in The Brvenik Brief</div><div class="pg-sub">Reach 15,000+ entrepreneurs, founders, and economic authors. Paid placements and content partnerships.</div></div>
+      <button class="btn-pub ghost" onclick="toast('Media kit downloading...')">Download Media Kit</button>
+    </div>
+    <div class="sp-tiers">
+      <div class="sp-card">
+        <div class="sp-tier">Supporter</div>
+        <div class="sp-price">$299</div>
+        <div class="sp-per">per issue</div>
+        <ul class="sp-feats">
+          <li>Logo in footer of 1 issue</li>
+          <li>1 text ad in email</li>
+          <li>Social mention (1 platform)</li>
+          <li>~15K reader impressions</li>
+        </ul>
+        <button class="sp-btn" onclick="toast('Redirecting to checkout...')">Get Started</button>
+      </div>
+      <div class="sp-card feat">
+        <div class="sp-tier">⭐ Featured Partner</div>
+        <div class="sp-price">$999</div>
+        <div class="sp-per">per issue</div>
+        <ul class="sp-feats">
+          <li>Full in-article ad unit</li>
+          <li>Sponsored article option</li>
+          <li>4 social mentions</li>
+          <li>Podcast mid-roll mention</li>
+          <li>60-day archive placement</li>
+          <li>~60K total impressions</li>
+        </ul>
+        <button class="sp-btn" onclick="toast('Connecting you with our team...')">Become a Partner</button>
+      </div>
+      <div class="sp-card">
+        <div class="sp-tier">Presenting Sponsor</div>
+        <div class="sp-price">$2,999</div>
+        <div class="sp-per">per month</div>
+        <ul class="sp-feats">
+          <li>Exclusive monthly sponsorship</li>
+          <li>Masthead brand placement</li>
+          <li>4 sponsored articles</li>
+          <li>Podcast episode sponsor</li>
+          <li>Video pre-roll</li>
+          <li>Newsletter naming rights</li>
+          <li>Custom content partnership</li>
+        </ul>
+        <button class="sp-btn" onclick="toast('Connecting you with Andrea...')">Inquire Now</button>
+      </div>
+    </div>
+    <div class="sp-form">
+      <div class="sf-title">Custom Sponsorship Inquiry</div>
+      <div class="sf-sub">Tell us about your brand and goals. We'll design a custom package that serves your audience within ours.</div>
+      <div class="sf-row">
+        <div class="sf-g"><label class="sf-lbl">Company Name</label><input class="sf-inp" placeholder="Your company"></div>
+        <div class="sf-g"><label class="sf-lbl">Contact Name</label><input class="sf-inp" placeholder="Your name"></div>
+      </div>
+      <div class="sf-row">
+        <div class="sf-g"><label class="sf-lbl">Email</label><input type="email" class="sf-inp" placeholder="email@company.com"></div>
+        <div class="sf-g"><label class="sf-lbl">Monthly Budget</label><select class="sf-sel"><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
+      </div>
+      <div class="sf-row">
+        <div class="sf-g"><label class="sf-lbl">Interest</label><select class="sf-sel"><option>Email Newsletter</option><option>Podcast Sponsorship</option><option>Sponsored Article</option><option>Video Pre-Roll</option><option>Full Partnership</option></select></div>
+        <div class="sf-g"><label class="sf-lbl">Target Audience</label><input class="sf-inp" placeholder="Who are you trying to reach?"></div>
+      </div>
+      <div class="sf-g"><label class="sf-lbl">Message</label><textarea class="sf-ta" placeholder="Tell us about your brand and what you'd like readers to know..."></textarea></div>
+      <button class="btn-pub red" style="width:100%;padding:13px;justify-content:center;" onclick="toast('✓ Sponsorship inquiry submitted! Andrea will be in touch within 24 hours.')">Submit Sponsorship Inquiry →</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI TRIGGER BUTTON -->
+<button class="ai-trig" id="ai-trig" onclick="toggleAI()">✦</button>
+
+<!-- AI ASSISTANT PANEL -->
+<div class="ai-panel" id="ai-panel">
+  <div class="ai-ph">
+    <div class="ai-ph-title"><div class="ai-gem">✦</div> AI Writing Assistant</div>
+    <button class="ai-close" onclick="toggleAI()">✕</button>
+  </div>
+  <div class="ai-tabs">
+    <div class="ai-tab on" onclick="swAITab(this,'headlines')">Headlines</div>
+    <div class="ai-tab" onclick="swAITab(this,'social')">Social</div>
+    <div class="ai-tab" onclick="swAITab(this,'polish')">Polish</div>
+  </div>
+  <div class="ai-body">
+    <!-- HEADLINES -->
+    <div id="aip-headlines">
+      <div class="ai-sec">
+        <div class="ai-sec-lbl">✦ Headline Suggestions</div>
+        <p style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Describe your article or paste a summary. AI generates 5 styles.</p>
+        <textarea class="ai-ctx" id="hed-ctx" placeholder="What's this article about?..." rows="3"></textarea>
+        <button class="ai-gen-btn" id="hed-btn" onclick="generateHeadlines()">
+          <span id="hed-btxt">✦ Generate Headlines</span>
+          <span id="hed-spin" style="display:none" class="ai-spin"></span>
+        </button>
+        <div id="hed-results"></div>
+      </div>
+    </div>
+    <!-- SOCIAL -->
+    <div id="aip-social" style="display:none;">
+      <div class="ai-sec">
+        <div class="ai-sec-lbl">📱 Social Media Captions</div>
+        <p style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Paste your headline and key points. AI writes platform-specific captions in Andrea's voice.</p>
+        <textarea class="ai-ctx" id="soc-ctx" placeholder="Article headline and key points..." rows="3"></textarea>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;">
+          <label style="font-size:11px;color:var(--tmid);display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="chk-li" checked style="accent-color:var(--accent)"> LinkedIn</label>
+          <label style="font-size:11px;color:var(--tmid);display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="chk-x" checked style="accent-color:var(--accent)"> X/Twitter</label>
+          <label style="font-size:11px;color:var(--tmid);display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="chk-ig" checked style="accent-color:var(--accent)"> Instagram</label>
+          <label style="font-size:11px;color:var(--tmid);display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="chk-tt" style="accent-color:var(--accent)"> TikTok</label>
+        </div>
+        <button class="ai-gen-btn" id="soc-btn" onclick="generateCaptions()">
+          <span id="soc-btxt">✦ Generate Captions</span>
+          <span id="soc-spin" style="display:none" class="ai-spin"></span>
+        </button>
+        <div id="soc-results"></div>
+      </div>
+    </div>
+    <!-- POLISH -->
+    <div id="aip-polish" style="display:none;">
+      <div class="ai-sec">
+        <div class="ai-sec-lbl">✨ Polish & Rewrite</div>
+        <p style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Paste text and choose a style. AI rewrites in Andrea's editorial voice.</p>
+        <textarea class="ai-ctx" id="pol-input" placeholder="Paste text to polish..." rows="5"></textarea>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+          <button class="ai-gen-btn" style="margin-bottom:0;font-size:10px;" onclick="polishText('sharpen')"><span>⚡ Sharpen</span></button>
+          <button class="ai-gen-btn" style="margin-bottom:0;font-size:10px;" onclick="polishText('simplify')"><span>✂️ Simplify</span></button>
+          <button class="ai-gen-btn" style="margin-bottom:0;font-size:10px;" onclick="polishText('expand')"><span>📝 Expand</span></button>
+          <button class="ai-gen-btn" style="margin-bottom:0;font-size:10px;" onclick="polishText('tone')"><span>🎯 Brvenik Tone</span></button>
+        </div>
+        <div id="pol-results"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast-el"></div>
+
+<script>
+// ========== INIT ==========
+const now = new Date();
+document.getElementById('mh-date').textContent = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+const ddEl = document.getElementById('dash-date');
+if(ddEl) ddEl.textContent = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// ========== VIEW SWITCHING ==========
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('view-'+id)?.classList.add('on');
+  document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('on'));
+  const trig = document.getElementById('ai-trig');
+  if(trig) trig.classList.toggle('show', id==='publish');
+  if(id!=='publish' && aiOpen) toggleAI();
+  window.scrollTo(0,0);
+}
+
+function showNav(navEl, viewId) {
+  document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('on'));
+  if(navEl) navEl.classList.add('on');
+  showView(viewId);
+}
+
+function swLay(btn, id) {
+  btn.closest('.lay-btns').querySelectorAll('.lay-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('lay-mag').style.display = id==='mag'?'block':'none';
+  document.getElementById('lay-paper').style.display = id==='paper'?'block':'none';
+}
+
+function swMediaTab(tab, panelId) {
+  tab.closest('.media-tabs').querySelectorAll('.mt-item').forEach(t=>t.classList.remove('on'));
+  tab.classList.add('on');
+  document.querySelectorAll('.media-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('mp-'+panelId)?.classList.add('on');
+}
+
+function openMedia(type) {
+  const map = {video:'videos', podcast:'podcasts'};
+  const tabs = document.querySelectorAll('.mt-item');
+  tabs.forEach(t=>t.classList.remove('on'));
+  if(type==='video' && tabs[1]) tabs[1].classList.add('on');
+  else if(tabs[0]) tabs[0].classList.add('on');
+  document.querySelectorAll('.media-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('mp-'+(map[type]||'podcasts'))?.classList.add('on');
+}
+
+// ========== PUBLISHER PANELS ==========
+function showPub(panel, navEl) {
+  document.querySelectorAll('.pub-item').forEach(i=>i.classList.remove('on'));
+  if(navEl) navEl.classList.add('on');
+  document.getElementById('pub-dashboard').style.display = panel==='dashboard'?'block':'none';
+  document.getElementById('pub-editor').style.display = panel==='editor'?'block':'none';
+  const trig = document.getElementById('ai-trig');
+  if(trig) trig.classList.toggle('show', panel==='editor');
+  if(panel!=='editor' && aiOpen) toggleAI();
+}
+
+function selFmt(el) {
+  el.closest('.fmt-row').querySelectorAll('.fmt-pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function insBlk(type) {
+  const area = document.getElementById('blks');
+  let html = '';
+  if(type==='image') html=`<div class="content-blk"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">🖼️ Image Block</div><div style="text-align:center;padding:18px;font-size:28px;color:var(--dim);">🖼 Click to upload image</div></div>`;
+  else if(type==='video') html=`<div class="content-blk"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">🎬 Video Embed</div><input style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border-dark);color:var(--bright);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;" placeholder="Paste YouTube, Vimeo, or video URL..."></div>`;
+  else if(type==='audio') html=`<div class="content-blk"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">🎵 Audio / Podcast Embed</div><input style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border-dark);color:var(--bright);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;" placeholder="Paste Spotify, Apple Podcasts, or audio URL..."></div>`;
+  else if(type==='ad') html=`<div class="ad-blk"><div class="ad-blk-lbl">💰 Sponsored Ad Placement</div><input class="ad-inp" placeholder="Sponsor name..."><input class="ad-inp" placeholder="Ad copy / headline..."><input class="ad-inp" placeholder="Call-to-action URL..."><button onclick="this.parentElement.remove()" style="font-size:10px;background:none;border:none;color:rgba(184,149,42,0.5);cursor:pointer;margin-top:3px;">Remove</button></div>`;
+  else if(type==='cta') html=`<div class="content-blk" style="background:var(--bg);border-color:var(--bg);"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl" style="color:var(--gold);">📧 Subscribe CTA Block</div><div style="font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--bright);">Subscribe to The Brvenik Brief — free, always →</div></div>`;
+  else if(type==='quote') html=`<div class="content-blk" style="border-left:3px solid var(--accent);background:transparent;"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">❝ Pull Quote</div><textarea style="width:100%;background:transparent;border:none;font-family:'Source Serif 4',serif;font-size:17px;font-style:italic;color:var(--bright);outline:none;resize:none;" placeholder="Enter your pull quote..." rows="2"></textarea></div>`;
+  if(html) area.insertAdjacentHTML('beforeend',html);
+}
+
+function pickSched(btn,mode) {
+  btn.parentElement.querySelectorAll('.sched-opt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('sdt').style.display = mode==='later'?'block':'none';
+}
+
+function ar(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
+function updateWC(){const b=document.getElementById('f-body')?.value||'';document.querySelector('#pub-editor .ed-wc')&&(document.querySelector('#pub-editor .ed-wc').textContent='Words: '+(b.trim()?b.trim().split(/\s+/).length:0));}
+
+function doPublish(){
+  toast('🚀 Publishing to 15,241 subscribers across email & social media...');
+  setTimeout(()=>toast('✓ Issue published! Check your analytics in a few minutes.'),2600);
+}
+
+// ========== ADD-ONS WAITLIST ==========
+const wlCounts = [247,389,312];
+function joinWaitlist(name) {
+  const idx = name.includes('Legislative')?0:name.includes('Toolkit')?1:2;
+  wlCounts[idx]++;
+  document.getElementById('wl-count-'+idx).textContent = wlCounts[idx]+' readers interested';
+  toast('✓ Added to the '+name+' interest list! We\'ll notify you at launch.');
+}
+
+// ========== AI PANEL ==========
+let aiOpen = false;
+
+function toggleAI(){
+  aiOpen = !aiOpen;
+  document.getElementById('ai-panel').classList.toggle('open',aiOpen);
+}
+
+function swAITab(tab,id){
+  tab.closest('.ai-tabs').querySelectorAll('.ai-tab').forEach(t=>t.classList.remove('on'));
+  tab.classList.add('on');
+  ['headlines','social','polish'].forEach(p=>{
+    const el=document.getElementById('aip-'+p);
+    if(el) el.style.display = p===id?'block':'none';
+  });
+}
+
+// Inline headline suggestion strip
+let hedTimer = null;
+function onHedChange(){
+  clearTimeout(hedTimer);
+  const val = document.getElementById('f-hed')?.value.trim()||'';
+  if(val.length < 10){ document.getElementById('hed-strip').classList.remove('show'); return; }
+  hedTimer = setTimeout(()=>quickHedSuggestions(val), 2000);
+}
+
+async function quickHedSuggestions(text){
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:250,
+        messages:[{role:'user',content:`You edit headlines for The Brvenik Brief, a premium newsletter by Andrea Brvenik about economic authorship, business, and workforce. Given this draft headline: "${text}" — suggest 3 alternative, more compelling headlines. Return ONLY a JSON array of 3 strings, no markdown, no preamble. Max 12 words each.`}]})
+    });
+    const data = await res.json();
+    const suggestions = JSON.parse((data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim());
+    if(Array.isArray(suggestions)&&suggestions.length){
+      document.getElementById('hed-chips').innerHTML = suggestions.map(s=>`<div class="hs-chip" onclick="useHed(this)">${s}</div>`).join('');
+      document.getElementById('hed-strip').classList.add('show');
+    }
+  }catch(e){}
+}
+
+function useHed(chip){
+  const el=document.getElementById('f-hed');
+  el.value=chip.textContent; ar(el);
+  document.getElementById('hed-strip').classList.remove('show');
+  toast('✓ Headline applied');
+}
+
+// Full headline generator
+async function generateHeadlines(){
+  const ctx=document.getElementById('hed-ctx').value.trim();
+  if(!ctx){toast('Add a topic or summary first');return;}
+  const btn=document.getElementById('hed-btn'),btxt=document.getElementById('hed-btxt'),spin=document.getElementById('hed-spin'),results=document.getElementById('hed-results');
+  btn.disabled=true;btxt.textContent='Generating...';spin.style.display='inline-block';
+  results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Writing headlines...</div>';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,
+        messages:[{role:'user',content:`You're a world-class headline editor for The Brvenik Brief — a premium newsletter by Andrea Brvenik about economic authorship, business strategy, AI/workforce, and personal leadership. Audience: entrepreneurs, founders, career-changers, business professionals.\n\nContent: "${ctx}"\n\nWrite exactly 5 headline options:\n1. Bold/declarative\n2. Question/curiosity\n3. Data-driven/specific\n4. Emotional/personal identity\n5. Practical/how-to\n\nReturn ONLY a JSON array of 5 objects: {text, style (bold|question|data|emotional|listicle)}. No markdown, no preamble.`}]})});
+    const data=await res.json();
+    const headlines=JSON.parse((data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim());
+    const styleMap={bold:['Bold','tag-b'],question:['Question','tag-q'],data:['Data-driven','tag-d'],emotional:['Personal','tag-e'],listicle:['Practical','tag-l']};
+    results.innerHTML=headlines.map(h=>{
+      const [lbl,cls]=styleMap[h.style]||['Headline','tag-b'];
+      return `<div class="ai-res-card" onclick="applyHed('${h.text.replace(/'/g,"\\'")}')"><button class="ai-use" title="Use">✓</button><div class="ai-res-text">${h.text}</div><div class="ai-res-meta"><span class="ai-tag ${cls}">${lbl}</span><span>${h.text.split(' ').length}w</span></div></div>`;
+    }).join('');
+  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong. Try again.</div>';}
+  btn.disabled=false;btxt.textContent='✦ Regenerate Headlines';spin.style.display='none';
+}
+
+function applyHed(text){const el=document.getElementById('f-hed');if(el){el.value=text;ar(el);}toast('✓ Headline applied to article');}
+
+// Social caption generator
+async function generateCaptions(){
+  const ctx=document.getElementById('soc-ctx').value.trim();
+  if(!ctx){toast('Add your article content first');return;}
+  const platforms=[];
+  if(document.getElementById('chk-li').checked) platforms.push('LinkedIn');
+  if(document.getElementById('chk-x').checked) platforms.push('X/Twitter');
+  if(document.getElementById('chk-ig').checked) platforms.push('Instagram');
+  if(document.getElementById('chk-tt').checked) platforms.push('TikTok');
+  if(!platforms.length){toast('Select at least one platform');return;}
+  const btn=document.getElementById('soc-btn'),btxt=document.getElementById('soc-btxt'),spin=document.getElementById('soc-spin'),results=document.getElementById('soc-results');
+  btn.disabled=true;btxt.textContent='Writing captions...';spin.style.display='inline-block';
+  results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Crafting platform captions...</div>';
+  const tones={LinkedIn:'professional, thought-leader tone, 2-3 hashtags, end with a question',
+    'X/Twitter':'punchy, under 260 chars, max 1 hashtag',
+    Instagram:'warm, personal, line breaks, 5-7 hashtags at end',
+    TikTok:'casual, hook in first 5 words, 1-2 hashtags'};
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        messages:[{role:'user',content:`You write social media content for Andrea Brvenik and The Brvenik Brief. Andrea's voice: direct, intellectually confident, warm but not fluffy, entrepreneurial, grounded in lived experience as a founder and attorney.\n\nContent: "${ctx}"\n\nWrite captions for: ${platforms.join(', ')}.\n\nTones:\n${platforms.map(p=>`- ${p}: ${tones[p]||'professional and engaging'}`).join('\n')}\n\nReturn ONLY a JSON array of {platform, caption}. No markdown.`}]})});
+    const data=await res.json();
+    const caps=JSON.parse((data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim());
+    const icons={LinkedIn:'💼','X/Twitter':'𝕏',Instagram:'📷',TikTok:'🎵'};
+    const limits={LinkedIn:3000,'X/Twitter':280,Instagram:2200,TikTok:150};
+    results.innerHTML=caps.map(c=>`<div class="cap-card"><div class="cap-hd"><span class="cap-pico">${icons[c.platform]||'📱'}</span><span class="cap-pname">${c.platform}</span><span class="cap-chars">${c.caption.length}/${limits[c.platform]||500}</span></div><div class="cap-body"><div class="cap-txt" id="cap-${c.platform.replace(/[^a-z]/gi,'')}">${c.caption}</div><div class="cap-acts"><button class="cap-btn cap-copy" onclick="copyCap('${c.platform.replace(/[^a-z]/gi,'')}')">Copy</button><button class="cap-btn cap-post" onclick="toast('Opening ${c.platform}...')">Post Now</button></div></div></div>`).join('');
+  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong. Try again.</div>';}
+  btn.disabled=false;btxt.textContent='✦ Regenerate Captions';spin.style.display='none';
+}
+
+function copyCap(id){const el=document.getElementById('cap-'+id);if(el)navigator.clipboard.writeText(el.textContent).then(()=>toast('✓ Caption copied')).catch(()=>toast('Select and copy manually'));}
+
+// Polish / rewrite
+async function polishText(mode){
+  const input=document.getElementById('pol-input').value.trim();
+  if(!input){toast('Paste text to polish first');return;}
+  const results=document.getElementById('pol-results');
+  results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Polishing...</div>';
+  const prompts={
+    sharpen:'Make this sharper, more direct, and impactful. Cut unnecessary words. Every sentence must earn its place.',
+    simplify:'Simplify this text. Clearer, easier to read, ~8th grade level without losing substance.',
+    expand:'Expand with more depth, examples, and color. Keep Andrea Brvenik\'s authoritative but personal voice.',
+    tone:'Rewrite in Andrea Brvenik\'s voice: direct, intellectually confident, entrepreneurial, grounded in lived experience as a founder and attorney. Warm but not fluffy.'
+  };
+  const labels={sharpen:'Sharpened',simplify:'Simplified',expand:'Expanded',tone:'Brvenik Tone'};
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,
+        messages:[{role:'user',content:`You are an editor for The Brvenik Brief. ${prompts[mode]}\n\nText:\n"${input}"\n\nReturn ONLY the rewritten text. No preamble, no explanation.`}]})});
+    const data=await res.json();
+    const rewritten=data.content?.[0]?.text||'';
+    results.innerHTML=`<div class="pol-out"><div class="pol-tag">${labels[mode]}</div><div class="pol-txt" id="pol-out">${rewritten}</div><div class="pol-acts"><button class="cap-btn cap-copy" onclick="navigator.clipboard.writeText(document.getElementById('pol-out').textContent).then(()=>toast('✓ Copied!'))">Copy</button><button class="cap-btn cap-post" onclick="const b=document.getElementById('f-body');if(b){b.value+='\\n\\n'+document.getElementById('pol-out').textContent;ar(b);}toast('✓ Added to article')">Add to Article</button></div></div>`;
+  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong. Try again.</div>';}
+}
+
+// ========== TOAST ==========
+function toast(msg){
+  const t=document.getElementById('toast-el');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3600);
+}
+</script>
 </body>
 </html>
