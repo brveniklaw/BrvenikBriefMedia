@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Brvenik Brief</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════ NAVIGATION ═══════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-mark">BB</span>
+        <span class="nav__logo-text">The Brvenik Brief</span>
+      </a>
+      <div class="nav__links" id="navLinks">
+        <a href="#featured">Featured</a>
+        <a href="#pillars">Pillars</a>
+        <a href="#archive">Archive</a>
+        <a href="#about">About</a>
+        <a href="#subscribe" class="nav__cta">Subscribe</a>
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <header class="hero" id="hero">
+    <div class="hero__bg-grid"></div>
+    <div class="hero__content">
+      <p class="hero__edition reveal">Issue No. 47 &mdash; April 2026</p>
+      <h1 class="hero__title reveal">
+        <span class="hero__title-line">The Brvenik</span>
+        <span class="hero__title-line hero__title-line--accent">Brief</span>
+      </h1>
+      <p class="hero__tagline reveal">
+        Where <em>Economic Authorship</em> meets the future of education, workforce intelligence, and entrepreneurial sovereignty.
+      </p>
+      <div class="hero__actions reveal">
+        <a href="#subscribe" class="btn btn--primary">Subscribe Free</a>
+        <a href="#featured" class="btn btn--outline">Read Latest</a>
+      </div>
+      <div class="hero__stats reveal">
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="12000">0</span>
+          <span class="hero__stat-label">Subscribers</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="47">0</span>
+          <span class="hero__stat-label">Issues Published</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-count="5">0</span>
+          <span class="hero__stat-label">Core Pillars</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll-cue">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ FEATURED ═══════════════ -->
+  <section class="featured" id="featured">
+    <div class="container">
+      <div class="section-label reveal">Featured Story</div>
+
+      <article class="featured__card reveal">
+        <div class="featured__meta">
+          <span class="featured__tag">Economic Authorship</span>
+          <time>April 18, 2026</time>
+        </div>
+        <h2 class="featured__title">
+          Why the Next Economy Won't Be Built by Employees&mdash;It'll Be Built by Authors
+        </h2>
+        <p class="featured__excerpt">
+          The traditional employment model is fracturing. In its place, a new paradigm is emerging&mdash;one where individuals don't just participate in the economy, they <em>write</em> it. This issue explores the shift from economic participation to Economic Authorship, and why institutions must evolve or become irrelevant.
+        </p>
+        <a href="#" class="featured__read-more">
+          Read Full Brief
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PILLARS ═══════════════ -->
+  <section class="pillars" id="pillars">
+    <div class="container">
+      <div class="section-label reveal">Core Pillars</div>
+      <h2 class="section-heading reveal">Five lenses. One framework.</h2>
+      <p class="section-subheading reveal">Each issue of The Brvenik Brief examines the world through the Economic Authorship framework across five interconnected domains.</p>
+
+      <div class="pillars__grid">
+        <article class="pillar-card reveal" data-pillar="1">
+          <div class="pillar-card__number">01</div>
+          <h3 class="pillar-card__title">Education Reimagined</h3>
+          <p class="pillar-card__desc">Breaking the degree-or-debt binary. Building pathways that create authors, not just graduates.</p>
+          <div class="pillar-card__line"></div>
+        </article>
+
+        <article class="pillar-card reveal" data-pillar="2">
+          <div class="pillar-card__number">02</div>
+          <h3 class="pillar-card__title">Workforce Intelligence</h3>
+          <p class="pillar-card__desc">AI-native hiring, agentic talent search, and the death of the résumé as we know it.</p>
+          <div class="pillar-card__line"></div>
+        </article>
+
+        <article class="pillar-card reveal" data-pillar="3">
+          <div class="pillar-card__number">03</div>
+          <h3 class="pillar-card__title">Entrepreneurial Sovereignty</h3>
+          <p class="pillar-card__desc">From side hustle to sovereign business. Building enterprises that you own, not rent.</p>
+          <div class="pillar-card__line"></div>
+        </article>
+
+        <article class="pillar-card reveal" data-pillar="4">
+          <div class="pillar-card__number">04</div>
+          <h3 class="pillar-card__title">Policy & Systems</h3>
+          <p class="pillar-card__desc">The regulatory, institutional, and structural forces shaping who gets to author their economy.</p>
+          <div class="pillar-card__line"></div>
+        </article>
+
+        <article class="pillar-card reveal" data-pillar="5">
+          <div class="pillar-card__number">05</div>
+          <h3 class="pillar-card__title">AI &amp; Human Capital</h3>
+          <p class="pillar-card__desc">Where artificial intelligence amplifies human potential&mdash;and where it threatens to replace it.</p>
+          <div class="pillar-card__line"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ARCHIVE ═══════════════ -->
+  <section class="archive" id="archive">
+    <div class="container">
+      <div class="section-label reveal">Recent Issues</div>
+      <h2 class="section-heading reveal">From the Archive</h2>
+
+      <div class="archive__list">
+        <a href="#" class="archive__item reveal">
+          <span class="archive__issue">No. 46</span>
+          <span class="archive__item-title">The Agent Economy: When AI Applies for Your Job</span>
+          <span class="archive__date">Apr 4, 2026</span>
+          <span class="archive__arrow">&rarr;</span>
+        </a>
+        <a href="#" class="archive__item reveal">
+          <span class="archive__issue">No. 45</span>
+          <span class="archive__item-title">Accreditation Is Broken. Here's What Replaces It.</span>
+          <span class="archive__date">Mar 21, 2026</span>
+          <span class="archive__arrow">&rarr;</span>
+        </a>
+        <a href="#" class="archive__item reveal">
+          <span class="archive__issue">No. 44</span>
+          <span class="archive__item-title">Launch Your Business in 4 Hours: The EAI Workshop Model</span>
+          <span class="archive__date">Mar 7, 2026</span>
+          <span class="archive__arrow">&rarr;</span>
+        </a>
+        <a href="#" class="archive__item reveal">
+          <span class="archive__issue">No. 43</span>
+          <span class="archive__item-title">From OPM to OPE: The Online Program Evolution</span>
+          <span class="archive__date">Feb 21, 2026</span>
+          <span class="archive__arrow">&rarr;</span>
+        </a>
+        <a href="#" class="archive__item reveal">
+          <span class="archive__issue">No. 42</span>
+          <span class="archive__item-title">The Platform of Everything: Architecture for the Next University</span>
+          <span class="archive__date">Feb 7, 2026</span>
+          <span class="archive__arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="archive__more reveal">
+        <a href="#" class="btn btn--outline">View Full Archive</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__text reveal">
+          <div class="section-label">About the Author</div>
+          <h2 class="section-heading">Andrea Brvenik</h2>
+          <p>Lawyer. Founder. Economic Author.</p>
+          <p>
+            Andrea is the Founder &amp; CEO of IntexiaU Corp, building an AI-native education and workforce platform from the ground up. The Brvenik Brief is her public-facing exploration of <em>Economic Authorship</em>&mdash;the framework that underpins everything from IntexiaU's platform architecture to a new vision for how people create, own, and scale economic value.
+          </p>
+          <div class="about__links">
+            <a href="https://intexiau.com" target="_blank" class="btn btn--small">IntexiaU</a>
+            <a href="#" class="btn btn--small btn--outline">LinkedIn</a>
+          </div>
+        </div>
+        <div class="about__visual reveal">
+          <div class="about__monogram">AB</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SUBSCRIBE ═══════════════ -->
+  <section class="subscribe" id="subscribe">
+    <div class="container">
+      <div class="subscribe__inner reveal">
+        <h2 class="subscribe__title">Don't miss the next issue.</h2>
+        <p class="subscribe__desc">Join thousands of founders, educators, and forward-thinkers who read The Brvenik Brief.</p>
+        <div class="subscribe__form" id="subscribeForm">
+          <input type="email" id="emailInput" class="subscribe__input" placeholder="your@email.com" required />
+          <button type="button" class="btn btn--primary subscribe__btn" id="subscribeBtn">Subscribe</button>
+        </div>
+        <p class="subscribe__note">Free. Biweekly. No spam. Unsubscribe anytime.</p>
+        <div class="subscribe__success" id="subscribeSuccess">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><path d="M9 14l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>You're in. Watch your inbox.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="nav__logo-mark">BB</span>
+          <span>&copy; 2026 The Brvenik Brief</span>
+        </div>
+        <div class="footer__links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="https://intexiau.com" target="_blank">IntexiaU</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
