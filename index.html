@@ -1501,8 +1501,8 @@ async function handleSubscribe() {
   const { error } = await sb
     .from('subscribers')
     .insert([{ email: email.toLowerCase(), name, source: 'brvenik_brief', region: 'Florida' }])
-  if (error && error.code === '23505') toast('You are already subscribed!')
-  else if (error) toast('Something went wrong. Try again.')
+ if (error && error.code === '23505') toast('You are already subscribed!')
+else if (error) { console.log('SUPABASE ERROR:', JSON.stringify(error)); toast('Something went wrong. Try again.') }
   else toast('✓ Welcome to The Brvenik Brief! Check your inbox.')
 }
 // ========== TOAST ==========
