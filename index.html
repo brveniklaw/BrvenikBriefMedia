@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Brvenik Brief — Editorial Platform</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Archivo:wght@300;400;500;600;700;900&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --ink:#1e1c18; --paper:#faf8f4; --cream:#f5f1e8; --warm:#ede8dc;
@@ -72,6 +73,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .mag-dek{font-size:16px;font-weight:300;color:var(--mid);line-height:1.7;margin-bottom:18px;max-width:560px;}
 .mag-by{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--muted);display:flex;gap:18px;align-items:center;margin-bottom:22px;}
 .mag-img{background:var(--warm);border:1px solid var(--rule);height:320px;display:flex;align-items:center;justify-content:center;font-size:76px;position:relative;overflow:hidden;}
+.mag-img img{width:100%;height:100%;object-fit:cover;}
 .img-cap{position:absolute;bottom:0;left:0;right:0;background:rgba(15,14,12,0.72);padding:7px 12px;font-family:'Archivo Narrow',sans-serif;font-size:10px;color:rgba(255,255,255,0.7);font-style:italic;}
 .mag-aside{border-left:1px solid var(--rule);padding-left:36px;}
 .aside-ttl{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);padding-bottom:9px;border-bottom:2px solid var(--accent);margin-bottom:14px;}
@@ -98,6 +100,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .art-card{cursor:pointer;}
 .art-card:hover .art-hed{color:var(--accent);}
 .art-img{width:100%;height:190px;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:12px;border:1px solid var(--rule);position:relative;overflow:hidden;}
+.art-img img{width:100%;height:100%;object-fit:cover;}
 .art-img.tall{height:300px;}
 .fmt-badge{position:absolute;top:9px;right:9px;font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:3px 8px;}
 .fb-pod{background:var(--teal);color:white;}
@@ -111,6 +114,10 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .art-dek{font-size:13px;font-weight:300;color:var(--mid);line-height:1.65;margin-bottom:8px;}
 .art-by{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--muted);display:flex;gap:14px;}
 .col-rule{border-left:1px solid var(--rule);padding-left:28px;}
+
+/* LOADING STATE */
+.loading-articles{text-align:center;padding:48px;color:var(--muted);font-family:'Archivo Narrow',sans-serif;font-size:13px;}
+.loading-spin{width:20px;height:20px;border:2px solid rgba(196,30,58,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 12px;}
 
 /* ========= NEWSPAPER LAYOUT ========= */
 #lay-paper{max-width:1280px;margin:0 auto;padding:28px 48px;display:none;}
@@ -154,7 +161,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .vid-kick{font-family:'Archivo Narrow',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:3px;}
 .vid-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--ink);line-height:1.3;}
 
-/* ========= SUBSCRIBE BAND (FREE) ========= */
+/* ========= SUBSCRIBE BAND ========= */
 .sub-band{background:#1a2035;border-top:3px double var(--rule);padding:52px 48px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
 .sb-title{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--bright);line-height:1.1;margin-bottom:10px;}
 .sb-title em{font-style:italic;color:var(--gold);}
@@ -162,7 +169,6 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .sb-proof{display:flex;gap:28px;}
 .sb-proof-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--bright);}
 .sb-proof-lbl{font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-top:2px;}
-.sub-form-wrap{}
 .sub-free-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(184,149,42,0.15);border:1px solid rgba(184,149,42,0.3);padding:5px 14px;margin-bottom:16px;}
 .sfb-text{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);}
 .ss-inp{width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border2);color:var(--bright);padding:12px 14px;font-family:'Source Serif 4',serif;font-size:13px;outline:none;margin-bottom:10px;transition:border-color 0.15s;}
@@ -172,7 +178,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .ss-btn:hover{background:#a01830;}
 .ss-fine{font-family:'Archivo Narrow',sans-serif;font-size:10px;color:var(--dim);text-align:center;margin-top:8px;}
 
-/* ========= ADD-ONS PREVIEW ========= */
+/* ========= ADD-ONS ========= */
 .addons-section{background:var(--warm);border-top:1px solid var(--rule);padding:56px 48px;}
 .ao-header{text-align:center;margin-bottom:40px;}
 .ao-eyebrow{font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:10px;}
@@ -238,6 +244,17 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .f-dek::placeholder{color:var(--rule);}
 .f-body{width:100%;font-family:'Source Serif 4',serif;font-size:15px;line-height:1.85;color:var(--ink);background:white;border:1px solid var(--rule);padding:18px 16px;outline:none;resize:vertical;min-height:300px;}
 .f-body::placeholder{color:var(--rule);}
+
+/* IMAGE UPLOAD */
+.img-upload-zone{border:2px dashed var(--rule);background:var(--cream);padding:28px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:12px;position:relative;}
+.img-upload-zone:hover{border-color:var(--accent);background:var(--accent-pale);}
+.img-upload-zone.dragover{border-color:var(--accent);background:var(--accent-pale);}
+.img-upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.img-upload-icon{font-size:28px;margin-bottom:8px;}
+.img-upload-txt{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--mid);}
+.img-preview{width:100%;max-height:200px;object-fit:cover;display:none;margin-bottom:8px;border:1px solid var(--rule);}
+.img-caption-inp{width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;}
+
 .content-blk{border:1px dashed var(--rule);padding:13px;margin:12px 0;background:var(--cream);position:relative;}
 .blk-lbl{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
 .blk-rm{position:absolute;top:8px;right:8px;width:17px;height:17px;background:var(--accent);color:white;border:none;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
@@ -245,6 +262,33 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .ad-blk-lbl{font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
 .ad-inp{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(184,149,42,0.4);color:var(--ink);font-family:'Archivo Narrow',sans-serif;font-size:12px;padding:5px 0;outline:none;margin-bottom:6px;}
 .ad-inp::placeholder{color:rgba(184,149,42,0.5);}
+
+/* WRITER LOGIN */
+.writer-login{max-width:440px;margin:60px auto;background:white;border:1px solid var(--rule);padding:40px;}
+.writer-login::before{content:'';display:block;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));margin:-40px -40px 32px;}
+.wl-icon{font-size:32px;margin-bottom:16px;text-align:center;}
+.wl-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:6px;text-align:center;}
+.wl-sub{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--mid);text-align:center;margin-bottom:28px;}
+.wl-label{font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
+.wl-inp{width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:11px 13px;font-family:'Archivo Narrow',sans-serif;font-size:14px;outline:none;transition:border-color 0.15s;margin-bottom:14px;}
+.wl-inp:focus{border-color:var(--accent);}
+.wl-btn{width:100%;padding:12px;background:var(--accent);color:white;border:none;font-family:'Archivo',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.wl-btn:hover{background:#a01830;}
+.wl-err{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--accent);text-align:center;margin-top:10px;min-height:16px;}
+.wl-role{display:inline-block;padding:3px 10px;font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:rgba(184,149,42,0.15);color:var(--gold);border:1px solid rgba(184,149,42,0.3);margin-bottom:20px;}
+
+/* APPROVAL QUEUE */
+.approval-card{background:white;border:1px solid var(--rule);margin-bottom:12px;overflow:hidden;}
+.approval-card-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--rule);background:var(--cream);}
+.approval-meta{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--muted);}
+.approval-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.approval-acts{display:flex;gap:7px;}
+.ap-btn{padding:6px 14px;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.15s;}
+.ap-approve{background:rgba(22,101,52,0.12);color:#166534;}
+.ap-approve:hover{background:#166534;color:white;}
+.ap-reject{background:var(--accent-pale);color:var(--accent);}
+.ap-reject:hover{background:var(--accent);color:white;}
+.ap-preview{background:var(--warm);color:var(--mid);border:1px solid var(--rule);}
 
 /* DISTRIBUTION PANEL */
 .dist-panel{background:var(--warm);border-left:1px solid var(--rule);padding:24px 18px;overflow-y:auto;}
@@ -267,7 +311,6 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .sched-opt{flex:1;padding:6px 3px;text-align:center;cursor:pointer;font-family:'Archivo Narrow',sans-serif;font-size:11px;font-weight:700;color:var(--mid);border:1px solid var(--rule);transition:all 0.15s;}
 .sched-opt:hover,.sched-opt.on{border-color:var(--accent);color:var(--accent);background:var(--accent-pale);}
 .sched-dt{width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:7px 9px;font-family:'Archivo Narrow',sans-serif;font-size:11px;outline:none;}
-.sched-dt:focus{border-color:var(--accent);}
 .sub-kpi{display:flex;gap:16px;margin-bottom:14px;}
 .sub-kpi-item .sub-kpi-n{font-family:'Archivo',sans-serif;font-size:24px;font-weight:700;color:var(--ink);}
 .sub-kpi-item .sub-kpi-l{font-size:10px;color:var(--muted);}
@@ -297,6 +340,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .ds-draft{background:var(--warm);color:var(--mid);}
 .ds-sched{background:rgba(14,116,144,0.12);color:#0e7490;}
 .ds-live{background:rgba(22,101,52,0.12);color:#166534;}
+.ds-pending{background:rgba(184,149,42,0.12);color:#7a6010;}
 .qs-row{display:flex;align-items:center;justify-content:space-between;padding:10px 17px;border-bottom:1px solid var(--rule);}
 .qs-row:last-child{border:none;}
 .qs-l{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--mid);}
@@ -324,7 +368,6 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .tbl td{font-family:'Archivo Narrow',sans-serif;font-size:13px;color:var(--mid);padding:11px 14px;border-bottom:1px solid var(--rule);}
 .tbl tr:last-child td{border:none;}
 .tbl tr:hover td{background:var(--cream);}
-.pii-cell{color:transparent!important;text-shadow:0 0 7px rgba(92,87,79,0.6);user-select:none;letter-spacing:0.05em;}
 .tier{display:inline-block;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;}
 .tier-free{background:var(--warm);color:var(--mid);}
 .tier-sub{background:rgba(184,149,42,0.15);color:#8a6a10;}
@@ -414,7 +457,7 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 .pol-acts{display:flex;gap:6px;}
 
 /* AI TRIGGER BUTTON */
-.ai-trig{position:fixed;bottom:26px;right:26px;z-index:500;width:50px;height:50px;background:linear-gradient(135deg,var(--accent),var(--gold));border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(196,30,58,0.4);transition:all 0.2s;display:none;}
+.ai-trig{position:fixed;bottom:26px;right:26px;z-index:500;width:50px;height:50px;background:linear-gradient(135deg,var(--accent),var(--gold));border:none;cursor:pointer;font-size:20px;display:none;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(196,30,58,0.4);transition:all 0.2s;}
 .ai-trig:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(196,30,58,0.5);}
 .ai-trig.show{display:flex;}
 
@@ -429,25 +472,6 @@ body{font-family:'Source Serif 4',Georgia,serif;background:var(--paper);color:va
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:#1a2035;color:var(--bright);border-left:3px solid var(--gold);padding:12px 20px;font-family:'Archivo Narrow',sans-serif;font-size:13px;font-weight:600;transform:translateY(60px);opacity:0;transition:all 0.3s;max-width:320px;}
 .toast.show{transform:translateY(0);opacity:1;}
-
-/* PASSWORD MODAL */
-.pw-overlay{position:fixed;inset:0;background:rgba(15,14,12,0.85);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
-.pw-overlay.show{display:flex;}
-.pw-box{background:white;border:1px solid var(--rule);padding:36px 32px;width:380px;max-width:92vw;position:relative;text-align:center;}
-.pw-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));}
-.pw-icon{font-size:32px;margin-bottom:14px;}
-.pw-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;}
-.pw-sub{font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--mid);margin-bottom:22px;}
-.pw-input{width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:12px 14px;font-family:'Archivo Narrow',sans-serif;font-size:14px;letter-spacing:0.08em;outline:none;transition:border-color 0.15s;text-align:center;margin-bottom:10px;}
-.pw-input:focus{border-color:var(--accent);}
-.pw-input::placeholder{color:var(--muted);}
-.pw-err{font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--accent);margin-bottom:10px;min-height:16px;}
-.pw-submit{width:100%;padding:12px;background:var(--accent);color:white;border:none;font-family:'Archivo',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;margin-bottom:10px;}
-.pw-submit:hover{background:#a01830;}
-.pw-cancel{background:none;border:none;font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline;}
-.pw-cancel:hover{color:var(--ink);}
-.pw-input.shake{animation:pw-shake 0.4s ease;}
-@keyframes pw-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 
 /* FOOTER */
 footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20px;}
@@ -518,7 +542,7 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
 <!-- TICKER -->
 <div class="ticker">
   <div class="ticker-lbl">Latest</div>
-  <div class="ticker-txt">Economic Authorship Framework gains national recognition · IntexiaU Corp expands to 12 new markets · AI reshapes workforce credentialing: what employers need to know · The Brvenik Brief crosses 15,000 subscribers · New episode: "Building Your Economic Future" now live · Sponsored: Workforce development grants available in Florida &nbsp;&nbsp;&nbsp;&nbsp; Economic Authorship Framework gains national recognition · IntexiaU Corp expands to 12 new markets · AI reshapes workforce credentialing: what employers need to know · The Brvenik Brief crosses 15,000 subscribers</div>
+  <div class="ticker-txt" id="ticker-txt">Economic Authorship Framework gains national recognition · IntexiaU Corp expands to 12 new markets · AI reshapes workforce credentialing: what employers need to know · The Brvenik Brief crosses 15,000 subscribers · New episode: "Building Your Economic Future" now live · Sponsored: Workforce development grants available in Florida &nbsp;&nbsp;&nbsp;&nbsp; Economic Authorship Framework gains national recognition · IntexiaU Corp expands to 12 new markets · AI reshapes workforce credentialing: what employers need to know · The Brvenik Brief crosses 15,000 subscribers</div>
 </div>
 
 <!-- ===== EDITORIAL VIEW ===== -->
@@ -539,110 +563,110 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
 
   <!-- MAGAZINE LAYOUT -->
   <div id="lay-mag">
-    <div class="mag-hero">
-      <div>
-        <div class="mag-kicker">Cover Story · Economic Authorship</div>
-        <h1 class="mag-hed">Who Owns Your<br>Economic <em>Future?</em></h1>
-        <p class="mag-dek">The rise of the Economic Authorship movement is redefining how Americans think about work, wealth, and identity — and Andrea Brvenik is leading the charge.</p>
-        <div class="mag-by">
-          <span>By <strong>Andrea Brvenik</strong></span>
-          <span>·</span><span>April 15, 2026</span>
-          <span>·</span><span>12 min read</span>
-        </div>
-        <div class="mag-img">📰<span class="fmt-badge fb-feat">Feature</span><div class="img-cap">IntexiaU Corp's inaugural EAI campus workshop — "Launch Your Business in 4 Hours"</div></div>
-      </div>
-      <aside class="mag-aside">
-        <div class="aside-ttl">Also in This Issue</div>
-        <div class="aside-story"><div class="as-kick">AI & Workforce</div><div class="as-hed">The Credential Crisis: Why Degrees Alone No Longer Open Doors</div><div class="as-meta">8 min read · Analysis</div></div>
-        <div class="aside-story"><div class="as-kick">Leadership</div><div class="as-hed">Declining the CEO Chair: What That Decision Taught Me About Authorship</div><div class="as-meta">6 min read · Essay</div></div>
-        <div class="aside-story"><div class="as-kick">Policy Watch</div><div class="as-hed">Florida's Workforce Landscape: Opportunities Being Left on the Table</div><div class="as-meta">5 min read · Brief</div></div>
-        <div class="aside-story"><div class="as-kick">Sponsored</div><div class="as-hed">How AI-Native Platforms Are Closing the Skills Gap in Real Time</div><div class="as-meta">Presented by IntexiaU Corp</div></div>
-        <div class="ad-unit">
-          <div class="au-badge">Advertisement</div>
-          <div class="au-name">IntexiaU Corp</div>
-          <div class="au-copy">AI-native education & workforce platform. Building economic authors one cohort at a time.</div>
-          <button class="btn-tiny fill" onclick="toast('Opening IntexiaU.com...')">Learn More</button>
-        </div>
-      </aside>
+    <!-- HERO - dynamic from Supabase -->
+    <div id="mag-hero-section">
+      <div class="loading-articles"><div class="loading-spin"></div>Loading latest issue...</div>
     </div>
 
     <div class="sec-div"><div class="sec-line dbl"></div><div class="sec-lbl">Features</div><div class="sec-line dbl"></div></div>
-    <div class="story-grid" style="max-width:1280px;margin:0 auto 0;padding:0 48px 36px;">
-      <div class="art-card">
-        <div class="art-img">🤖<span class="fmt-badge fb-feat">Feature</span></div>
-        <div class="art-kick">Technology</div>
-        <div class="art-hed">The AI Workforce Revolution Won't Wait for Policy to Catch Up</div>
-        <div class="art-dek">With automation eliminating 85 million jobs by 2025, those who understand Economic Authorship will be the ones who thrive.</div>
-        <div class="art-by"><span>Andrea Brvenik</span><span>·</span><span>Apr 12</span><span>·</span><span>9 min</span></div>
-      </div>
-      <div class="art-card">
-        <div class="art-img">⚖️<span class="fmt-badge fb-brief">Brief</span></div>
-        <div class="art-kick">Law & Business</div>
-        <div class="art-hed">Legal Frameworks Every Entrepreneur Must Know Before Raising Capital</div>
-        <div class="art-dek">From entity structures to Series A mechanics — the legal foundations your business coach won't tell you about.</div>
-        <div class="art-by"><span>Staff Writer</span><span>·</span><span>Apr 10</span><span>·</span><span>6 min</span></div>
-      </div>
-      <div class="art-card">
-        <div class="art-img">🎙️<span class="fmt-badge fb-pod">Podcast</span></div>
-        <div class="art-kick">Podcast · Ep. 42</div>
-        <div class="art-hed">Rick Inatome on Building Empires, Failing Forward, and the Future of Work</div>
-        <div class="art-dek">A rare conversation with the investor and tech pioneer on what it means to truly author your economic future.</div>
-        <div class="art-by"><span>The Brvenik Brief Podcast</span><span>·</span><span>48 min</span></div>
-      </div>
+    <div id="features-grid" class="story-grid" style="max-width:1280px;margin:0 auto 0;padding:0 48px 36px;">
+      <div class="loading-articles"><div class="loading-spin"></div></div>
     </div>
 
     <div class="sec-div" style="max-width:1280px;margin:0 auto;padding:0 48px;"><div class="sec-line"></div><div class="sec-lbl">Analysis</div><div class="sec-line"></div></div>
-    <div class="story-grid wide" style="max-width:1280px;margin:0 auto;padding:0 48px 36px;">
-      <div class="art-card">
-        <div class="art-img tall">📊<span class="fmt-badge fb-feat">Deep Dive</span></div>
-        <div class="art-kick">Economic Policy</div>
-        <div class="art-hed lg">Two-Entity Corporate Structures: The Architecture of Scalable Ventures</div>
-        <div class="art-dek">Inside the structural logic that sophisticated founders use to protect assets, attract investment, and build lasting enterprises. A framework built for the modern economic author.</div>
-        <div class="art-by"><span>Andrea Brvenik</span><span>·</span><span>Apr 8</span><span>·</span><span>14 min read</span></div>
+    <div id="analysis-grid" class="story-grid wide" style="max-width:1280px;margin:0 auto;padding:0 48px 36px;">
+      <div class="loading-articles"><div class="loading-spin"></div></div>
+    </div>
+
+    <!-- SUBSCRIBE BAND -->
+    <div class="sub-band">
+      <div>
+        <div class="sb-title">Join the <em>Brief.</em><br>Free. Always.</div>
+        <p class="sb-copy">Economic authors, founders, and professionals receive The Brvenik Brief every week. Get the intelligence you need to design the life you want — at no cost, ever.</p>
+        <div class="sb-proof">
+          <div class="sb-proof-item"><div class="sb-proof-num" id="sub-count-display">—</div><div class="sb-proof-lbl">Subscribers</div></div>
+          <div class="sb-proof-item"><div class="sb-proof-num">44%</div><div class="sb-proof-lbl">Open Rate</div></div>
+          <div class="sb-proof-item"><div class="sb-proof-num">42</div><div class="sb-proof-lbl">Issues Published</div></div>
+        </div>
       </div>
-      <div class="col-rule">
-        <div class="art-card" style="margin-bottom:24px;">
-          <div class="art-img">🎬<span class="fmt-badge fb-vid">Video</span></div>
-          <div class="art-kick">Workshop Recap</div>
-          <div class="art-hed">Launch Your Own Business in 4 Hours — Full Session Recording</div>
-          <div class="art-by"><span>IntexiaU EAI Campus</span><span>·</span><span>Apr 5</span></div>
+      <div class="sub-form-wrap">
+        <div class="sub-free-badge"><span class="sfb-text">✦ Always Free — No Credit Card</span></div>
+        <input class="ss-inp" id="sub-name" placeholder="First name">
+        <input class="ss-inp" type="email" id="sub-email" placeholder="Your email address">
+        <button class="ss-btn" onclick="handleSubscribe()">Subscribe Free →</button>
+        <div class="ss-fine">Weekly. No spam. Unsubscribe anytime. Powered by IntexiaU Corp.</div>
+      </div>
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="addons-section">
+      <div class="ao-header">
+        <div class="ao-eyebrow">Coming Soon</div>
+        <div class="ao-title">Brvenik Brief Premium Add-Ons</div>
+        <p class="ao-copy">The Brief is always free. These specialized intelligence tools are being developed for readers who want to go deeper.</p>
+      </div>
+      <div class="ao-grid">
+        <div class="ao-card">
+          <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
+          <div class="ao-icon">🏛️</div>
+          <div class="ao-name">Legislative Intelligence App</div>
+          <div class="ao-desc">Real-time bill tracking, AI policy analysis, and weekly legislative briefings tailored to workforce, education, and economic development.</div>
+          <ul class="ao-features"><li>Real-time federal & state bill tracking</li><li>AI analysis of policy impact on your sector</li><li>Weekly Legislative Brief digest</li><li>Keyword alerts & custom watchlists</li></ul>
+          <button class="ao-waitlist-btn" onclick="joinWaitlist('Legislative Intelligence App')">Join the Interest List →</button>
+          <div class="ao-waitlist-count" id="wl-count-0">247 readers interested</div>
         </div>
-        <div class="ad-unit">
-          <div class="au-badge">Sponsored</div>
-          <div class="au-name">Bisk Education</div>
-          <div class="au-copy">Powering online program management for the nation's leading universities. Partner with us.</div>
-          <button class="btn-tiny fill" onclick="toast('Opening Bisk Education inquiry...')">Partner Inquiry</button>
+        <div class="ao-card">
+          <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
+          <div class="ao-icon">💡</div>
+          <div class="ao-name">Economic Authorship Toolkit</div>
+          <div class="ao-desc">Personalized AI coaching tools built on Andrea Brvenik's Economic Authorship framework.</div>
+          <ul class="ao-features"><li>EA Framework self-assessment</li><li>Personalized coaching sessions</li><li>Business idea validation tools</li><li>Career transition roadmaps</li></ul>
+          <button class="ao-waitlist-btn" onclick="joinWaitlist('Economic Authorship Toolkit')">Join the Interest List →</button>
+          <div class="ao-waitlist-count" id="wl-count-1">389 readers interested</div>
         </div>
-        <div class="art-card" style="margin-top:24px;">
-          <div class="art-img">🌐<span class="fmt-badge fb-brief">Brief</span></div>
-          <div class="art-kick">IntexiaU Update</div>
-          <div class="art-hed">Platform of Everything: Inside the 10-Module Architecture</div>
-          <div class="art-by"><span>Staff</span><span>·</span><span>Apr 3</span><span>·</span><span>4 min</span></div>
+        <div class="ao-card">
+          <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
+          <div class="ao-icon">📊</div>
+          <div class="ao-name">Workforce Data Dashboard</div>
+          <div class="ao-desc">Live labor market intelligence — job postings by sector, skills-gap analysis, salary benchmarks.</div>
+          <ul class="ao-features"><li>Live national job market data</li><li>Skills demand tracking by industry</li><li>Salary benchmark reports</li><li>Monthly Workforce Intelligence Brief</li></ul>
+          <button class="ao-waitlist-btn" onclick="joinWaitlist('Workforce Data Dashboard')">Join the Interest List →</button>
+          <div class="ao-waitlist-count" id="wl-count-2">312 readers interested</div>
         </div>
       </div>
     </div>
 
-    <div class="sec-div" style="max-width:1280px;margin:0 auto;padding:0 48px;"><div class="sec-line"></div><div class="sec-lbl">Multimedia</div><div class="sec-line"></div></div>
-    <div class="story-grid" style="max-width:1280px;margin:0 auto;padding:0 48px 48px;">
-      <div class="art-card" onclick="showNav(null,'media')">
-        <div class="art-img" style="background:#0e2040;">🎙️<span class="fmt-badge fb-pod">New Episode</span></div>
-        <div class="art-kick">Podcast · Series 4</div>
-        <div class="art-hed">The Sovereign Investor: How Rick Inatome Thinks About Capital Allocation</div>
-        <div class="art-by"><span>48 min</span><span>·</span><span>Available everywhere</span></div>
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">The Brvenik <span>Brief</span></div>
+          <div class="footer-tag">Intelligence for the economic author. Published weekly by Andrea Brvenik, Founder & CEO of IntexiaU Corp.</div>
+          <div style="font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--dim);">© 2026 The Brvenik Brief · IntexiaU Corp · All rights reserved.</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Sections</div>
+          <div class="footer-link" onclick="showView('editorial')">Editorial</div>
+          <div class="footer-link" onclick="showView('media')">Podcast</div>
+          <div class="footer-link" onclick="showView('media');openMedia('video')">Video</div>
+          <div class="footer-link">Archive</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Platform</div>
+          <div class="footer-link" onclick="showView('publish')">Publisher Tools</div>
+          <div class="footer-link" onclick="showView('sub')">Subscribers</div>
+          <div class="footer-link" onclick="showView('sp')">Advertise</div>
+          <div class="footer-link">Media Kit</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Connect</div>
+          <div class="footer-link">Instagram</div>
+          <div class="footer-link">LinkedIn</div>
+          <div class="footer-link">X / Twitter</div>
+          <div class="footer-link">Spotify Podcast</div>
+        </div>
       </div>
-      <div class="art-card" onclick="showNav(null,'media');openMedia('video')">
-        <div class="art-img" style="background:#1a0a10;">📹<span class="fmt-badge fb-vid">Video Essay</span></div>
-        <div class="art-kick">Video · 18 min</div>
-        <div class="art-hed">What No One Tells You About Being a Female Founder in the AI Era</div>
-        <div class="art-by"><span>Andrea Brvenik</span><span>·</span><span>Apr 9</span></div>
-      </div>
-      <div class="art-card">
-        <div class="art-img" style="background:#0a1a10;">📈<span class="fmt-badge fb-spon">Sponsored</span></div>
-        <div class="art-kick">Sponsored Content</div>
-        <div class="art-hed">Workforce Development Grants Available in Florida: A Complete Guide</div>
-        <div class="art-by"><span>Presented by Florida DEO</span><span>·</span><span>Apr 7</span></div>
-      </div>
-    </div>
+    </footer>
   </div>
 
   <!-- NEWSPAPER LAYOUT -->
@@ -650,156 +674,10 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
     <div style="text-align:center;border-bottom:3px double var(--rule);margin-bottom:22px;padding:16px 48px 14px;">
       <div style="font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Vol. 4, Issue 42 · April 15, 2026 · Florida Edition</div>
     </div>
-    <div class="np-cols" style="max-width:1280px;margin:0 auto;padding:0 48px 48px;">
-      <div class="np-col">
-        <div class="np-hed">Economic Authorship Framework Gains National Attention</div>
-        <div class="np-by">By Andrea Brvenik, Founder</div>
-        <p class="np-body">The movement began with a simple premise: that every person has the right and the capacity to design their own economic future. What started as a framework inside IntexiaU Corp has grown into a national conversation about workforce identity and self-determination.</p>
-        <div class="np-subhed">A New Vocabulary for Work</div>
-        <p class="np-body">Economic Authorship offers a new language for an old problem — how do individuals navigate a labor market that was never designed with them in mind? The framework's four pillars — Clarity, Strategy, Authorship, and Momentum — give practitioners a repeatable path.</p>
-        <div class="np-quote">"You cannot author a life you haven't first imagined in full."</div>
-        <p class="np-body">Brvenik, who recently declined a CEO offer to stay focused on IntexiaU, says the decision was itself an act of Economic Authorship. "I had to practice what I preach," she notes.</p>
-      </div>
-      <div class="np-sep"></div>
-      <div class="np-col">
-        <div class="np-hed">AI Reshapes Credentialing as Employers Shift Focus</div>
-        <div class="np-by">Staff Report</div>
-        <p class="np-body">Employers across sectors are quietly abandoning degree requirements in favor of demonstrated competency — a shift that AI-native platforms like IntexiaU are uniquely positioned to serve.</p>
-        <p class="np-body">The trend, accelerating since 2023, has significant implications for traditional universities, online program managers, and the millions of Americans who hold credentials that no longer open the doors they once did.</p>
-        <div class="np-subhed">What It Means for Workforce</div>
-        <p class="np-body">IntexiaU's Platform of Everything — a ten-module hub connecting education, credentialing, and employment — is designed specifically for this inflection point.</p>
-        <div class="np-ad"><div style="font-family:'Archivo Narrow',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Advertisement</div><div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--ink);">IntexiaU Corp</div><div style="font-size:11px;color:var(--mid);">AI-native workforce platform. Enroll today.</div></div>
-      </div>
-      <div class="np-sep"></div>
-      <div class="np-col">
-        <div class="np-hed">Podcast Ep. 42: Rick Inatome on Capital and Legacy</div>
-        <div class="np-by">Podcast Transcript Excerpt</div>
-        <p class="np-body">In this week's episode, investor and tech pioneer Rick Inatome sits down with Andrea Brvenik to discuss how he thinks about capital allocation, the Series A process, and why legacy matters more than liquidity events.</p>
-        <div class="np-quote">"The smartest founders I've backed were the ones who knew their 'why' before they knew their 'how.'"</div>
-        <p class="np-body">The conversation covers investor narrative, corporate structure strategy, and what Inatome looks for in a founding team beyond the pitch deck.</p>
-        <div class="np-subhed">Listen Now</div>
-        <p class="np-body">Available on Spotify, Apple Podcasts, and TheBrvenikBrief.com/podcast. Episode 42 runs 48 minutes.</p>
-      </div>
-      <div class="np-sep"></div>
-      <div class="np-col">
-        <div class="np-hed">This Week in Brief</div>
-        <div class="np-by">Editorial Desk</div>
-        <div class="np-subhed">Workforce Policy</div>
-        <p class="np-body">Florida's DEO announced $40M in workforce development grants. IntexiaU is positioned as a preferred delivery partner in three counties.</p>
-        <div class="np-subhed">Platform Update</div>
-        <p class="np-body">app.intexiau.com deployment via Netlify is live. The Platform of Everything now hosts its first four active modules with six more in development.</p>
-        <div class="np-subhed">Partnership Watch</div>
-        <p class="np-body">Discussions with Bisk Education continue. The potential partnership would expand IntexiaU's OPM reach to over 40 university clients.</p>
-        <div class="np-subhed">Subscriber Milestone</div>
-        <p class="np-body">The Brvenik Brief crossed 15,000 active subscribers this week — above the newsletter industry average conversion rate.</p>
-      </div>
+    <div class="np-cols" style="max-width:1280px;margin:0 auto;padding:0 48px 48px;" id="newspaper-cols">
+      <div class="loading-articles" style="grid-column:1/-1;"><div class="loading-spin"></div>Loading...</div>
     </div>
   </div>
-
-  <!-- SUBSCRIBE BAND (FREE) -->
-  <div class="sub-band">
-    <div>
-      <div class="sb-title">Join the <em>Brief.</em><br>Free. Always.</div>
-      <p class="sb-copy">15,000+ economic authors, founders, and professionals receive The Brvenik Brief every week. Get the intelligence you need to design the life you want — at no cost, ever.</p>
-      <div class="sb-proof">
-        <div class="sb-proof-item"><div class="sb-proof-num">15K+</div><div class="sb-proof-lbl">Subscribers</div></div>
-        <div class="sb-proof-item"><div class="sb-proof-num">44%</div><div class="sb-proof-lbl">Open Rate</div></div>
-        <div class="sb-proof-item"><div class="sb-proof-num">42</div><div class="sb-proof-lbl">Issues Published</div></div>
-      </div>
-    </div>
-    <div class="sub-form-wrap">
-      <div class="sub-free-badge"><span class="sfb-text">✦ Always Free — No Credit Card</span></div>
-      <input class="ss-inp" placeholder="First name">
-      <input class="ss-inp" type="email" placeholder="Your email address">
-      <button class="ss-btn" onclick="handleSubscribe()">Subscribe Free →</button>
-      <div class="ss-fine">Weekly. No spam. Unsubscribe anytime. Powered by IntexiaU Corp.</div>
-    </div>
-  </div>
-
-  <!-- ADD-ONS PREVIEW -->
-  <div class="addons-section">
-    <div class="ao-header">
-      <div class="ao-eyebrow">Coming Soon</div>
-      <div class="ao-title">Brvenik Brief Premium Add-Ons</div>
-      <p class="ao-copy">The Brief is always free. These specialized intelligence tools are being developed for readers who want to go deeper — join the interest list to be first in line.</p>
-    </div>
-    <div class="ao-grid">
-      <div class="ao-card">
-        <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
-        <div class="ao-icon">🏛️</div>
-        <div class="ao-name">Legislative Intelligence App</div>
-        <div class="ao-desc">Real-time bill tracking, AI policy analysis, and weekly legislative briefings tailored to workforce, education, and economic development.</div>
-        <ul class="ao-features">
-          <li>Real-time federal & state bill tracking</li>
-          <li>AI analysis of policy impact on your sector</li>
-          <li>Weekly Legislative Brief digest</li>
-          <li>Keyword alerts & custom watchlists</li>
-        </ul>
-        <button class="ao-waitlist-btn" onclick="joinWaitlist('Legislative Intelligence App')">Join the Interest List →</button>
-        <div class="ao-waitlist-count" id="wl-count-0">247 readers interested</div>
-      </div>
-      <div class="ao-card">
-        <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
-        <div class="ao-icon">💡</div>
-        <div class="ao-name">Economic Authorship Toolkit</div>
-        <div class="ao-desc">Personalized AI coaching tools built on Andrea Brvenik's Economic Authorship framework — clarity exercises, strategy mapping, and momentum tracking.</div>
-        <ul class="ao-features">
-          <li>EA Framework self-assessment</li>
-          <li>Personalized coaching sessions</li>
-          <li>Business idea validation tools</li>
-          <li>Career transition roadmaps</li>
-        </ul>
-        <button class="ao-waitlist-btn" onclick="joinWaitlist('Economic Authorship Toolkit')">Join the Interest List →</button>
-        <div class="ao-waitlist-count" id="wl-count-1">389 readers interested</div>
-      </div>
-      <div class="ao-card">
-        <div class="ao-card-status"><div class="ao-status-dot"></div><div class="ao-status-txt">In Development</div></div>
-        <div class="ao-icon">📊</div>
-        <div class="ao-name">Workforce Data Dashboard</div>
-        <div class="ao-desc">Live labor market intelligence — job postings by sector, skills-gap analysis, salary benchmarks, and AI-powered workforce trend reports.</div>
-        <ul class="ao-features">
-          <li>Live national job market data</li>
-          <li>Skills demand tracking by industry</li>
-          <li>Salary benchmark reports</li>
-          <li>Monthly Workforce Intelligence Brief</li>
-        </ul>
-        <button class="ao-waitlist-btn" onclick="joinWaitlist('Workforce Data Dashboard')">Join the Interest List →</button>
-        <div class="ao-waitlist-count" id="wl-count-2">312 readers interested</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">The Brvenik <span>Brief</span></div>
-        <div class="footer-tag">Intelligence for the economic author. Published weekly by Andrea Brvenik, Founder & CEO of IntexiaU Corp.</div>
-        <div style="font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--dim);">© 2026 The Brvenik Brief · IntexiaU Corp · All rights reserved.</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Sections</div>
-        <div class="footer-link" onclick="showView('editorial')">Editorial</div>
-        <div class="footer-link" onclick="showView('media')">Podcast</div>
-        <div class="footer-link" onclick="showView('media');openMedia('video')">Video</div>
-        <div class="footer-link">Archive</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Platform</div>
-        <div class="footer-link" onclick="showView('publish')">Publisher Tools</div>
-        <div class="footer-link" onclick="showView('sub')">Subscribers</div>
-        <div class="footer-link" onclick="showView('sp')">Advertise</div>
-        <div class="footer-link">Media Kit</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Connect</div>
-        <div class="footer-link">Instagram</div>
-        <div class="footer-link">LinkedIn</div>
-        <div class="footer-link">X / Twitter</div>
-        <div class="footer-link">Spotify Podcast</div>
-      </div>
-    </div>
-  </footer>
 </div>
 
 <!-- ===== MEDIA VIEW ===== -->
@@ -811,22 +689,14 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
     </div>
     <div class="media-panel on" id="mp-podcasts">
       <div class="sec-div" style="margin-top:0;"><div class="sec-line"></div><div class="sec-lbl">The Brvenik Brief Podcast</div><div class="sec-line"></div></div>
-      <div class="pod-grid">
-        <div class="ep-card"><div class="ep-art">🎙️</div><div style="flex:1"><div class="ep-num">Episode 42 · Apr 15, 2026</div><div class="ep-title">Rick Inatome on Capital, Legacy & the Series A Mindset</div><div class="ep-meta">48 min · Investor Series</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 42')">▶</button></div>
-        <div class="ep-card"><div class="ep-art">🤝</div><div style="flex:1"><div class="ep-num">Episode 41 · Apr 8, 2026</div><div class="ep-title">Partnerships, OPM Strategy & Why I Said No to the CEO Chair</div><div class="ep-meta">36 min · Leadership</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 41')">▶</button></div>
-        <div class="ep-card"><div class="ep-art">⚡</div><div style="flex:1"><div class="ep-num">Episode 40 · Apr 1, 2026</div><div class="ep-title">AI-Native Education: Building the Platform of Everything</div><div class="ep-meta">42 min · Platform Deep Dive</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 40')">▶</button></div>
-        <div class="ep-card"><div class="ep-art">📖</div><div style="flex:1"><div class="ep-num">Episode 39 · Mar 25, 2026</div><div class="ep-title">Economic Authorship Explained: The Framework That Started Everything</div><div class="ep-meta">29 min · Foundation Series</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 39')">▶</button></div>
-        <div class="ep-card"><div class="ep-art">💼</div><div style="flex:1"><div class="ep-num">Episode 38 · Mar 18, 2026</div><div class="ep-title">Two-Entity Corporate Structures: What Founders Get Wrong</div><div class="ep-meta">31 min · Business Architecture</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 38')">▶</button></div>
-        <div class="ep-card"><div class="ep-art">🎓</div><div style="flex:1"><div class="ep-num">Episode 37 · Mar 11, 2026</div><div class="ep-title">Workshop Debrief: Launch Your Business in 4 Hours — What We Learned</div><div class="ep-meta">22 min · EAI Campus Series</div></div><button class="ep-play" onclick="toast('▶ Playing Episode 37')">▶</button></div>
+      <div class="pod-grid" id="podcast-grid">
+        <div class="loading-articles"><div class="loading-spin"></div>Loading episodes...</div>
       </div>
     </div>
     <div class="media-panel" id="mp-videos">
       <div class="sec-div" style="margin-top:0;"><div class="sec-line"></div><div class="sec-lbl">Video Library</div><div class="sec-line"></div></div>
-      <div class="vid-grid">
-        <div class="vid-card"><div class="vid-thumb">🎬<div class="vid-ov">▶</div><div class="vid-dur">18:42</div></div><div class="vid-body"><div class="vid-kick">Video Essay</div><div class="vid-title">What No One Tells You About Being a Female Founder in the AI Era</div></div></div>
-        <div class="vid-card"><div class="vid-thumb">📹<div class="vid-ov">▶</div><div class="vid-dur">54:18</div></div><div class="vid-body"><div class="vid-kick">Workshop Recording</div><div class="vid-title">Launch Your Own Business in 4 Hours — Full EAI Campus Session</div></div></div>
-        <div class="vid-card"><div class="vid-thumb">💡<div class="vid-ov">▶</div><div class="vid-dur">28:55</div></div><div class="vid-body"><div class="vid-kick">Keynote</div><div class="vid-title">Economic Authorship and the Future of Work in Florida</div></div></div>
-        <div class="vid-card"><div class="vid-thumb">🤖<div class="vid-ov">▶</div><div class="vid-dur">12:07</div></div><div class="vid-body"><div class="vid-kick">Explainer</div><div class="vid-title">The Platform of Everything: A Visual Walkthrough</div></div></div>
+      <div class="vid-grid" id="video-grid">
+        <div class="loading-articles"><div class="loading-spin"></div>Loading videos...</div>
       </div>
     </div>
   </div>
@@ -834,180 +704,286 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
 
 <!-- ===== PUBLISHER DASHBOARD ===== -->
 <div class="view" id="view-publish">
-  <div class="pub-layout">
-    <!-- Sidebar -->
-    <div class="pub-sidebar">
-      <div class="pub-slbl">Publish</div>
-      <div class="pub-item on" onclick="showPub('dashboard',this)"><span class="pub-icon">⊞</span> Dashboard</div>
-      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">✏️</span> New Issue</div>
-      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">📋</span> Drafts <span style="margin-left:auto;background:var(--accent);color:white;font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;">3</span></div>
-      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">📅</span> Scheduled <span style="margin-left:auto;background:rgba(14,116,144,0.4);color:var(--teal);font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;">2</span></div>
-      <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">📨</span> Sent Issues</div>
-      <div class="pub-sep"></div>
-      <div class="pub-slbl">Audience</div>
-      <div class="pub-item" onclick="showView('sub')"><span class="pub-icon">👥</span> Subscribers</div>
-      <div class="pub-item" onclick="showView('sp')"><span class="pub-icon">💰</span> Sponsorships <span style="margin-left:auto;background:rgba(184,149,42,0.3);color:var(--gold);font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;">2</span></div>
-      <div class="pub-item" onclick="showPub('dashboard',this)"><span class="pub-icon">📊</span> Analytics</div>
-      <div class="pub-sep"></div>
-      <div class="pub-slbl">Preview</div>
-      <div class="pub-item" onclick="showView('editorial')"><span class="pub-icon">📰</span> Reader View</div>
-      <div class="pub-item" onclick="showView('media')"><span class="pub-icon">🎙️</span> Podcast</div>
+  <!-- WRITER LOGIN SCREEN -->
+  <div id="writer-login-screen">
+    <div class="writer-login">
+      <div class="wl-icon">✦</div>
+      <div class="wl-title">Publisher Access</div>
+      <div class="wl-sub">Sign in to write, edit, and manage The Brvenik Brief</div>
+      <label class="wl-label">Email Address</label>
+      <input class="wl-inp" id="login-email" type="email" placeholder="your@email.com" onkeydown="if(event.key==='Enter')writerLogin()">
+      <label class="wl-label">Password</label>
+      <input class="wl-inp" id="login-password" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')writerLogin()">
+      <button class="wl-btn" onclick="writerLogin()">Sign In →</button>
+      <div class="wl-err" id="login-err"></div>
     </div>
+  </div>
 
-    <!-- Main content area -->
-    <div class="pub-main" id="pub-main">
-      <!-- DASHBOARD PANEL -->
-      <div id="pub-dashboard">
-        <div class="pub-topbar">
-          <div class="pub-title">Dashboard</div>
-          <div class="pub-acts">
-            <button class="btn-pub ghost" onclick="showView('editorial')">👁 Preview Issue</button>
-            <button class="btn-pub red" onclick="showPub('editor',null)">✏️ Write New Issue</button>
-          </div>
-        </div>
-        <div style="margin-bottom:22px;">
-          <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);margin-bottom:3px;">Good morning, <span style="color:var(--accent);font-style:italic;">Andrea.</span></div>
-          <div style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);" id="dash-date"></div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dkpi"><div class="dkpi-lbl">Subscribers 👥</div><div class="dkpi-n">15,241</div><div class="dkpi-sub up">↑ +847 this month</div></div>
-          <div class="dkpi"><div class="dkpi-lbl">Open Rate 📬</div><div class="dkpi-n">44%</div><div class="dkpi-sub up">↑ 2× industry avg</div></div>
-          <div class="dkpi"><div class="dkpi-lbl">Monthly Revenue 💵</div><div class="dkpi-n">$8.2K</div><div class="dkpi-sub up">↑ +$620 vs last mo.</div></div>
-          <div class="dkpi"><div class="dkpi-lbl">Add-On Interest ⭐</div><div class="dkpi-n">948</div><div class="dkpi-sub up">↑ across 3 products</div></div>
-        </div>
-        <div class="dash-grid">
+  <!-- PUBLISHER MAIN (shown after login) -->
+  <div id="publisher-main" style="display:none;">
+    <div class="pub-layout">
+      <!-- Sidebar -->
+      <div class="pub-sidebar">
+        <div style="display:flex;align-items:center;gap:9px;padding:9px 10px;margin-bottom:14px;background:rgba(196,30,58,0.06);border:1px solid rgba(196,30,58,0.15);">
+          <div style="font-size:20px;">👤</div>
           <div>
-            <div class="d-card">
-              <div class="d-card-hd"><div class="d-card-title">📋 Recent Drafts</div><button class="btn-pub ghost" style="padding:5px 12px;font-size:10px;" onclick="showPub('editor',null)">+ New</button></div>
-              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--accent)"></div><div class="draft-info"><div class="draft-ttl">Who Owns Your Economic Future?</div><div class="draft-m">Article · Edited 2 hrs ago</div></div><span class="ds ds-draft">Draft</span></div>
-              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--teal)"></div><div class="draft-info"><div class="draft-ttl">Ep. 42 — Rick Inatome on Capital & Legacy</div><div class="draft-m">Podcast · Scheduled Apr 18</div></div><span class="ds ds-sched">Scheduled</span></div>
-              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--navy)"></div><div class="draft-info"><div class="draft-ttl">Florida Workforce Grants: Complete Guide</div><div class="draft-m">Sponsored · Live since Apr 12</div></div><span class="ds ds-live">Live</span></div>
-              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--gold)"></div><div class="draft-info"><div class="draft-ttl">Two-Entity Corporate Structures Explained</div><div class="draft-m">Article · Started yesterday</div></div><span class="ds ds-draft">Draft</span></div>
-              <div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:var(--accent)"></div><div class="draft-info"><div class="draft-ttl">What No One Tells You About Female Founders in AI</div><div class="draft-m">Video Essay · Ready to publish</div></div><span class="ds ds-draft">Draft</span></div>
-            </div>
-            <div class="d-card">
-              <div class="d-card-hd"><div class="d-card-title">⚡ Activity</div></div>
-              <div class="act-row"><div class="act-dot"></div><div><div class="act-txt">Issue #42 sent to 15,241 subscribers</div><div class="act-time">2 hours ago</div></div></div>
-              <div class="act-row"><div class="act-dot" style="background:var(--gold)"></div><div><div class="act-txt">New sponsorship inquiry from Bisk Education — $2,999/mo</div><div class="act-time">Yesterday</div></div></div>
-              <div class="act-row"><div class="act-dot" style="background:#22c55e"></div><div><div class="act-txt">389 readers joined the EA Toolkit interest list</div><div class="act-time">3 days ago</div></div></div>
-              <div class="act-row"><div class="act-dot" style="background:var(--teal)"></div><div><div class="act-txt">Podcast Ep. 41 reached 2,100 plays</div><div class="act-time">4 days ago</div></div></div>
-            </div>
-          </div>
-          <div>
-            <div class="d-card" style="margin-bottom:14px;">
-              <div class="d-card-hd"><div class="d-card-title">📊 Issue #42 Stats</div></div>
-              <div class="qs-row"><div class="qs-l">📬 Opens</div><div class="qs-v">6,706 (44%)</div></div>
-              <div class="qs-row"><div class="qs-l">🔗 Click Rate</div><div class="qs-v">12.3%</div></div>
-              <div class="qs-row"><div class="qs-l">👋 Unsubs</div><div class="qs-v" style="color:var(--accent)">14</div></div>
-              <div class="qs-row"><div class="qs-l">🎙️ Podcast plays</div><div class="qs-v">1,840</div></div>
-              <div class="qs-row"><div class="qs-l">🎬 Video views</div><div class="qs-v">924</div></div>
-              <div class="qs-row"><div class="qs-l">💰 Ad Revenue (Apr)</div><div class="qs-v" style="color:#22c55e">$3,299</div></div>
-            </div>
-            <div class="d-card">
-              <div class="d-card-hd"><div class="d-card-title">💰 Sponsorships</div><button class="btn-pub ghost" style="padding:5px 12px;font-size:10px;" onclick="showView('sp')">Manage</button></div>
-              <div class="qs-row"><div class="qs-l">🏢 IntexiaU Corp</div><div class="qs-v" style="color:#22c55e">Active</div></div>
-              <div class="qs-row"><div class="qs-l">🎓 Bisk Education</div><div class="qs-v" style="color:var(--gold)">Inquiry</div></div>
-              <div class="qs-row"><div class="qs-l">🏛️ Florida DEO</div><div class="qs-v" style="color:#22c55e">Active</div></div>
-              <div class="qs-row"><div class="qs-l">💵 Total/mo</div><div class="qs-v">$4,998</div></div>
-            </div>
+            <div style="font-family:'Archivo Narrow',sans-serif;font-size:13px;font-weight:700;color:var(--ink);" id="sidebar-name">Writer</div>
+            <div class="wl-role" id="sidebar-role" style="margin-bottom:0;margin-top:3px;">Writer</div>
           </div>
         </div>
+        <div class="pub-slbl">Publish</div>
+        <div class="pub-item on" onclick="showPub('dashboard',this)"><span class="pub-icon">⊞</span> Dashboard</div>
+        <div class="pub-item" onclick="showPub('editor',this)"><span class="pub-icon">✏️</span> New Article</div>
+        <div class="pub-item" onclick="showPub('podcast',this)"><span class="pub-icon">🎙️</span> New Podcast</div>
+        <div class="pub-item" onclick="showPub('drafts',this)"><span class="pub-icon">📋</span> My Drafts</div>
+        <div class="pub-item editor-only" onclick="showPub('approvals',this)" style="display:none;"><span class="pub-icon">✅</span> Approvals <span id="approval-badge" style="margin-left:auto;background:var(--accent);color:white;font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;display:none;">0</span></div>
+        <div class="pub-sep"></div>
+        <div class="pub-slbl">Audience</div>
+        <div class="pub-item" onclick="showView('sub')"><span class="pub-icon">👥</span> Subscribers</div>
+        <div class="pub-item" onclick="showView('sp')"><span class="pub-icon">💰</span> Sponsorships</div>
+        <div class="pub-item editor-only" onclick="showPub('writers',this)" style="display:none;"><span class="pub-icon">✍️</span> Manage Writers</div>
+        <div class="pub-sep"></div>
+        <div class="pub-slbl">Preview</div>
+        <div class="pub-item" onclick="showView('editorial')"><span class="pub-icon">📰</span> Reader View</div>
+        <div class="pub-item" onclick="showView('media')"><span class="pub-icon">🎙️</span> Podcast</div>
+        <div class="pub-sep"></div>
+        <div class="pub-item" onclick="writerLogout()" style="color:var(--accent);"><span class="pub-icon">↩</span> Sign Out</div>
       </div>
 
-      <!-- EDITOR PANEL -->
-      <div id="pub-editor" style="display:none;">
-        <div class="pub-topbar">
-          <div class="pub-title">Create New Issue</div>
-          <div class="pub-acts">
-            <button class="btn-pub ghost" onclick="toast('Draft saved ✓')">Save Draft</button>
-            <button class="btn-pub ghost" onclick="showView('editorial')">👁 Preview</button>
-            <button class="btn-pub red" onclick="doPublish()">🚀 Publish & Send →</button>
-          </div>
-        </div>
-        <div style="margin-bottom:18px;">
-          <div style="font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;">Content Type</div>
-          <div class="fmt-row">
-            <button class="fmt-pill on" onclick="selFmt(this)">📰 Article</button>
-            <button class="fmt-pill" onclick="selFmt(this)">🎙️ Podcast</button>
-            <button class="fmt-pill" onclick="selFmt(this)">🎬 Video</button>
-            <button class="fmt-pill" onclick="selFmt(this)">📷 Photo Essay</button>
-            <button class="fmt-pill" onclick="selFmt(this)">📊 Data Brief</button>
-            <button class="fmt-pill" onclick="selFmt(this)">💬 Interview</button>
-          </div>
-        </div>
-        <!-- Inline headline suggestion strip -->
-        <div class="hed-strip" id="hed-strip">
-          <div class="hs-lbl">✦ AI Headline Suggestions</div>
-          <div class="hs-chips" id="hed-chips"></div>
-        </div>
-        <div class="toolbar">
-          <button class="tbb" title="Bold"><b>B</b></button>
-          <button class="tbb" title="Italic"><i>I</i></button>
-          <button class="tbb" title="Underline"><u>U</u></button>
-          <div class="tb-sep"></div>
-          <button class="tbb" style="font-size:11px" title="H1">H1</button>
-          <button class="tbb" style="font-size:11px" title="H2">H2</button>
-          <button class="tbb" title="Pull Quote">❝</button>
-          <button class="tbb" title="Bullet">•</button>
-          <div class="tb-sep"></div>
-          <button class="tb-ins" onclick="insBlk('image')">🖼 Image</button>
-          <button class="tb-ins" onclick="insBlk('video')">▶ Video</button>
-          <button class="tb-ins" onclick="insBlk('audio')">🎵 Audio</button>
-          <button class="tb-ins" onclick="insBlk('ad')">💰 Ad</button>
-          <button class="tb-ins" onclick="insBlk('cta')">📧 Subscribe CTA</button>
-          <button class="tb-ins" onclick="insBlk('quote')">❝ Pull Quote</button>
-          <div class="tb-sep"></div>
-          <button class="tb-ins" onclick="toggleAI()" style="border-color:rgba(196,30,58,0.4);color:var(--accent);">✦ AI Assist</button>
-        </div>
-        <input class="f-kicker" id="f-kicker" placeholder="SECTION · CATEGORY">
-        <textarea class="f-hed" id="f-hed" placeholder="Your headline goes here..." rows="2" oninput="ar(this);updateWC();onHedChange()"></textarea>
-        <textarea class="f-dek" id="f-dek" placeholder="Subheadline or deck (optional)..." rows="2" oninput="ar(this)"></textarea>
-        <textarea class="f-body" id="f-body" placeholder="Start writing your story here...&#10;&#10;Use the Insert buttons above to add images, videos, audio embeds, ad placements, and subscribe CTAs.&#10;&#10;Hit ✦ AI Assist for headline suggestions, social captions, and text polish." oninput="ar(this);updateWC()"></textarea>
-        <div id="blks"></div>
-      </div>
-    </div>
+      <!-- Main content area -->
+      <div class="pub-main" id="pub-main">
 
-    <!-- Distribution Panel -->
-    <div class="dist-panel">
-      <div class="dist-sec">
-        <div class="sub-kpi">
-          <div class="sub-kpi-item"><div class="sub-kpi-n">15,241</div><div class="sub-kpi-l">Subscribers</div></div>
-          <div class="sub-kpi-item"><div class="sub-kpi-n">44%</div><div class="sub-kpi-l">Avg Open</div></div>
-        </div>
-      </div>
-      <div class="dist-sec">
-        <div class="dist-lbl">Email Distribution</div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">📧</span><div><div class="dist-nm">All Subscribers</div><div class="dist-ct">15,241 readers</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🎯</span><div><div class="dist-nm">Segment by Interest</div><div class="dist-ct">Filter by topic</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-      </div>
-      <div class="dist-sec">
-        <div class="dist-lbl">Social Media</div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">💼</span><div><div class="dist-nm">LinkedIn</div><div class="dist-ct">Auto-post</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">𝕏</span><div><div class="dist-nm">X / Twitter</div><div class="dist-ct">Auto-thread</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">📷</span><div><div class="dist-nm">Instagram</div><div class="dist-ct">Story card</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🎵</span><div><div class="dist-nm">TikTok</div><div class="dist-ct">Clip</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🌐</span><div><div class="dist-nm">Website</div><div class="dist-ct">brvenikbrief.com</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-      </div>
-      <div class="dist-sec">
-        <div class="dist-lbl">Schedule</div>
-        <div class="sched-box">
-          <div class="sched-opts">
-            <div class="sched-opt on" onclick="pickSched(this,'now')">Now</div>
-            <div class="sched-opt" onclick="pickSched(this,'later')">Later</div>
-            <div class="sched-opt" onclick="pickSched(this,'draft')">Draft</div>
+        <!-- DASHBOARD -->
+        <div id="pub-dashboard">
+          <div class="pub-topbar">
+            <div class="pub-title">Dashboard</div>
+            <div class="pub-acts">
+              <button class="btn-pub ghost" onclick="showView('editorial')">👁 Preview</button>
+              <button class="btn-pub red" onclick="showPub('editor',null)">✏️ Write New Article</button>
+            </div>
           </div>
-          <input type="datetime-local" class="sched-dt" id="sdt" style="display:none">
+          <div style="margin-bottom:22px;">
+            <div style="font-family:'Playfair Display',serif;font-size:22px;color:var(--ink);margin-bottom:3px;">Good morning, <span style="color:var(--accent);font-style:italic;" id="dash-greeting">Writer.</span></div>
+            <div style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--dim);" id="dash-date"></div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dkpi"><div class="dkpi-lbl">Subscribers 👥</div><div class="dkpi-n" id="dash-sub-count">—</div><div class="dkpi-sub up">Real-time</div></div>
+            <div class="dkpi"><div class="dkpi-lbl">Open Rate 📬</div><div class="dkpi-n">44%</div><div class="dkpi-sub up">↑ 2× industry avg</div></div>
+            <div class="dkpi"><div class="dkpi-lbl">Published Articles 📰</div><div class="dkpi-n" id="dash-article-count">—</div><div class="dkpi-sub up">Live on site</div></div>
+            <div class="dkpi"><div class="dkpi-lbl">Pending Review ⏳</div><div class="dkpi-n" id="dash-pending-count">—</div><div class="dkpi-sub" style="color:var(--gold);">Awaiting approval</div></div>
+          </div>
+          <div class="dash-grid">
+            <div>
+              <div class="d-card">
+                <div class="d-card-hd"><div class="d-card-title">📋 Recent Content</div><button class="btn-pub ghost" style="padding:5px 12px;font-size:10px;" onclick="showPub('editor',null)">+ New</button></div>
+                <div id="recent-content-list"><div class="act-row"><div class="act-txt" style="color:var(--dim);">Loading...</div></div></div>
+              </div>
+            </div>
+            <div>
+              <div class="d-card">
+                <div class="d-card-hd"><div class="d-card-title">📊 Quick Stats</div></div>
+                <div class="qs-row"><div class="qs-l">🌐 Live Articles</div><div class="qs-v" id="qs-live">—</div></div>
+                <div class="qs-row"><div class="qs-l">📝 Drafts</div><div class="qs-v" id="qs-drafts">—</div></div>
+                <div class="qs-row"><div class="qs-l">⏳ Pending</div><div class="qs-v" id="qs-pending">—</div></div>
+                <div class="qs-row"><div class="qs-l">🎙️ Podcast Episodes</div><div class="qs-v" id="qs-pods">—</div></div>
+                <div class="qs-row"><div class="qs-l">💌 Interest List</div><div class="qs-v" id="qs-interest">—</div></div>
+                <div class="qs-row"><div class="qs-l">💰 Ad Inquiries</div><div class="qs-v" id="qs-ads">—</div></div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- ARTICLE EDITOR -->
+        <div id="pub-editor" style="display:none;">
+          <div class="pub-topbar">
+            <div class="pub-title">Write New Article</div>
+            <div class="pub-acts">
+              <button class="btn-pub ghost" onclick="saveContent('draft')">Save Draft</button>
+              <button class="btn-pub ghost" onclick="showView('editorial')">👁 Preview</button>
+              <button class="btn-pub red" onclick="saveContent('pending')">Submit for Review →</button>
+            </div>
+          </div>
+          <div style="margin-bottom:18px;">
+            <div style="font-family:'Archivo',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);margin-bottom:9px;">Content Type</div>
+            <div class="fmt-row">
+              <button class="fmt-pill on" onclick="selFmt(this,'article')">📰 Article</button>
+              <button class="fmt-pill" onclick="selFmt(this,'feature')">⭐ Feature</button>
+              <button class="fmt-pill" onclick="selFmt(this,'analysis')">📊 Analysis</button>
+              <button class="fmt-pill" onclick="selFmt(this,'brief')">📋 Brief</button>
+              <button class="fmt-pill" onclick="selFmt(this,'sponsored')">💰 Sponsored</button>
+            </div>
+          </div>
+          <div class="hed-strip" id="hed-strip">
+            <div class="hs-lbl">✦ AI Headline Suggestions</div>
+            <div class="hs-chips" id="hed-chips"></div>
+          </div>
+
+          <!-- Image Upload -->
+          <div style="margin-bottom:12px;">
+            <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Article Image</div>
+            <div class="img-upload-zone" id="upload-zone" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+              <input type="file" id="img-file-input" accept="image/*" onchange="handleImageSelect(event)">
+              <div class="img-upload-icon">🖼️</div>
+              <div class="img-upload-txt">Click or drag to upload article image</div>
+            </div>
+            <img class="img-preview" id="img-preview-el" alt="Preview">
+            <div id="img-upload-status" style="font-family:'Archivo Narrow',sans-serif;font-size:11px;color:var(--teal);margin-bottom:8px;"></div>
+            <input class="img-caption-inp" id="img-caption" placeholder="Image caption (optional)...">
+          </div>
+
+          <div class="toolbar">
+            <button class="tbb" title="Bold"><b>B</b></button>
+            <button class="tbb" title="Italic"><i>I</i></button>
+            <div class="tb-sep"></div>
+            <button class="tbb" style="font-size:11px" title="H1">H1</button>
+            <button class="tbb" style="font-size:11px" title="H2">H2</button>
+            <button class="tbb" title="Pull Quote">❝</button>
+            <div class="tb-sep"></div>
+            <button class="tb-ins" onclick="insBlk('ad')">💰 Ad</button>
+            <button class="tb-ins" onclick="insBlk('cta')">📧 Subscribe CTA</button>
+            <button class="tb-ins" onclick="insBlk('quote')">❝ Pull Quote</button>
+            <div class="tb-sep"></div>
+            <button class="tb-ins" onclick="toggleAI()" style="border-color:rgba(196,30,58,0.4);color:var(--accent);">✦ AI Assist</button>
+          </div>
+          <input class="f-kicker" id="f-kicker" placeholder="SECTION · CATEGORY">
+          <textarea class="f-hed" id="f-hed" placeholder="Your headline goes here..." rows="2" oninput="ar(this);onHedChange()"></textarea>
+          <textarea class="f-dek" id="f-dek" placeholder="Subheadline or deck (optional)..." rows="2" oninput="ar(this)"></textarea>
+          <textarea class="f-body" id="f-body" placeholder="Start writing your story here..." oninput="ar(this)"></textarea>
+          <div id="blks"></div>
+          <div style="margin-top:16px;padding:14px;background:var(--cream);border:1px solid var(--rule);">
+            <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Author Note (optional)</div>
+            <input id="f-author-note" style="width:100%;background:white;border:1px solid var(--rule);color:var(--ink);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;" placeholder="Add a note for the editor...">
+          </div>
+          <div id="editor-status" style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--teal);padding:10px 0;"></div>
+        </div>
+
+        <!-- PODCAST EDITOR -->
+        <div id="pub-podcast" style="display:none;">
+          <div class="pub-topbar">
+            <div class="pub-title">Add Podcast Episode</div>
+            <div class="pub-acts">
+              <button class="btn-pub ghost" onclick="savePodcast('draft')">Save Draft</button>
+              <button class="btn-pub red" onclick="savePodcast('published')">Publish Episode →</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+            <div>
+              <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Episode Number</div>
+              <input id="pod-number" style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:9px 11px;font-family:'Archivo Narrow',sans-serif;font-size:13px;outline:none;" placeholder="e.g. 43" type="number">
+            </div>
+            <div>
+              <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Duration</div>
+              <input id="pod-duration" style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:9px 11px;font-family:'Archivo Narrow',sans-serif;font-size:13px;outline:none;" placeholder="e.g. 45 min">
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Episode Title</div>
+            <input id="pod-title" style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:12px 14px;font-family:'Playfair Display',serif;font-size:18px;outline:none;" placeholder="Episode title...">
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Series / Category</div>
+            <input id="pod-series" style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:9px 11px;font-family:'Archivo Narrow',sans-serif;font-size:13px;outline:none;" placeholder="e.g. Investor Series, Leadership">
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Audio URL (Spotify, Apple Podcasts, etc.)</div>
+            <input id="pod-url" style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:9px 11px;font-family:'Archivo Narrow',sans-serif;font-size:13px;outline:none;" placeholder="https://...">
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-family:'Archivo',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Episode Description</div>
+            <textarea id="pod-desc" style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:9px 11px;font-family:'Archivo Narrow',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:100px;" placeholder="Brief description of this episode..."></textarea>
+          </div>
+          <div id="podcast-status" style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--teal);padding:10px 0;"></div>
+        </div>
+
+        <!-- MY DRAFTS -->
+        <div id="pub-drafts" style="display:none;">
+          <div class="pub-topbar">
+            <div class="pub-title">My Drafts</div>
+            <div class="pub-acts">
+              <button class="btn-pub red" onclick="showPub('editor',null)">✏️ New Article</button>
+            </div>
+          </div>
+          <div id="drafts-list"><div class="loading-articles"><div class="loading-spin"></div>Loading your drafts...</div></div>
+        </div>
+
+        <!-- APPROVALS (editor only) -->
+        <div id="pub-approvals" style="display:none;">
+          <div class="pub-topbar">
+            <div class="pub-title">Pending Approvals</div>
+          </div>
+          <div id="approvals-list"><div class="loading-articles"><div class="loading-spin"></div>Loading pending content...</div></div>
+        </div>
+
+        <!-- MANAGE WRITERS (editor only) -->
+        <div id="pub-writers" style="display:none;">
+          <div class="pub-topbar">
+            <div class="pub-title">Manage Writers</div>
+          </div>
+          <div style="background:white;border:1px solid var(--rule);padding:28px;margin-bottom:20px;">
+            <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:16px;">Add New Writer</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px;">
+              <div>
+                <div class="sf-lbl">Full Name</div>
+                <input id="new-writer-name" class="sf-inp" placeholder="Writer's name">
+              </div>
+              <div>
+                <div class="sf-lbl">Email</div>
+                <input id="new-writer-email" class="sf-inp" type="email" placeholder="writer@email.com">
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:16px;">
+              <div>
+                <div class="sf-lbl">Password</div>
+                <input id="new-writer-password" class="sf-inp" type="password" placeholder="Set a password">
+              </div>
+              <div>
+                <div class="sf-lbl">Role</div>
+                <select id="new-writer-role" class="sf-sel">
+                  <option value="writer">Writer</option>
+                  <option value="editor">Editor</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-pub red" onclick="addWriter()">Add Writer →</button>
+            <div id="writer-add-status" style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--teal);padding:8px 0;"></div>
+          </div>
+          <div id="writers-list"><div class="loading-articles"><div class="loading-spin"></div>Loading writers...</div></div>
+        </div>
+
       </div>
-      <div class="dist-sec">
-        <div class="dist-lbl">Monetization</div>
-        <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🏷️</span><div><div class="dist-nm">Sponsored Content</div><div class="dist-ct">Discloses to readers</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
-      </div>
-      <div class="pub-wrap">
-        <button class="pub-big-btn" onclick="doPublish()">🚀 Publish & Send</button>
-        <div style="display:flex;gap:7px;margin-top:7px;">
-          <button class="btn-pub ghost" style="flex:1;justify-content:center;" onclick="toast('Draft saved ✓')">Save Draft</button>
-          <button class="btn-pub ghost" style="flex:1;justify-content:center;" onclick="showView('editorial')">Preview</button>
+
+      <!-- Distribution Panel -->
+      <div class="dist-panel">
+        <div class="dist-sec">
+          <div class="sub-kpi">
+            <div class="sub-kpi-item"><div class="sub-kpi-n" id="dist-sub-count">—</div><div class="sub-kpi-l">Subscribers</div></div>
+          </div>
+        </div>
+        <div class="dist-sec">
+          <div class="dist-lbl">Distribution</div>
+          <div class="dist-row"><div class="dist-lw"><span class="dist-ico">📧</span><div><div class="dist-nm">Email Newsletter</div><div class="dist-ct">All subscribers</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+          <div class="dist-row"><div class="dist-lw"><span class="dist-ico">💼</span><div><div class="dist-nm">LinkedIn</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+          <div class="dist-row"><div class="dist-lw"><span class="dist-ico">𝕏</span><div><div class="dist-nm">X / Twitter</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+          <div class="dist-row"><div class="dist-lw"><span class="dist-ico">📷</span><div><div class="dist-nm">Instagram</div></div></div><label class="tog"><input type="checkbox"><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+          <div class="dist-row"><div class="dist-lw"><span class="dist-ico">🌐</span><div><div class="dist-nm">Website</div></div></div><label class="tog"><input type="checkbox" checked><div class="tog-track"></div><div class="tog-thumb"></div></label></div>
+        </div>
+        <div class="dist-sec">
+          <div class="dist-lbl">Schedule</div>
+          <div class="sched-box">
+            <div class="sched-opts">
+              <div class="sched-opt on" onclick="pickSched(this,'now')">Now</div>
+              <div class="sched-opt" onclick="pickSched(this,'later')">Later</div>
+              <div class="sched-opt" onclick="pickSched(this,'draft')">Draft</div>
+            </div>
+            <input type="datetime-local" class="sched-dt" id="sdt" style="display:none">
+          </div>
+        </div>
+        <div class="pub-wrap">
+          <button class="pub-big-btn" onclick="saveContent('pending')">Submit for Review →</button>
+          <div style="display:flex;gap:7px;margin-top:7px;">
+            <button class="btn-pub ghost" style="flex:1;justify-content:center;" onclick="saveContent('draft')">Save Draft</button>
+            <button class="btn-pub ghost" style="flex:1;justify-content:center;" onclick="showView('editorial')">Preview</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1018,31 +994,22 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
 <div class="view" id="view-sub">
   <div class="pg-wrap">
     <div class="pg-topbar">
-      <div><div class="pg-title">Subscriber Dashboard</div><div class="pg-sub">The Brvenik Brief · April 2026</div></div>
+      <div><div class="pg-title">Subscriber Dashboard</div><div class="pg-sub">The Brvenik Brief · Live Data</div></div>
       <div style="display:flex;gap:8px;">
-        <button class="btn-pub ghost" onclick="toast('Exporting subscriber list...')">Export CSV</button>
+        <button class="btn-pub ghost" onclick="exportSubscribers()">Export CSV</button>
         <button class="btn-pub red" onclick="toast('Email composer opening...')">📧 Send Email</button>
       </div>
     </div>
     <div class="kpi-dark">
-      <div class="kd"><div class="kd-lbl">Total Subscribers</div><div class="kd-n">15,241</div><div class="kd-tr up">↑ +847 this month</div></div>
-      <div class="kd"><div class="kd-lbl">Avg Open Rate</div><div class="kd-n">44%</div><div class="kd-tr up">↑ 2× industry avg</div></div>
-      <div class="kd"><div class="kd-lbl">Add-On Interest</div><div class="kd-n">948</div><div class="kd-tr up">↑ across 3 products</div></div>
-      <div class="kd"><div class="kd-lbl">Monthly Ad Revenue</div><div class="kd-n">$8.2K</div><div class="kd-tr up">↑ Sponsors + Ads</div></div>
+      <div class="kd"><div class="kd-lbl">Total Subscribers</div><div class="kd-n" id="sub-total">—</div><div class="kd-tr up">Real-time</div></div>
+      <div class="kd"><div class="kd-lbl">Interest List</div><div class="kd-n" id="sub-interest-total">—</div><div class="kd-tr up">Add-on waitlist</div></div>
+      <div class="kd"><div class="kd-lbl">Ad Inquiries</div><div class="kd-n" id="sub-ad-total">—</div><div class="kd-tr up">Advertiser pipeline</div></div>
+      <div class="kd"><div class="kd-lbl">Published Articles</div><div class="kd-n" id="sub-article-total">—</div><div class="kd-tr up">Live on site</div></div>
     </div>
     <div class="tbl-wrap">
       <table class="tbl">
-        <thead><tr><th>Subscriber</th><th>Email</th><th>Tier</th><th>Joined</th><th>Open Rate</th><th>Location</th></tr></thead>
-        <tbody id="sub-tbody">
-          <tr><td class="pii-cell">●●●●●●●●●●●</td><td class="pii-cell">●●●●●@●●●●●.com</td><td><span class="tier tier-sub">Subscriber</span></td><td>Jan 2023</td><td>100%</td><td>Florida</td></tr>
-          <tr><td class="pii-cell">●●●●●●●●●●</td><td class="pii-cell">●●●●●@●●●●●.com</td><td><span class="tier tier-sub">Subscriber</span></td><td>Mar 2023</td><td>98%</td><td>Florida</td></tr>
-          <tr><td class="pii-cell">●●●●●●●●●●●</td><td class="pii-cell">●●●●@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Jun 2024</td><td>72%</td><td>Michigan</td></tr>
-          <tr><td class="pii-cell">●●●●●● ●.</td><td class="pii-cell">●●●●●.●@●●●●●.com</td><td><span class="tier tier-free">Free</span></td><td>Feb 2025</td><td>38%</td><td>New York</td></tr>
-          <tr><td class="pii-cell">●●●●●● ●.</td><td class="pii-cell">●●●●●@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Sep 2024</td><td>61%</td><td>Georgia</td></tr>
-          <tr><td class="pii-cell">●●●●● ●.</td><td class="pii-cell">●●●●●.●@—</td><td><span class="tier tier-free">Free</span></td><td>Jan 2026</td><td>44%</td><td>California</td></tr>
-          <tr><td class="pii-cell">●●●●●● ●.</td><td class="pii-cell">●.●●●●@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Apr 2025</td><td>55%</td><td>Texas</td></tr>
-          <tr><td class="pii-cell">●●●●●● ●.</td><td class="pii-cell">●.●●●●●@—</td><td><span class="tier tier-sub">Subscriber</span></td><td>Oct 2023</td><td>89%</td><td>Florida</td></tr>
-        </tbody>
+        <thead><tr><th>Name</th><th>Email</th><th>Source</th><th>Region</th><th>Joined</th></tr></thead>
+        <tbody id="sub-tbody"><tr><td colspan="5" style="text-align:center;color:var(--dim);padding:24px;">Loading subscribers...</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -1052,7 +1019,7 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
 <div class="view" id="view-sp">
   <div class="pg-wrap">
     <div class="pg-topbar">
-      <div><div class="pg-title">Advertise in The Brvenik Brief</div><div class="pg-sub">Reach 15,000+ entrepreneurs, founders, and economic authors. Paid placements and content partnerships.</div></div>
+      <div><div class="pg-title">Advertise in The Brvenik Brief</div><div class="pg-sub">Reach 15,000+ entrepreneurs, founders, and economic authors.</div></div>
       <button class="btn-pub ghost" onclick="toast('Media kit downloading...')">Download Media Kit</button>
     </div>
     <div class="sp-tiers">
@@ -1060,66 +1027,51 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
         <div class="sp-tier">Supporter</div>
         <div class="sp-price">$299</div>
         <div class="sp-per">per issue</div>
-        <ul class="sp-feats">
-          <li>Logo in footer of 1 issue</li>
-          <li>1 text ad in email</li>
-          <li>Social mention (1 platform)</li>
-          <li>~15K reader impressions</li>
-        </ul>
-        <button class="sp-btn" onclick="toast('Redirecting to checkout...')">Get Started</button>
+        <ul class="sp-feats"><li>Logo in footer of 1 issue</li><li>1 text ad in email</li><li>Social mention (1 platform)</li><li>~15K reader impressions</li></ul>
+        <button class="sp-btn" onclick="preselectTier('$299/issue - Supporter')">Get Started</button>
       </div>
       <div class="sp-card feat">
         <div class="sp-tier">⭐ Featured Partner</div>
         <div class="sp-price">$999</div>
         <div class="sp-per">per issue</div>
-        <ul class="sp-feats">
-          <li>Full in-article ad unit</li>
-          <li>Sponsored article option</li>
-          <li>4 social mentions</li>
-          <li>Podcast mid-roll mention</li>
-          <li>60-day archive placement</li>
-          <li>~60K total impressions</li>
-        </ul>
-        <button class="sp-btn" onclick="toast('Connecting you with our team...')">Become a Partner</button>
+        <ul class="sp-feats"><li>Full in-article ad unit</li><li>Sponsored article option</li><li>4 social mentions</li><li>Podcast mid-roll mention</li><li>60-day archive placement</li><li>~60K total impressions</li></ul>
+        <button class="sp-btn" onclick="preselectTier('$999/issue - Featured Partner')">Become a Partner</button>
       </div>
       <div class="sp-card">
         <div class="sp-tier">Presenting Sponsor</div>
         <div class="sp-price">$2,999</div>
         <div class="sp-per">per month</div>
-        <ul class="sp-feats">
-          <li>Exclusive monthly sponsorship</li>
-          <li>Masthead brand placement</li>
-          <li>4 sponsored articles</li>
-          <li>Podcast episode sponsor</li>
-          <li>Video pre-roll</li>
-          <li>Newsletter naming rights</li>
-          <li>Custom content partnership</li>
-        </ul>
-        <button class="sp-btn" onclick="toast('Connecting you with Andrea...')">Inquire Now</button>
+        <ul class="sp-feats"><li>Exclusive monthly sponsorship</li><li>Masthead brand placement</li><li>4 sponsored articles</li><li>Podcast episode sponsor</li><li>Video pre-roll</li><li>Newsletter naming rights</li><li>Custom content partnership</li></ul>
+        <button class="sp-btn" onclick="preselectTier('$2,999/month - Presenting Sponsor')">Inquire Now</button>
       </div>
     </div>
     <div class="sp-form">
       <div class="sf-title">Custom Sponsorship Inquiry</div>
-      <div class="sf-sub">Tell us about your brand and goals. We'll design a custom package that serves your audience within ours.</div>
+      <div class="sf-sub">Tell us about your brand and goals. We'll design a custom package within 24 hours.</div>
       <div class="sf-row">
-        <div class="sf-g"><label class="sf-lbl">Company Name</label><input class="sf-inp" placeholder="Your company"></div>
-        <div class="sf-g"><label class="sf-lbl">Contact Name</label><input class="sf-inp" placeholder="Your name"></div>
+        <div class="sf-g"><label class="sf-lbl">Company Name</label><input class="sf-inp" id="sp-company" placeholder="Your company"></div>
+        <div class="sf-g"><label class="sf-lbl">Contact Name</label><input class="sf-inp" id="sp-contact" placeholder="Your name"></div>
       </div>
       <div class="sf-row">
-        <div class="sf-g"><label class="sf-lbl">Email</label><input type="email" class="sf-inp" placeholder="email@company.com"></div>
-        <div class="sf-g"><label class="sf-lbl">Monthly Budget</label><select class="sf-sel"><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
+        <div class="sf-g"><label class="sf-lbl">Email</label><input type="email" class="sf-inp" id="sp-email" placeholder="email@company.com"></div>
+        <div class="sf-g"><label class="sf-lbl">Phone</label><input class="sf-inp" id="sp-phone" placeholder="Optional"></div>
       </div>
       <div class="sf-row">
-        <div class="sf-g"><label class="sf-lbl">Interest</label><select class="sf-sel"><option>Email Newsletter</option><option>Podcast Sponsorship</option><option>Sponsored Article</option><option>Video Pre-Roll</option><option>Full Partnership</option></select></div>
-        <div class="sf-g"><label class="sf-lbl">Target Audience</label><input class="sf-inp" placeholder="Who are you trying to reach?"></div>
+        <div class="sf-g"><label class="sf-lbl">Monthly Budget</label><select class="sf-sel" id="sp-budget"><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
+        <div class="sf-g"><label class="sf-lbl">Interest</label><select class="sf-sel" id="sp-interest"><option>Email Newsletter</option><option>Podcast Sponsorship</option><option>Sponsored Article</option><option>Video Pre-Roll</option><option>Full Partnership</option></select></div>
       </div>
-      <div class="sf-g"><label class="sf-lbl">Message</label><textarea class="sf-ta" placeholder="Tell us about your brand and what you'd like readers to know..."></textarea></div>
-      <button class="btn-pub red" style="width:100%;padding:13px;justify-content:center;" onclick="toast('✓ Sponsorship inquiry submitted! Andrea will be in touch within 24 hours.')">Submit Sponsorship Inquiry →</button>
+      <div class="sf-row">
+        <div class="sf-g"><label class="sf-lbl">Website</label><input class="sf-inp" id="sp-website" placeholder="https://yourcompany.com"></div>
+        <div class="sf-g"><label class="sf-lbl">Target Audience</label><input class="sf-inp" id="sp-audience" placeholder="Who are you trying to reach?"></div>
+      </div>
+      <div class="sf-g"><label class="sf-lbl">Message</label><textarea class="sf-ta" id="sp-message" placeholder="Tell us about your brand and what you'd like readers to know..."></textarea></div>
+      <button class="btn-pub red" style="width:100%;padding:13px;" onclick="submitSponsorship()">Submit Sponsorship Inquiry →</button>
+      <div id="sp-status" style="font-family:'Archivo Narrow',sans-serif;font-size:12px;color:var(--teal);padding:10px 0;text-align:center;"></div>
     </div>
   </div>
 </div>
 
-<!-- AI TRIGGER BUTTON -->
+<!-- AI TRIGGER -->
 <button class="ai-trig" id="ai-trig" onclick="toggleAI()">✦</button>
 
 <!-- AI ASSISTANT PANEL -->
@@ -1134,11 +1086,9 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
     <div class="ai-tab" onclick="swAITab(this,'polish')">Polish</div>
   </div>
   <div class="ai-body">
-    <!-- HEADLINES -->
     <div id="aip-headlines">
       <div class="ai-sec">
         <div class="ai-sec-lbl">✦ Headline Suggestions</div>
-        <p style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Describe your article or paste a summary. AI generates 5 styles.</p>
         <textarea class="ai-ctx" id="hed-ctx" placeholder="What's this article about?..." rows="3"></textarea>
         <button class="ai-gen-btn" id="hed-btn" onclick="generateHeadlines()">
           <span id="hed-btxt">✦ Generate Headlines</span>
@@ -1147,11 +1097,9 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
         <div id="hed-results"></div>
       </div>
     </div>
-    <!-- SOCIAL -->
     <div id="aip-social" style="display:none;">
       <div class="ai-sec">
         <div class="ai-sec-lbl">📱 Social Media Captions</div>
-        <p style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Paste your headline and key points. AI writes platform-specific captions in Andrea's voice.</p>
         <textarea class="ai-ctx" id="soc-ctx" placeholder="Article headline and key points..." rows="3"></textarea>
         <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;">
           <label style="font-size:11px;color:var(--tmid);display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" id="chk-li" checked style="accent-color:var(--accent)"> LinkedIn</label>
@@ -1166,11 +1114,9 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
         <div id="soc-results"></div>
       </div>
     </div>
-    <!-- POLISH -->
     <div id="aip-polish" style="display:none;">
       <div class="ai-sec">
         <div class="ai-sec-lbl">✨ Polish & Rewrite</div>
-        <p style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:10px;">Paste text and choose a style. AI rewrites in Andrea's editorial voice.</p>
         <textarea class="ai-ctx" id="pol-input" placeholder="Paste text to polish..." rows="5"></textarea>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
           <button class="ai-gen-btn" style="margin-bottom:0;font-size:10px;" onclick="polishText('sharpen')"><span>⚡ Sharpen</span></button>
@@ -1187,71 +1133,520 @@ footer{background:#1a2035;border-top:3px double var(--rule);padding:36px 48px 20
 <!-- TOAST -->
 <div class="toast" id="toast-el"></div>
 
-<!-- PASSWORD MODAL -->
-<div class="pw-overlay" id="pw-overlay" onclick="if(event.target===this)closePW()">
-  <div class="pw-box">
-    <div class="pw-icon">🔒</div>
-    <div class="pw-title">Publisher Access</div>
-    <div class="pw-sub">Enter password to access editorial tools</div>
-    <input class="pw-input" id="pw-input" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')checkPW()">
-    <div class="pw-err" id="pw-err"></div>
-    <button class="pw-submit" onclick="checkPW()">Unlock →</button>
-    <button class="pw-cancel" onclick="closePW()">Cancel</button>
-  </div>
-</div>
-
 <script>
-// ========== INIT ==========
+// ========== SUPABASE INIT ==========
+const { createClient } = supabase
+const sb = createClient(
+  'https://myuhpzuktwcvibljllcy.supabase.co',
+  'sb_publishable_reEij3Qm4VLfEv75xGAitQ_UFRe8Ei5'
+)
+
+// ========== STATE ==========
 const now = new Date();
 document.getElementById('mh-date').textContent = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 const ddEl = document.getElementById('dash-date');
 if(ddEl) ddEl.textContent = now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// ========== PUBLISHER AUTH ==========
-const PW_HASH = 'brvenik2026'; // Change this to your password
-let pubAuthed = false;
-let pendingAction = null;
+let currentWriter = null;
+let currentFormat = 'article';
+let uploadedImageUrl = null;
+let aiOpen = false;
+const wlCounts = [247,389,312];
 
-function requireAuth(callback) {
-  if (pubAuthed) { callback(); return; }
-  pendingAction = callback;
-  const overlay = document.getElementById('pw-overlay');
-  const inp = document.getElementById('pw-input');
-  document.getElementById('pw-err').textContent = '';
-  inp.value = '';
-  overlay.classList.add('show');
-  setTimeout(() => inp.focus(), 100);
-}
+// ========== LOAD HOMEPAGE CONTENT ==========
+async function loadHomepageContent() {
+  try {
+    const { data: articles } = await sb
+      .from('content')
+      .select('*')
+      .eq('status','published')
+      .order('published_at', { ascending: false })
+      .limit(10)
 
-function checkPW() {
-  const inp = document.getElementById('pw-input');
-  const err = document.getElementById('pw-err');
-  if (inp.value === PW_HASH) {
-    pubAuthed = true;
-    closePW();
-    if (pendingAction) { pendingAction(); pendingAction = null; }
-    toast('🔓 Publisher access granted');
-  } else {
-    err.textContent = 'Incorrect password. Try again.';
-    inp.classList.add('shake');
-    setTimeout(() => inp.classList.remove('shake'), 400);
-    inp.value = '';
-    inp.focus();
+    renderHero(articles)
+    renderFeatures(articles)
+    renderAnalysis(articles)
+    renderNewspaper(articles)
+  } catch(e) {
+    document.getElementById('mag-hero-section').innerHTML = '<div style="padding:48px;text-align:center;color:var(--muted);">Content loading...</div>'
   }
 }
 
-function closePW() {
-  document.getElementById('pw-overlay').classList.remove('show');
-  pendingAction = null;
+function renderHero(articles) {
+  const hero = articles?.[0]
+  const sidebar = articles?.slice(1,5) || []
+  const section = document.getElementById('mag-hero-section')
+  if (!hero) {
+    section.innerHTML = `<div style="padding:36px 48px;text-align:center;color:var(--muted);font-family:'Archivo Narrow',sans-serif;">No published articles yet. Write your first article in the Publisher Dashboard.</div>`
+    return
+  }
+  section.innerHTML = `
+    <div class="mag-hero">
+      <div>
+        <div class="mag-kicker">Cover Story · ${hero.kicker||'Economic Authorship'}</div>
+        <h1 class="mag-hed">${hero.title}</h1>
+        <p class="mag-dek">${hero.deck||''}</p>
+        <div class="mag-by"><span>By <strong>${hero.author_name||'The Brvenik Brief'}</strong></span><span>·</span><span>${formatDate(hero.published_at)}</span></div>
+        <div class="mag-img">${hero.image_url?`<img src="${hero.image_url}" alt="${hero.title}">`:'📰'}<span class="fmt-badge fb-feat">${hero.format||'Article'}</span>${hero.image_caption?`<div class="img-cap">${hero.image_caption}</div>`:''}</div>
+      </div>
+      <aside class="mag-aside">
+        <div class="aside-ttl">Also in This Issue</div>
+        ${sidebar.map(a=>`<div class="aside-story"><div class="as-kick">${a.kicker||'Features'}</div><div class="as-hed">${a.title}</div><div class="as-meta">${formatDate(a.published_at)}</div></div>`).join('')}
+        <div class="ad-unit"><div class="au-badge">Advertisement</div><div class="au-name">IntexiaU Corp</div><div class="au-copy">AI-native education & workforce platform. Building economic authors one cohort at a time.</div><button class="btn-tiny fill" onclick="toast('Opening IntexiaU.com...')">Learn More</button></div>
+      </aside>
+    </div>`
+}
+
+function renderFeatures(articles) {
+  const features = articles?.slice(0,3) || []
+  const grid = document.getElementById('features-grid')
+  if (!features.length) { grid.innerHTML = '<div style="color:var(--muted);font-family:\'Archivo Narrow\',sans-serif;font-size:13px;padding:24px;">No articles yet.</div>'; return }
+  grid.innerHTML = features.map(a=>`
+    <div class="art-card">
+      <div class="art-img">${a.image_url?`<img src="${a.image_url}" alt="${a.title}">`:'📰'}<span class="fmt-badge fb-feat">${a.format||'Article'}</span></div>
+      <div class="art-kick">${a.kicker||'Features'}</div>
+      <div class="art-hed">${a.title}</div>
+      <div class="art-dek">${a.deck||''}</div>
+      <div class="art-by"><span>${a.author_name||'Staff'}</span><span>·</span><span>${formatDate(a.published_at)}</span></div>
+    </div>`).join('')
+}
+
+function renderAnalysis(articles) {
+  const analysis = articles?.filter(a=>a.format==='analysis'||a.format==='feature').slice(0,2) || articles?.slice(3,5) || []
+  const grid = document.getElementById('analysis-grid')
+  if (!analysis.length) { grid.innerHTML = ''; return }
+  grid.innerHTML = analysis.map((a,i)=>`
+    <div class="art-card${i>0?' col-rule':''}">
+      <div class="art-img${i===0?' tall':''}">${a.image_url?`<img src="${a.image_url}" alt="${a.title}">`:'📊'}<span class="fmt-badge fb-feat">${a.format||'Analysis'}</span></div>
+      <div class="art-kick">${a.kicker||'Analysis'}</div>
+      <div class="art-hed${i===0?' lg':''}">${a.title}</div>
+      <div class="art-dek">${a.deck||''}</div>
+      <div class="art-by"><span>${a.author_name||'Staff'}</span><span>·</span><span>${formatDate(a.published_at)}</span></div>
+    </div>`).join('')
+}
+
+function renderNewspaper(articles) {
+  const cols = document.getElementById('newspaper-cols')
+  if (!articles?.length) { cols.innerHTML = '<div class="np-col" style="grid-column:1/-1;text-align:center;color:var(--muted);">No articles yet.</div>'; return }
+  const items = articles.slice(0,4)
+  cols.innerHTML = items.map((a,i)=>`
+    <div class="np-col">
+      <div class="np-hed">${a.title}</div>
+      <div class="np-by">By ${a.author_name||'Staff'}</div>
+      <p class="np-body">${(a.body||'').substring(0,400)}${(a.body||'').length>400?'...':''}</p>
+    </div>
+    ${i<items.length-1?'<div class="np-sep"></div>':''}`).join('')
+}
+
+async function loadPodcasts() {
+  try {
+    const { data } = await sb.from('podcast_episodes').select('*').eq('status','published').order('episode_number',{ascending:false})
+    const grid = document.getElementById('podcast-grid')
+    if (!data?.length) { grid.innerHTML = '<div style="color:var(--muted);font-family:\'Archivo Narrow\',sans-serif;padding:24px;">No episodes published yet.</div>'; return }
+    grid.innerHTML = data.map(ep=>`
+      <div class="ep-card">
+        <div class="ep-art">🎙️</div>
+        <div style="flex:1">
+          <div class="ep-num">Episode ${ep.episode_number} · ${formatDate(ep.published_at||ep.created_at)}</div>
+          <div class="ep-title">${ep.title}</div>
+          <div class="ep-meta">${ep.duration||''} ${ep.series?'· '+ep.series:''}</div>
+        </div>
+        <button class="ep-play" onclick="${ep.audio_url?`window.open('${ep.audio_url}','_blank')`:`toast('Audio coming soon')`}">▶</button>
+      </div>`).join('')
+  } catch(e) {}
+}
+
+async function loadVideos() {
+  try {
+    const { data } = await sb.from('content').select('*').eq('format','video').eq('status','published').order('published_at',{ascending:false})
+    const grid = document.getElementById('video-grid')
+    if (!data?.length) { grid.innerHTML = '<div style="color:var(--muted);font-family:\'Archivo Narrow\',sans-serif;padding:24px;">No videos published yet.</div>'; return }
+    grid.innerHTML = data.map(v=>`
+      <div class="vid-card">
+        <div class="vid-thumb">${v.image_url?`<img src="${v.image_url}" style="width:100%;height:100%;object-fit:cover;" alt="${v.title}">`:'📹'}<div class="vid-ov">▶</div>${v.duration?`<div class="vid-dur">${v.duration}</div>`:''}</div>
+        <div class="vid-body"><div class="vid-kick">${v.kicker||'Video'}</div><div class="vid-title">${v.title}</div></div>
+      </div>`).join('')
+  } catch(e) {}
+}
+
+async function loadSubscriberCount() {
+  try {
+    const { count } = await sb.from('subscribers').select('*',{count:'exact',head:true})
+    if (count !== null) {
+      const display = count > 0 ? count.toLocaleString() : '—'
+      const el = document.getElementById('sub-count-display')
+      if(el) el.textContent = display
+    }
+  } catch(e) {}
+}
+
+// ========== SUBSCRIBE ==========
+async function handleSubscribe() {
+  const name = document.getElementById('sub-name').value.trim()
+  const email = document.getElementById('sub-email').value.trim()
+  if (!email) { toast('Please enter your email address.'); return; }
+  const { error } = await sb.from('subscribers').insert([{ email: email.toLowerCase(), name, source: 'brvenik_brief', region: 'Florida' }])
+  if (error && error.code === '23505') toast('You are already subscribed!')
+  else if (error) { console.log('SUPABASE ERROR:', JSON.stringify(error)); toast('Something went wrong. Try again.') }
+  else { toast('✓ Welcome to The Brvenik Brief! Check your inbox.'); document.getElementById('sub-name').value=''; document.getElementById('sub-email').value=''; loadSubscriberCount(); }
+}
+
+async function joinWaitlist(product) {
+  const email = prompt('Enter your email to join the interest list:')
+  if (!email) return
+  const idx = product.includes('Legislative')?0:product.includes('Toolkit')?1:2;
+  const { error } = await sb.from('interest_list').insert([{ email: email.toLowerCase(), product }])
+  if (error) { toast('Something went wrong. Try again.'); return; }
+  wlCounts[idx]++;
+  document.getElementById('wl-count-'+idx).textContent = wlCounts[idx]+' readers interested';
+  toast('✓ Added to the '+product+' interest list!')
+}
+
+// ========== WRITER AUTH ==========
+async function writerLogin() {
+  const email = document.getElementById('login-email').value.trim()
+  const password = document.getElementById('login-password').value
+  const err = document.getElementById('login-err')
+  err.textContent = ''
+  if (!email || !password) { err.textContent = 'Please enter your email and password.'; return }
+  const { data, error } = await sb.from('writers').select('*').eq('email', email.toLowerCase()).eq('password', password).single()
+  if (error || !data) { err.textContent = 'Incorrect email or password. Try again.'; return }
+  currentWriter = data
+  document.getElementById('writer-login-screen').style.display = 'none'
+  document.getElementById('publisher-main').style.display = 'block'
+  document.getElementById('sidebar-name').textContent = data.name
+  document.getElementById('sidebar-role').textContent = data.role.charAt(0).toUpperCase()+data.role.slice(1)
+  document.getElementById('dash-greeting').textContent = data.name.split(' ')[0]+'.'
+  if (data.role === 'editor') {
+    document.querySelectorAll('.editor-only').forEach(el => el.style.display = 'flex')
+  }
+  loadDashboardStats()
+  toast('✓ Welcome back, '+data.name.split(' ')[0]+'!')
+}
+
+function writerLogout() {
+  currentWriter = null
+  document.getElementById('writer-login-screen').style.display = 'block'
+  document.getElementById('publisher-main').style.display = 'none'
+  document.getElementById('login-email').value = ''
+  document.getElementById('login-password').value = ''
+}
+
+// ========== DASHBOARD STATS ==========
+async function loadDashboardStats() {
+  try {
+    const [subCount, articleCount, pendingCount, draftCount, podCount, interestCount, adCount] = await Promise.all([
+      sb.from('subscribers').select('*',{count:'exact',head:true}),
+      sb.from('content').select('*',{count:'exact',head:true}).eq('status','published'),
+      sb.from('content').select('*',{count:'exact',head:true}).eq('status','pending'),
+      sb.from('content').select('*',{count:'exact',head:true}).eq('status','draft'),
+      sb.from('podcast_episodes').select('*',{count:'exact',head:true}).eq('status','published'),
+      sb.from('interest_list').select('*',{count:'exact',head:true}),
+      sb.from('advertisers').select('*',{count:'exact',head:true})
+    ])
+    const s = subCount.count||0, a = articleCount.count||0, p = pendingCount.count||0, d = draftCount.count||0
+    document.getElementById('dash-sub-count').textContent = s.toLocaleString()
+    document.getElementById('dash-article-count').textContent = a
+    document.getElementById('dash-pending-count').textContent = p
+    document.getElementById('dist-sub-count').textContent = s.toLocaleString()
+    document.getElementById('qs-live').textContent = a
+    document.getElementById('qs-drafts').textContent = d
+    document.getElementById('qs-pending').textContent = p
+    document.getElementById('qs-pods').textContent = podCount.count||0
+    document.getElementById('qs-interest').textContent = interestCount.count||0
+    document.getElementById('qs-ads').textContent = adCount.count||0
+    if (p > 0) { document.getElementById('approval-badge').style.display='inline';document.getElementById('approval-badge').textContent=p }
+    // load recent content
+    const { data: recent } = await sb.from('content').select('id,title,status,author_name,created_at').order('created_at',{ascending:false}).limit(5)
+    const list = document.getElementById('recent-content-list')
+    if (recent?.length) {
+      const statusColors = {draft:'var(--muted)',pending:'var(--gold)',published:'#15803d',rejected:'var(--accent)'}
+      const statusClass = {draft:'ds-draft',pending:'ds-pending',published:'ds-live',rejected:'ds-draft'}
+      list.innerHTML = recent.map(r=>`<div class="draft-row" onclick="showPub('editor',null)"><div class="draft-dot" style="background:${statusColors[r.status]||'var(--muted)'}"></div><div class="draft-info"><div class="draft-ttl">${r.title}</div><div class="draft-m">${r.author_name||'Staff'} · ${formatDate(r.created_at)}</div></div><span class="ds ${statusClass[r.status]||'ds-draft'}">${r.status}</span></div>`).join('')
+    } else {
+      list.innerHTML = '<div class="act-row"><div class="act-txt" style="color:var(--dim);">No content yet. Write your first article.</div></div>'
+    }
+    // load subscriber table
+    const { data: subs } = await sb.from('subscribers').select('*').order('created_at',{ascending:false}).limit(50)
+    const tbody = document.getElementById('sub-tbody')
+    document.getElementById('sub-total').textContent = s.toLocaleString()
+    document.getElementById('sub-interest-total').textContent = interestCount.count||0
+    document.getElementById('sub-ad-total').textContent = adCount.count||0
+    document.getElementById('sub-article-total').textContent = a
+    if (subs?.length) {
+      tbody.innerHTML = subs.map(sub=>`<tr><td>${sub.name||'—'}</td><td>${sub.email}</td><td>${sub.source||'—'}</td><td>${sub.region||'—'}</td><td>${formatDate(sub.created_at)}</td></tr>`).join('')
+    } else {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:24px;">No subscribers yet.</td></tr>'
+    }
+  } catch(e) { console.log('Stats error:', e) }
+}
+
+// ========== SAVE CONTENT ==========
+async function saveContent(status) {
+  const title = document.getElementById('f-hed').value.trim()
+  if (!title) { toast('Please add a headline first.'); return }
+  if (!currentWriter) { toast('Please sign in first.'); return }
+  const isEditor = currentWriter.role === 'editor'
+  const finalStatus = isEditor && status === 'pending' ? 'published' : status
+  const payload = {
+    title,
+    kicker: document.getElementById('f-kicker').value.trim(),
+    deck: document.getElementById('f-dek').value.trim(),
+    body: document.getElementById('f-body').value.trim(),
+    format: currentFormat,
+    status: finalStatus,
+    author_name: currentWriter.name,
+    author_email: currentWriter.email,
+    image_url: uploadedImageUrl,
+    image_caption: document.getElementById('img-caption').value.trim(),
+    published_at: finalStatus === 'published' ? new Date().toISOString() : null
+  }
+  const statusEl = document.getElementById('editor-status')
+  statusEl.textContent = 'Saving...'
+  const { error } = await sb.from('content').insert([payload])
+  if (error) { statusEl.textContent = 'Error: '+error.message; toast('Something went wrong. Try again.'); return }
+  const msg = finalStatus === 'published' ? '✓ Article published live!' : finalStatus === 'pending' ? '✓ Submitted for editor review.' : '✓ Draft saved.'
+  statusEl.textContent = msg
+  toast(msg)
+  loadDashboardStats()
+  loadHomepageContent()
+  if (finalStatus === 'draft') return
+  // clear form
+  document.getElementById('f-hed').value = ''
+  document.getElementById('f-dek').value = ''
+  document.getElementById('f-kicker').value = ''
+  document.getElementById('f-body').value = ''
+  document.getElementById('img-caption').value = ''
+  document.getElementById('img-preview-el').style.display = 'none'
+  uploadedImageUrl = null
+  document.getElementById('blks').innerHTML = ''
+  statusEl.textContent = ''
+}
+
+// ========== PODCAST ==========
+async function savePodcast(status) {
+  const title = document.getElementById('pod-title').value.trim()
+  if (!title) { toast('Please add an episode title.'); return }
+  const payload = {
+    title,
+    episode_number: parseInt(document.getElementById('pod-number').value)||0,
+    duration: document.getElementById('pod-duration').value.trim(),
+    series: document.getElementById('pod-series').value.trim(),
+    audio_url: document.getElementById('pod-url').value.trim(),
+    description: document.getElementById('pod-desc').value.trim(),
+    status,
+    author_name: currentWriter?.name,
+    published_at: status === 'published' ? new Date().toISOString() : null
+  }
+  const statusEl = document.getElementById('podcast-status')
+  statusEl.textContent = 'Saving...'
+  const { error } = await sb.from('podcast_episodes').insert([payload])
+  if (error) { statusEl.textContent = 'Error: '+error.message; return }
+  const msg = status === 'published' ? '✓ Episode published!' : '✓ Draft saved.'
+  statusEl.textContent = msg
+  toast(msg)
+  loadPodcasts()
+  loadDashboardStats()
+}
+
+// ========== APPROVALS ==========
+async function loadApprovals() {
+  const { data } = await sb.from('content').select('*').eq('status','pending').order('created_at',{ascending:false})
+  const list = document.getElementById('approvals-list')
+  if (!data?.length) { list.innerHTML = '<div style="padding:24px;color:var(--muted);font-family:\'Archivo Narrow\',sans-serif;">No content pending approval. All caught up!</div>'; return }
+  list.innerHTML = data.map(a=>`
+    <div class="approval-card" id="approval-${a.id}">
+      <div class="approval-card-hd">
+        <div><div class="approval-title">${a.title}</div><div class="approval-meta">By ${a.author_name||'Unknown'} · ${a.format||'article'} · ${formatDate(a.created_at)}</div></div>
+        <div class="approval-acts">
+          <button class="ap-btn ap-approve" onclick="approveContent('${a.id}')">✓ Approve</button>
+          <button class="ap-btn ap-reject" onclick="rejectContent('${a.id}')">✕ Reject</button>
+        </div>
+      </div>
+      <div style="padding:14px 18px;">
+        ${a.kicker?`<div style="font-family:'Archivo Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">${a.kicker}</div>`:''}
+        ${a.deck?`<div style="font-size:13px;font-style:italic;color:var(--mid);margin-bottom:10px;">${a.deck}</div>`:''}
+        <div style="font-size:13px;color:var(--mid);line-height:1.7;">${(a.body||'').substring(0,300)}${(a.body||'').length>300?'...':''}</div>
+      </div>
+    </div>`).join('')
+}
+
+async function approveContent(id) {
+  const { error } = await sb.from('content').update({status:'published',published_at:new Date().toISOString()}).eq('id',id)
+  if (error) { toast('Error approving.'); return }
+  document.getElementById('approval-'+id)?.remove()
+  toast('✓ Article approved and published!')
+  loadDashboardStats()
+  loadHomepageContent()
+}
+
+async function rejectContent(id) {
+  const { error } = await sb.from('content').update({status:'rejected'}).eq('id',id)
+  if (error) { toast('Error rejecting.'); return }
+  document.getElementById('approval-'+id)?.remove()
+  toast('Article rejected.')
+  loadDashboardStats()
+}
+
+// ========== MY DRAFTS ==========
+async function loadDrafts() {
+  if (!currentWriter) return
+  const query = currentWriter.role === 'editor'
+    ? sb.from('content').select('*').order('created_at',{ascending:false})
+    : sb.from('content').select('*').eq('author_email',currentWriter.email).order('created_at',{ascending:false})
+  const { data } = await query
+  const list = document.getElementById('drafts-list')
+  if (!data?.length) { list.innerHTML = '<div style="padding:24px;color:var(--muted);font-family:\'Archivo Narrow\',sans-serif;">No drafts yet. Write your first article.</div>'; return }
+  const statusColors = {draft:'var(--muted)',pending:'var(--gold)',published:'#15803d',rejected:'var(--accent)'}
+  const statusClass = {draft:'ds-draft',pending:'ds-pending',published:'ds-live',rejected:'ds-draft'}
+  list.innerHTML = `<div class="d-card"><div class="d-card-hd"><div class="d-card-title">All Content</div></div>${data.map(r=>`<div class="draft-row"><div class="draft-dot" style="background:${statusColors[r.status]||'var(--muted)'}"></div><div class="draft-info"><div class="draft-ttl">${r.title}</div><div class="draft-m">${r.author_name||'Staff'} · ${r.format||'article'} · ${formatDate(r.created_at)}</div></div><span class="ds ${statusClass[r.status]||'ds-draft'}">${r.status}</span></div>`).join('')}</div>`
+}
+
+// ========== MANAGE WRITERS ==========
+async function addWriter() {
+  const name = document.getElementById('new-writer-name').value.trim()
+  const email = document.getElementById('new-writer-email').value.trim()
+  const password = document.getElementById('new-writer-password').value
+  const role = document.getElementById('new-writer-role').value
+  const statusEl = document.getElementById('writer-add-status')
+  if (!name || !email || !password) { statusEl.textContent = 'All fields required.'; return }
+  const { error } = await sb.from('writers').insert([{name,email:email.toLowerCase(),password,role}])
+  if (error && error.code === '23505') { statusEl.textContent = 'A writer with that email already exists.'; return }
+  if (error) { statusEl.textContent = 'Error: '+error.message; return }
+  statusEl.textContent = '✓ Writer added successfully!'
+  document.getElementById('new-writer-name').value=''
+  document.getElementById('new-writer-email').value=''
+  document.getElementById('new-writer-password').value=''
+  toast('✓ '+name+' added as a '+role+'!')
+  loadWritersList()
+}
+
+async function loadWritersList() {
+  const { data } = await sb.from('writers').select('id,name,email,role,created_at').order('created_at')
+  const list = document.getElementById('writers-list')
+  if (!data?.length) { list.innerHTML = ''; return }
+  list.innerHTML = `<div class="d-card"><div class="d-card-hd"><div class="d-card-title">Current Writers (${data.length})</div></div><table class="tbl"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead><tbody>${data.map(w=>`<tr><td>${w.name}</td><td>${w.email}</td><td><span style="font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;background:${w.role==='editor'?'rgba(184,149,42,0.15)':'var(--warm)'};color:${w.role==='editor'?'#8a6a10':'var(--mid)'};">${w.role}</span></td><td>${formatDate(w.created_at)}</td></tr>`).join('')}</tbody></table></div>`
+}
+
+// ========== IMAGE UPLOAD ==========
+function handleDragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('dragover'); }
+function handleDrop(e) { e.preventDefault(); document.getElementById('upload-zone').classList.remove('dragover'); const file = e.dataTransfer.files[0]; if(file) uploadImage(file); }
+function handleImageSelect(e) { const file = e.target.files[0]; if(file) uploadImage(file); }
+
+async function uploadImage(file) {
+  const statusEl = document.getElementById('img-upload-status')
+  const preview = document.getElementById('img-preview-el')
+  statusEl.textContent = 'Uploading...'
+  const ext = file.name.split('.').pop()
+  const fileName = `article-${Date.now()}.${ext}`
+  const { data, error } = await sb.storage.from('article-images').upload(fileName, file, { upsert: true })
+  if (error) { statusEl.textContent = 'Upload failed: '+error.message; return }
+  const { data: urlData } = sb.storage.from('article-images').getPublicUrl(fileName)
+  uploadedImageUrl = urlData.publicUrl
+  preview.src = uploadedImageUrl
+  preview.style.display = 'block'
+  statusEl.textContent = '✓ Image uploaded successfully'
+  document.getElementById('upload-zone').querySelector('.img-upload-txt').textContent = 'Click to replace image'
+}
+
+// ========== SPONSORSHIP FORM ==========
+async function submitSponsorship() {
+  const company = document.getElementById('sp-company').value.trim()
+  const contact = document.getElementById('sp-contact').value.trim()
+  const email = document.getElementById('sp-email').value.trim()
+  const statusEl = document.getElementById('sp-status')
+  if (!company || !contact || !email) { statusEl.textContent = 'Company, contact name, and email are required.'; return }
+  const payload = {
+    company_name: company,
+    contact_name: contact,
+    email: email.toLowerCase(),
+    phone: document.getElementById('sp-phone').value.trim(),
+    website: document.getElementById('sp-website').value.trim(),
+    budget_range: document.getElementById('sp-budget').value,
+    interest: document.getElementById('sp-interest').value,
+    target_audience: document.getElementById('sp-audience').value.trim(),
+    message: document.getElementById('sp-message').value.trim(),
+    status: 'inquiry'
+  }
+  statusEl.textContent = 'Submitting...'
+  const { error } = await sb.from('advertisers').insert([payload])
+  if (error) { statusEl.textContent = 'Error: '+error.message; return }
+  statusEl.textContent = '✓ Inquiry submitted! Andrea will be in touch within 24 hours.'
+  toast('✓ Sponsorship inquiry submitted!')
+  document.getElementById('sp-company').value=''
+  document.getElementById('sp-contact').value=''
+  document.getElementById('sp-email').value=''
+  document.getElementById('sp-message').value=''
+}
+
+function preselectTier(tier) {
+  document.getElementById('sp-interest').value = tier.includes('Supporter') ? 'Email Newsletter' : tier.includes('Featured') ? 'Sponsored Article' : 'Full Partnership'
+  document.getElementById('sp-budget').value = tier.includes('$299') ? '$500–$1,500' : tier.includes('$999') ? '$1,500–$5,000' : '$5,000+'
+  document.querySelector('.sp-form').scrollIntoView({behavior:'smooth'})
+  toast('Tier selected. Complete the form below.')
+}
+
+// ========== LOAD SUBSCRIBER TABLE ==========
+async function loadSubscriberTable() {
+  const { data: subs, count } = await sb.from('subscribers').select('*',{count:'exact'}).order('created_at',{ascending:false}).limit(50)
+  const { count: interestCount } = await sb.from('interest_list').select('*',{count:'exact',head:true})
+  const { count: adCount } = await sb.from('advertisers').select('*',{count:'exact',head:true})
+  const { count: articleCount } = await sb.from('content').select('*',{count:'exact',head:true}).eq('status','published')
+  document.getElementById('sub-total').textContent = (count||0).toLocaleString()
+  document.getElementById('sub-interest-total').textContent = interestCount||0
+  document.getElementById('sub-ad-total').textContent = adCount||0
+  document.getElementById('sub-article-total').textContent = articleCount||0
+  const tbody = document.getElementById('sub-tbody')
+  if (subs?.length) {
+    tbody.innerHTML = subs.map(s=>`<tr><td>${s.name||'—'}</td><td>${s.email}</td><td>${s.source||'—'}</td><td>${s.region||'—'}</td><td>${formatDate(s.created_at)}</td></tr>`).join('')
+  } else {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--dim);padding:24px;">No subscribers yet.</td></tr>'
+  }
+}
+
+function exportSubscribers() {
+  toast('Preparing CSV export...')
+  sb.from('subscribers').select('*').order('created_at',{ascending:false}).then(({data})=>{
+    if(!data?.length){toast('No subscribers to export.');return}
+    const csv = ['Name,Email,Source,Region,Joined',...data.map(s=>`"${s.name||''}","${s.email}","${s.source||''}","${s.region||''}","${s.created_at}"`)].join('\n')
+    const blob = new Blob([csv],{type:'text/csv'})
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a'); a.href=url; a.download='brvenik-brief-subscribers.csv'; a.click()
+    toast('✓ CSV downloaded!')
+  })
+}
+
+// ========== HELPERS ==========
+function formatDate(dateStr) {
+  if (!dateStr) return '—'
+  return new Date(dateStr).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+}
+
+function ar(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
+
+function selFmt(el, fmt) {
+  el.closest('.fmt-row').querySelectorAll('.fmt-pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  currentFormat = fmt;
+}
+
+function insBlk(type) {
+  const area = document.getElementById('blks')
+  let html = ''
+  if(type==='ad') html=`<div class="ad-blk"><div class="ad-blk-lbl">💰 Sponsored Ad Placement</div><input class="ad-inp" placeholder="Sponsor name..."><input class="ad-inp" placeholder="Ad copy / headline..."><input class="ad-inp" placeholder="Call-to-action URL..."><button onclick="this.parentElement.remove()" style="font-size:10px;background:none;border:none;color:rgba(184,149,42,0.5);cursor:pointer;margin-top:3px;">Remove</button></div>`
+  else if(type==='cta') html=`<div class="content-blk" style="background:var(--accent-pale);border-color:rgba(196,30,58,0.2);"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl" style="color:var(--gold);">📧 Subscribe CTA Block</div><div style="font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--accent);">Subscribe to The Brvenik Brief — free, always →</div></div>`
+  else if(type==='quote') html=`<div class="content-blk" style="border-left:3px solid var(--accent);background:transparent;"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">❝ Pull Quote</div><textarea style="width:100%;background:transparent;border:none;font-family:'Source Serif 4',serif;font-size:17px;font-style:italic;color:var(--ink);outline:none;resize:none;" placeholder="Enter your pull quote..." rows="2"></textarea></div>`
+  if(html) area.insertAdjacentHTML('beforeend',html)
+}
+
+function pickSched(btn,mode) {
+  btn.parentElement.querySelectorAll('.sched-opt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('sdt').style.display = mode==='later'?'block':'none';
 }
 
 // ========== VIEW SWITCHING ==========
 function showView(id) {
-  if (id === 'publish' || id === 'sub') { requireAuth(() => _showView(id)); return; }
-  _showView(id);
-}
-
-function _showView(id) {
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   document.getElementById('view-'+id)?.classList.add('on');
   document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('on'));
@@ -1259,6 +1654,8 @@ function _showView(id) {
   if(trig) trig.classList.toggle('show', id==='publish');
   if(id!=='publish' && aiOpen) toggleAI();
   window.scrollTo(0,0);
+  if (id === 'sub') loadSubscriberTable();
+  if (id === 'media') { loadPodcasts(); loadVideos(); }
 }
 
 function showNav(navEl, viewId) {
@@ -1291,82 +1688,26 @@ function openMedia(type) {
   document.getElementById('mp-'+(map[type]||'podcasts'))?.classList.add('on');
 }
 
-// ========== PUBLISHER PANELS ==========
 function showPub(panel, navEl) {
-  if (panel === 'editor') { requireAuth(() => _showPub('editor', navEl)); return; }
-  _showPub(panel, navEl);
-}
-
-function _showPub(panel, navEl) {
+  if (!currentWriter) { return }
   document.querySelectorAll('.pub-item').forEach(i=>i.classList.remove('on'));
   if(navEl) navEl.classList.add('on');
-  document.getElementById('pub-dashboard').style.display = panel==='dashboard'?'block':'none';
-  document.getElementById('pub-editor').style.display = panel==='editor'?'block':'none';
+  const panels = ['dashboard','editor','podcast','drafts','approvals','writers']
+  panels.forEach(p => {
+    const el = document.getElementById('pub-'+p)
+    if(el) el.style.display = p===panel?'block':'none'
+  })
   const trig = document.getElementById('ai-trig');
   if(trig) trig.classList.toggle('show', panel==='editor');
   if(panel!=='editor' && aiOpen) toggleAI();
-}
-
-function selFmt(el) {
-  el.closest('.fmt-row').querySelectorAll('.fmt-pill').forEach(p=>p.classList.remove('on'));
-  el.classList.add('on');
-}
-
-function insBlk(type) {
-  const area = document.getElementById('blks');
-  let html = '';
-  if(type==='image') html=`<div class="content-blk"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">🖼️ Image Block</div><div style="text-align:center;padding:18px;font-size:28px;color:var(--dim);">🖼 Click to upload image</div></div>`;
-  else if(type==='video') html=`<div class="content-blk"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">🎬 Video Embed</div><input style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;" placeholder="Paste YouTube, Vimeo, or video URL..."></div>`;
-  else if(type==='audio') html=`<div class="content-blk"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">🎵 Audio / Podcast Embed</div><input style="width:100%;background:var(--cream);border:1px solid var(--rule);color:var(--ink);padding:8px 10px;font-family:'Archivo Narrow',sans-serif;font-size:12px;outline:none;" placeholder="Paste Spotify, Apple Podcasts, or audio URL..."></div>`;
-  else if(type==='ad') html=`<div class="ad-blk"><div class="ad-blk-lbl">💰 Sponsored Ad Placement</div><input class="ad-inp" placeholder="Sponsor name..."><input class="ad-inp" placeholder="Ad copy / headline..."><input class="ad-inp" placeholder="Call-to-action URL..."><button onclick="this.parentElement.remove()" style="font-size:10px;background:none;border:none;color:rgba(184,149,42,0.5);cursor:pointer;margin-top:3px;">Remove</button></div>`;
-  else if(type==='cta') html=`<div class="content-blk" style="background:var(--accent-pale);border-color:rgba(196,30,58,0.2);"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl" style="color:var(--gold);">📧 Subscribe CTA Block</div><div style="font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--accent);">Subscribe to The Brvenik Brief — free, always →</div></div>`;
-  else if(type==='quote') html=`<div class="content-blk" style="border-left:3px solid var(--accent);background:transparent;"><button class="blk-rm" onclick="this.parentElement.remove()">✕</button><div class="blk-lbl">❝ Pull Quote</div><textarea style="width:100%;background:transparent;border:none;font-family:'Source Serif 4',serif;font-size:17px;font-style:italic;color:var(--ink);outline:none;resize:none;" placeholder="Enter your pull quote..." rows="2"></textarea></div>`;
-  if(html) area.insertAdjacentHTML('beforeend',html);
-}
-
-function pickSched(btn,mode) {
-  btn.parentElement.querySelectorAll('.sched-opt').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('sdt').style.display = mode==='later'?'block':'none';
-}
-
-function ar(el){el.style.height='auto';el.style.height=el.scrollHeight+'px';}
-function updateWC(){const b=document.getElementById('f-body')?.value||'';document.querySelector('#pub-editor .ed-wc')&&(document.querySelector('#pub-editor .ed-wc').textContent='Words: '+(b.trim()?b.trim().split(/\s+/).length:0));}
-
-function doPublish(){
-  requireAuth(() => {
-    toast('🚀 Publishing to 15,241 subscribers across email & social media...');
-    setTimeout(()=>toast('✓ Issue published! Check your analytics in a few minutes.'),2600);
-  });
-}
-
-// ========== ADD-ONS WAITLIST ==========
-const wlCounts = [247,389,312];
-function joinWaitlist(name) {
-  const idx = name.includes('Legislative')?0:name.includes('Toolkit')?1:2;
-  wlCounts[idx]++;
-  document.getElementById('wl-count-'+idx).textContent = wlCounts[idx]+' readers interested';
-  toast('✓ Added to the '+name+' interest list! We\'ll notify you at launch.');async function joinWaitlist(product) {
-  const email = prompt('Enter your email to join the interest list:')
-  if (!email) return
-  const idx = product.includes('Legislative')?0:product.includes('Toolkit')?1:2;
-  const { error } = await sb
-    .from('interest_list')
-    .insert([{ email: email.toLowerCase(), product }])
-  if (error) { toast('Something went wrong. Try again.'); return; }
-  wlCounts[idx]++;
-  document.getElementById('wl-count-'+idx).textContent = wlCounts[idx]+' readers interested';
-  toast('✓ Added to the '+product+' interest list!')
-}
+  if(panel==='approvals') loadApprovals();
+  if(panel==='drafts') loadDrafts();
+  if(panel==='writers') loadWritersList();
+  if(panel==='dashboard') loadDashboardStats();
 }
 
 // ========== AI PANEL ==========
-let aiOpen = false;
-
-function toggleAI(){
-  aiOpen = !aiOpen;
-  document.getElementById('ai-panel').classList.toggle('open',aiOpen);
-}
+function toggleAI(){ aiOpen=!aiOpen; document.getElementById('ai-panel').classList.toggle('open',aiOpen); }
 
 function swAITab(tab,id){
   tab.closest('.ai-tabs').querySelectorAll('.ai-tab').forEach(t=>t.classList.remove('on'));
@@ -1377,7 +1718,6 @@ function swAITab(tab,id){
   });
 }
 
-// Inline headline suggestion strip
 let hedTimer = null;
 function onHedChange(){
   clearTimeout(hedTimer);
@@ -1388,11 +1728,7 @@ function onHedChange(){
 
 async function quickHedSuggestions(text){
   try{
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:250,
-        messages:[{role:'user',content:`You edit headlines for The Brvenik Brief, a premium newsletter by Andrea Brvenik about economic authorship, business, and workforce. Given this draft headline: "${text}" — suggest 3 alternative, more compelling headlines. Return ONLY a JSON array of 3 strings, no markdown, no preamble. Max 12 words each.`}]})
-    });
+    const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:250,messages:[{role:'user',content:`You edit headlines for The Brvenik Brief. Given: "${text}" — suggest 3 alternative headlines. Return ONLY a JSON array of 3 strings, no markdown. Max 12 words each.`}]})});
     const data = await res.json();
     const suggestions = JSON.parse((data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim());
     if(Array.isArray(suggestions)&&suggestions.length){
@@ -1402,14 +1738,8 @@ async function quickHedSuggestions(text){
   }catch(e){}
 }
 
-function useHed(chip){
-  const el=document.getElementById('f-hed');
-  el.value=chip.textContent; ar(el);
-  document.getElementById('hed-strip').classList.remove('show');
-  toast('✓ Headline applied');
-}
+function useHed(chip){ const el=document.getElementById('f-hed'); el.value=chip.textContent; ar(el); document.getElementById('hed-strip').classList.remove('show'); toast('✓ Headline applied'); }
 
-// Full headline generator
 async function generateHeadlines(){
   const ctx=document.getElementById('hed-ctx').value.trim();
   if(!ctx){toast('Add a topic or summary first');return;}
@@ -1417,23 +1747,17 @@ async function generateHeadlines(){
   btn.disabled=true;btxt.textContent='Generating...';spin.style.display='inline-block';
   results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Writing headlines...</div>';
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,
-        messages:[{role:'user',content:`You're a world-class headline editor for The Brvenik Brief — a premium newsletter by Andrea Brvenik about economic authorship, business strategy, AI/workforce, and personal leadership. Audience: entrepreneurs, founders, career-changers, business professionals.\n\nContent: "${ctx}"\n\nWrite exactly 5 headline options:\n1. Bold/declarative\n2. Question/curiosity\n3. Data-driven/specific\n4. Emotional/personal identity\n5. Practical/how-to\n\nReturn ONLY a JSON array of 5 objects: {text, style (bold|question|data|emotional|listicle)}. No markdown, no preamble.`}]})});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:`You're a headline editor for The Brvenik Brief — a premium newsletter by Andrea Brvenik about economic authorship, business strategy, AI/workforce, and personal leadership.\n\nContent: "${ctx}"\n\nWrite exactly 5 headlines:\n1. Bold/declarative\n2. Question/curiosity\n3. Data-driven/specific\n4. Emotional/personal identity\n5. Practical/how-to\n\nReturn ONLY a JSON array of 5 objects: {text, style (bold|question|data|emotional|listicle)}. No markdown.`}]})});
     const data=await res.json();
     const headlines=JSON.parse((data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim());
     const styleMap={bold:['Bold','tag-b'],question:['Question','tag-q'],data:['Data-driven','tag-d'],emotional:['Personal','tag-e'],listicle:['Practical','tag-l']};
-    results.innerHTML=headlines.map(h=>{
-      const [lbl,cls]=styleMap[h.style]||['Headline','tag-b'];
-      return `<div class="ai-res-card" onclick="applyHed('${h.text.replace(/'/g,"\\'")}')"><button class="ai-use" title="Use">✓</button><div class="ai-res-text">${h.text}</div><div class="ai-res-meta"><span class="ai-tag ${cls}">${lbl}</span><span>${h.text.split(' ').length}w</span></div></div>`;
-    }).join('');
+    results.innerHTML=headlines.map(h=>{const [lbl,cls]=styleMap[h.style]||['Headline','tag-b'];return `<div class="ai-res-card" onclick="applyHed('${h.text.replace(/'/g,"\\'")}')"><button class="ai-use" title="Use">✓</button><div class="ai-res-text">${h.text}</div><div class="ai-res-meta"><span class="ai-tag ${cls}">${lbl}</span><span>${h.text.split(' ').length}w</span></div></div>`;}).join('');
   }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong. Try again.</div>';}
   btn.disabled=false;btxt.textContent='✦ Regenerate Headlines';spin.style.display='none';
 }
 
-function applyHed(text){const el=document.getElementById('f-hed');if(el){el.value=text;ar(el);}toast('✓ Headline applied to article');}
+function applyHed(text){const el=document.getElementById('f-hed');if(el){el.value=text;ar(el);}toast('✓ Headline applied');}
 
-// Social caption generator
 async function generateCaptions(){
   const ctx=document.getElementById('soc-ctx').value.trim();
   if(!ctx){toast('Add your article content first');return;}
@@ -1445,72 +1769,42 @@ async function generateCaptions(){
   if(!platforms.length){toast('Select at least one platform');return;}
   const btn=document.getElementById('soc-btn'),btxt=document.getElementById('soc-btxt'),spin=document.getElementById('soc-spin'),results=document.getElementById('soc-results');
   btn.disabled=true;btxt.textContent='Writing captions...';spin.style.display='inline-block';
-  results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Crafting platform captions...</div>';
-  const tones={LinkedIn:'professional, thought-leader tone, 2-3 hashtags, end with a question',
-    'X/Twitter':'punchy, under 260 chars, max 1 hashtag',
-    Instagram:'warm, personal, line breaks, 5-7 hashtags at end',
-    TikTok:'casual, hook in first 5 words, 1-2 hashtags'};
+  results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Crafting captions...</div>';
+  const tones={LinkedIn:'professional, thought-leader, 2-3 hashtags, end with question','X/Twitter':'punchy, under 260 chars, max 1 hashtag',Instagram:'warm, personal, line breaks, 5-7 hashtags',TikTok:'casual, hook in first 5 words, 1-2 hashtags'};
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`You write social media content for Andrea Brvenik and The Brvenik Brief. Andrea's voice: direct, intellectually confident, warm but not fluffy, entrepreneurial, grounded in lived experience as a founder and attorney.\n\nContent: "${ctx}"\n\nWrite captions for: ${platforms.join(', ')}.\n\nTones:\n${platforms.map(p=>`- ${p}: ${tones[p]||'professional and engaging'}`).join('\n')}\n\nReturn ONLY a JSON array of {platform, caption}. No markdown.`}]})});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`Write social captions for Andrea Brvenik / The Brvenik Brief. Andrea's voice: direct, intellectually confident, warm but not fluffy, entrepreneurial.\n\nContent: "${ctx}"\n\nPlatforms: ${platforms.join(', ')}.\nTones:\n${platforms.map(p=>`- ${p}: ${tones[p]||'professional'}`).join('\n')}\n\nReturn ONLY a JSON array of {platform, caption}. No markdown.`}]})});
     const data=await res.json();
     const caps=JSON.parse((data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim());
     const icons={LinkedIn:'💼','X/Twitter':'𝕏',Instagram:'📷',TikTok:'🎵'};
     const limits={LinkedIn:3000,'X/Twitter':280,Instagram:2200,TikTok:150};
-    results.innerHTML=caps.map(c=>`<div class="cap-card"><div class="cap-hd"><span class="cap-pico">${icons[c.platform]||'📱'}</span><span class="cap-pname">${c.platform}</span><span class="cap-chars">${c.caption.length}/${limits[c.platform]||500}</span></div><div class="cap-body"><div class="cap-txt" id="cap-${c.platform.replace(/[^a-z]/gi,'')}">${c.caption}</div><div class="cap-acts"><button class="cap-btn cap-copy" onclick="copyCap('${c.platform.replace(/[^a-z]/gi,'')}')">Copy</button><button class="cap-btn cap-post" onclick="toast('Opening ${c.platform}...')">Post Now</button></div></div></div>`).join('');
-  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong. Try again.</div>';}
-  btn.disabled=false;btxt.textContent='✦ Regenerate Captions';spin.style.display='none';
+    results.innerHTML=caps.map(c=>`<div class="cap-card"><div class="cap-hd"><span class="cap-pico">${icons[c.platform]||'📱'}</span><span class="cap-pname">${c.platform}</span><span class="cap-chars">${c.caption.length}/${limits[c.platform]||500}</span></div><div class="cap-body"><div class="cap-txt" id="cap-${c.platform.replace(/[^a-z]/gi,'')}">${c.caption}</div><div class="cap-acts"><button class="cap-btn cap-copy" onclick="copyCap('${c.platform.replace(/[^a-z]/gi,'')}')">Copy</button></div></div></div>`).join('');
+  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong.</div>';}
+  btn.disabled=false;btxt.textContent='✦ Regenerate';spin.style.display='none';
 }
 
-function copyCap(id){const el=document.getElementById('cap-'+id);if(el)navigator.clipboard.writeText(el.textContent).then(()=>toast('✓ Caption copied')).catch(()=>toast('Select and copy manually'));}
+function copyCap(id){const el=document.getElementById('cap-'+id);if(el)navigator.clipboard.writeText(el.textContent).then(()=>toast('✓ Copied')).catch(()=>toast('Select and copy manually'));}
 
-// Polish / rewrite
 async function polishText(mode){
   const input=document.getElementById('pol-input').value.trim();
   if(!input){toast('Paste text to polish first');return;}
   const results=document.getElementById('pol-results');
   results.innerHTML='<div class="ai-load"><div class="ai-spin"></div> Polishing...</div>';
-  const prompts={
-    sharpen:'Make this sharper, more direct, and impactful. Cut unnecessary words. Every sentence must earn its place.',
-    simplify:'Simplify this text. Clearer, easier to read, ~8th grade level without losing substance.',
-    expand:'Expand with more depth, examples, and color. Keep Andrea Brvenik\'s authoritative but personal voice.',
-    tone:'Rewrite in Andrea Brvenik\'s voice: direct, intellectually confident, entrepreneurial, grounded in lived experience as a founder and attorney. Warm but not fluffy.'
-  };
+  const prompts={sharpen:'Make this sharper and more direct. Cut unnecessary words.',simplify:'Simplify. Clearer, easier to read without losing substance.',expand:'Expand with more depth, examples, and color.',tone:"Rewrite in Andrea Brvenik's voice: direct, intellectually confident, entrepreneurial, warm but not fluffy."};
   const labels={sharpen:'Sharpened',simplify:'Simplified',expand:'Expanded',tone:'Brvenik Tone'};
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,
-        messages:[{role:'user',content:`You are an editor for The Brvenik Brief. ${prompts[mode]}\n\nText:\n"${input}"\n\nReturn ONLY the rewritten text. No preamble, no explanation.`}]})});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:`You edit for The Brvenik Brief. ${prompts[mode]}\n\nText:\n"${input}"\n\nReturn ONLY the rewritten text.`}]})});
     const data=await res.json();
     const rewritten=data.content?.[0]?.text||'';
     results.innerHTML=`<div class="pol-out"><div class="pol-tag">${labels[mode]}</div><div class="pol-txt" id="pol-out">${rewritten}</div><div class="pol-acts"><button class="cap-btn cap-copy" onclick="navigator.clipboard.writeText(document.getElementById('pol-out').textContent).then(()=>toast('✓ Copied!'))">Copy</button><button class="cap-btn cap-post" onclick="const b=document.getElementById('f-body');if(b){b.value+='\\n\\n'+document.getElementById('pol-out').textContent;ar(b);}toast('✓ Added to article')">Add to Article</button></div></div>`;
-  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong. Try again.</div>';}
+  }catch(e){results.innerHTML='<div style="font-size:12px;color:var(--dim);padding:8px;">Something went wrong.</div>';}
 }
-// ========== SUPABASE ==========
-const { createClient } = supabase
-const sb = createClient(
-  'https://myuhpzuktwcvibljllcy.supabase.co',
-  'sb_publishable_reEij3Qm4VLfEv75xGAitQ_UFRe8Ei5'
-)
 
-async function handleSubscribe() {
-  const name = document.querySelector('.ss-inp').value.trim()
-  const email = document.querySelectorAll('.ss-inp')[1].value.trim()
-  if (!email) { toast('Please enter your email address.'); return; }
-  const { error } = await sb
-    .from('subscribers')
-    .insert([{ email: email.toLowerCase(), name, source: 'brvenik_brief', region: 'Florida' }])
- if (error && error.code === '23505') toast('You are already subscribed!')
-else if (error) { console.log('SUPABASE ERROR:', JSON.stringify(error)); toast('Something went wrong. Try again.') }
-  else toast('✓ Welcome to The Brvenik Brief! Check your inbox.')
-}
 // ========== TOAST ==========
-function toast(msg){
-  const t=document.getElementById('toast-el');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3600);
-}
+function toast(msg){ const t=document.getElementById('toast-el'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3600); }
+
+// ========== INIT ==========
+loadHomepageContent();
+loadSubscriberCount();
 </script>
 </body>
 </html>
